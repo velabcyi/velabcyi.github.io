@@ -11,6 +11,12 @@
 p {
     margin-top: 0.5rem;
 }
+.logo{
+	filter: invert(1) saturate(0);
+	height: 25px;
+	transform: translateX(-4px);
+	margin-top: 2rem;
+}
 body {
 	padding: 1rem;
     max-width: 60ch;
@@ -93,6 +99,17 @@ h1.return a::before {
     font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 200;
 }
+@media (max-width: 700px){
+	h1.return a::before {
+		content: " \2190"; /* Unicode for leftward arrow */
+		position: absolute; /* Positions the arrow relative to its parent <a> */
+		transform: translateX(-110%) translateY(-20%); /* Moves the arrow leftwards by its own width */
+		font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-weight: 200;
+		scale: 0.75;
+	}
+}
+
 h1.return a:not(.home):hover::before{
 	background-color: black;
 	color: white;
@@ -109,8 +126,6 @@ body.using-mouse button:active {
     background-color: rgb(255, 255, 255);
     color: black;
 }
-
-
 
 .subgroup, .title{
     font-size: 20px;
