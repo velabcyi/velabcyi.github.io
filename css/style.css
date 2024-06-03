@@ -14,8 +14,8 @@ p {
 .logo{
 	filter: invert(1) saturate(0);
 	height: 25px;
-	transform: translateX(-4px);
-	margin-top: 2rem;
+	/* transform: translateX(-4px); */
+	/* margin-top: 2rem; */
 }
 body {
 	padding: 1rem;
@@ -52,6 +52,7 @@ article p{
 }
 nav{
     display: flex;
+	justify-content: space-between; align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
     margin-top: 1rem;
