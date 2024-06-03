@@ -34,7 +34,8 @@ def create_redirect_html(lang, path):
         document.addEventListener('DOMContentLoaded', function () {{
             const userLang = navigator.language || navigator.userLanguage;
             const langCode = userLang.startsWith('el') ? 'gr' : 'en';
-            window.location.href = '{path}/' + langCode + '/';
+            //window.location.href = '{path}/' + langCode + '/';
+            window.location.replace('{path}/' + langCode + '/');
         }});
     </script>
     <noscript>

@@ -9,7 +9,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             const userLang = navigator.language || navigator.userLanguage;
             const langCode = userLang.startsWith('el') ? 'gr' : 'en';
-            window.location.href = '/privacy/' + langCode + '/';
+            //window.location.href = '/privacy/' + langCode + '/';
+            window.location.replace('/privacy/' + langCode + '/');
         });
     </script>
     <noscript>
