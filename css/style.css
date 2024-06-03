@@ -81,11 +81,23 @@ button {
     outline: none;
     transition: background-color 0.3s ease;
 }
-a:not(.subtext)::after {
+a:not(.subtext):not(h1 a)::after {
 	content: " \2197";
 	font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
 	font-weight: 200;
   }
+h1.return a::before {
+    content: " \2190"; /* Unicode for leftward arrow */
+    position: absolute; /* Positions the arrow relative to its parent <a> */
+    transform: translateX(-120%) translateY(-20%); /* Moves the arrow leftwards by its own width */
+    font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 200;
+}
+h1.return a:not(.home):hover::before{
+	background-color: black;
+	color: white;
+}
+
 
 
 body.using-mouse button:hover {
