@@ -52,7 +52,6 @@ article p{
 }
 nav{
     display: flex;
-	justify-content: space-between; align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
     margin-top: 1rem;
@@ -266,14 +265,15 @@ padding-left: 6px;
 padding-top: .1rem;
 padding-bottom: .1rem;
 align-items: center;
-
 }
+
+
 #entry-description{
 	padding-top: 0px;
 	margin-top: 2px;
 }
 #entry-tags{
-	padding-left: 8px;
+	padding-left: 0px;
 
 }
 body.using-mouse .clickable:hover{
