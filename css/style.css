@@ -119,6 +119,7 @@ h1.return a::before {
 	align-items: flex-end; 
 	gap: 1rem; 
 	vertical-align: baseline;
+	width: 50%;
 
 }
 @media (max-width: 400px){
@@ -176,6 +177,7 @@ body.using-mouse button:active {
 }
 .small{
 	font-size: 50%;
+	letter-spacing: .02em;
 
 }
 
@@ -308,7 +310,7 @@ align-items: center;
 }
 #entry-tags{
 	padding-left: 0px;
-	letter-spacing: .02em;
+	letter-spacing: .001em;
 
 
 }
