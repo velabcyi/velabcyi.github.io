@@ -8,8 +8,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const userLang = navigator.language || navigator.userLanguage;
-            const langCode = userLang.startsWith('el') ? 'gr' : 'en';
-            //window.location.href = '/nic/' + langCode + '/';
+            const langCode = userLang.startsWith('el') ? 'el' : 'en';
             window.location.replace('/nic/' + langCode + '/');
         });
     </script>

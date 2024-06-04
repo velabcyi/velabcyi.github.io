@@ -1,12 +1,13 @@
 import os
 import shutil
+import re
 
 # Paths
 source_dir = 'source'
 output_dir = '.'  # Assuming the script runs from the source directory
 
 # Languages
-languages = ['en', 'gr']
+languages = ['en', 'el']
 
 def clear_directory(directory):
     """
@@ -18,6 +19,15 @@ def clear_directory(directory):
             shutil.rmtree(item_path)  # Recursively delete directory contents
         else:
             os.remove(item_path)  # Delete a file
+
+def load_content(file_path):
+    """
+    Loads content from a file if it exists.
+    """
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            return file.read()
+    return ''
 
 def create_redirect_html(lang, path):
     """
@@ -33,8 +43,7 @@ def create_redirect_html(lang, path):
     <script>
         document.addEventListener('DOMContentLoaded', function () {{
             const userLang = navigator.language || navigator.userLanguage;
-            const langCode = userLang.startsWith('el') ? 'gr' : 'en';
-            //window.location.href = '{path}/' + langCode + '/';
+            const langCode = userLang.startsWith('el') ? 'el' : 'en';
             window.location.replace('{path}/' + langCode + '/');
         }});
     </script>
@@ -47,10 +56,35 @@ def create_redirect_html(lang, path):
 </body>
 </html>'''
 
+import re
+
+def inject_content(html_content, header, footer):
+    """
+    Injects header and footer into the HTML content if the respective <header> or <footer>
+    tags are empty.
+    """
+    # Regular expressions to find empty <header> and <footer> tags
+    header_pattern = re.compile(r'<header>\s*</header>', re.IGNORECASE)
+    footer_pattern = re.compile(r'<footer>\s*</footer>', re.IGNORECASE)
+
+    # Check if the <header> tag is empty and inject header content if it is
+    if header_pattern.search(html_content):
+        html_content = header_pattern.sub(f'<header>{header}</header>', html_content)
+
+    # Check if the <footer> tag is empty and inject footer content if it is
+    if footer_pattern.search(html_content):
+        html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
+
+    return html_content
+
+
 def process_files(source, target, lang):
     """
     Copies and renames files as necessary to the correct language-specific directories.
     """
+    header = load_content(f'./source/header-{lang}.html')
+    footer = load_content(f'./source/footer-{lang}.html')
+
     for item in os.listdir(source):
         source_path = os.path.join(source, item)
         if os.path.isdir(source_path):
@@ -59,11 +93,13 @@ def process_files(source, target, lang):
                 os.makedirs(target_path)
             process_files(source_path, target_path, lang)  # Recurse into subdirectories
         else:
-            if item == f'index-{lang}.html':  # Specific language index file
-                shutil.copy2(source_path, os.path.join(target, 'index.html'))
-            elif item.startswith('index-'):
-                continue  # Skip other language-specific index files
-            else:
+            target_filename = item.replace(f'-{lang}.html', '.html')
+            if item.endswith(f'{lang}.html'):  # Language specific HTML file
+                with open(source_path, 'r') as file:
+                    content = inject_content(file.read(), header, footer)
+                with open(os.path.join(target, target_filename), 'w') as output_file:
+                    output_file.write(content)
+            elif not item.startswith('index-') and not item.endswith('.html'):
                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
 
 # Main Execution
@@ -72,10 +108,10 @@ if __name__ == "__main__":
 
     # Clearing directories before compiling new content
     for subdir in pages:
-        os.makedirs(os.path.join(output_dir, subdir), exist_ok=True)  # Creates the directory if it doesn't exist
+        os.makedirs(os.path.join(output_dir, subdir), exist_ok=True)
         for lang in languages:
             target_subdir = os.path.join(output_dir, subdir, lang)
-            os.makedirs(os.path.join(output_dir, subdir, lang), exist_ok=True)  # Creates the directory if it doesn't exist
+            os.makedirs(target_subdir, exist_ok=True)
             if os.path.exists(target_subdir):
                 clear_directory(target_subdir)
 
@@ -85,7 +121,6 @@ if __name__ == "__main__":
         for lang in languages:
             target_subdir = os.path.join(output_dir, subdir, lang)
             process_files(source_subdir, target_subdir, lang)
-
 
     # Create redirection index.html for the main site and each subdirectory
     with open(os.path.join(output_dir, 'index.html'), 'w') as f:
