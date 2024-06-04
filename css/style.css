@@ -121,6 +121,21 @@ h1.return a::before {
 	vertical-align:middle;
 	width: 55%;
 }
+.bubble-link {
+	font-weight: bold;
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: white;
+	color: black;
+	text-decoration: none;
+	border-radius: 30px;
+	transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .bubble-link:hover {
+	background-color: gray;
+	color: black;
+  }
 #rightNav>*{
 	align-items: center;
 	vertical-align:bottom;
