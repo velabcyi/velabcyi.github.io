@@ -14,7 +14,7 @@ p {
 .logo{
 	filter: invert(1) saturate(0);
 	height: 25px;
-	/* transform: translateX(-4px); */
+	transform: translateY(-5px);
 	/* margin-top: 2rem; */
 }
 body {
@@ -99,15 +99,41 @@ h1.return a::before {
     font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 200;
 }
+#leftNav{
+	justify-content: space-between; 
+	align-items: center;
+	gap: 1rem;
+	vertical-align: baseline;
+}
+#rightNav{
+	height: 30px; 
+	display: flex; 
+	flex-direction: row-reverse; 
+	align-items: flex-end; 
+	gap: 1rem; 
+	vertical-align: baseline;
+
+}
+@media (max-width: 400px){
+	nav, #leftNav, #rightNav{
+		gap: 0rem;
+		font-size: 10pt;
+	}
+}
 @media (max-width: 700px){
 	h1.return a::before {
 		content: " \2190"; /* Unicode for leftward arrow */
 		position: absolute; /* Positions the arrow relative to its parent <a> */
-		transform: translateX(-110%) translateY(-20%); /* Moves the arrow leftwards by its own width */
+		transform: translateX(-112%) translateY(-25%); /* Moves the arrow leftwards by its own width */
 		font-family: 'Cicle', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 		font-weight: 200;
 		scale: 0.75;
 	}
+
+	/* a{
+		margin-left: 0px;
+		margin-right: 0px;
+	} */
 }
 
 h1.return a:not(.home):hover::before{
