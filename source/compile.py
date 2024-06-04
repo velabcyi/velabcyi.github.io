@@ -68,12 +68,14 @@ def process_files(source, target, lang):
 
 # Main Execution
 if __name__ == "__main__":
-    pages = ['home', 'nicproject', 'privacy']
+    pages = ['home', 'nic', 'privacy', 'contact']
 
     # Clearing directories before compiling new content
     for subdir in pages:
+        os.makedirs(os.path.join(output_dir, subdir), exist_ok=True)  # Creates the directory if it doesn't exist
         for lang in languages:
             target_subdir = os.path.join(output_dir, subdir, lang)
+            os.makedirs(os.path.join(output_dir, subdir, lang), exist_ok=True)  # Creates the directory if it doesn't exist
             if os.path.exists(target_subdir):
                 clear_directory(target_subdir)
 
@@ -83,6 +85,7 @@ if __name__ == "__main__":
         for lang in languages:
             target_subdir = os.path.join(output_dir, subdir, lang)
             process_files(source_subdir, target_subdir, lang)
+
 
     # Create redirection index.html for the main site and each subdirectory
     with open(os.path.join(output_dir, 'index.html'), 'w') as f:

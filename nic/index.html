@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Redirecting...</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.startsWith('el') ? 'gr' : 'en';
+            //window.location.href = '/nic/' + langCode + '/';
+            window.location.replace('/nic/' + langCode + '/');
+        });
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/nic/en/">
+    </noscript>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+</body>
+</html>
