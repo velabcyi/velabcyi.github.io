@@ -21,7 +21,7 @@ p {
 .logo{
 	filter: invert(1) saturate(0);
 	height: 25px;
-	transform: translateY(-5px);
+	/* transform: translateY(-5px); */
 	/* margin-top: 2rem; */
 }
 body {
@@ -119,7 +119,16 @@ h1.return a::before {
 	align-items: center; 
 	gap: 1rem; 
 	vertical-align:middle;
-	width: 50%;
+	width: 55%;
+}
+#rightNav>*{
+	align-items: center;
+	vertical-align:bottom;
+
+}
+#leftNav>*{
+	align-items: center;
+	vertical-align:bottom;
 
 }
 @media (max-width: 400px){
