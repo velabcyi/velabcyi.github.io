@@ -417,7 +417,20 @@ main{
 		max-width: 60ch;
 	}
 }
+#image-box {
+    width: 100%;
+    height: 280px;
+    display: flex;              /* Ensures the container is a flexbox */
+    align-items: center;        /* Centers the image vertically */
+    justify-content: center;    /* Centers the image horizontally */
+    overflow: hidden;           /* Prevents any overflow from being visible */
+}
 
+#image-box > img {
+    height: 100%;               /* Sets the image height to fill the container */
+    width: auto;                /* Maintains the image's aspect ratio */
+    object-fit: cover;          /* Ensures the image covers the container */
+}
 /* Credits Page Styles */
 .credits {
     margin-top: 2rem;
@@ -442,6 +455,10 @@ main{
     font-size: 12pt;
     position: relative;
     padding-left: 1.2em;
+}
+main>img{
+	width: 100%;
+	height: 280px;
 }
 
 .credits li::before {
