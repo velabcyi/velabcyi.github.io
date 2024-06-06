@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Media Capture and Upload Form</title>
+</head>
+<body>
+<h1>Upload Media with Metadata</h1>
+<form id="mediaForm" enctype="multipart/form-data">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+        <label for="fileUpload">Upload files:</label>
+        <input type="file" id="fileUpload" name="fileUpload" multiple>
+    </div>
+    <div>
+        <label for="cameraCapture">Capture Photo:</label>
+        <!-- <input type="file" id="cameraCapture" name="cameraCapture" accept="image/*" capture="user"> -->
+        <input type="file" id="photo" name="photo" accept="image/*" capture>
+    </div>
+    <div>
+        <button type="button" id="startRecord">Start Audio Recording</button>
+        <button type="button" id="stopRecord" disabled>Stop Audio Recording</button>
+    </div>
+    <div>
+        <audio id="audioPlayback" controls hidden></audio>
+    </div>
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script src="script.js"></script>
+</body>
+</html>
