@@ -20,7 +20,6 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 
 
-
 function startRecording() {
 	console.log("startRecording() called");
 	// Ensure all variables are scoped to the entire function, if needed elsewhere

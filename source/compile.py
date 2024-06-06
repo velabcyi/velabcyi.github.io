@@ -109,7 +109,7 @@ def process_files(source, target, lang):
 
 # Main Execution
 if __name__ == "__main__":
-    pages = ['home', 'nic', 'privacy', 'contact']
+    pages = ['home', 'nic', 'privacy', 'contact', 'upload']
 
     # Clearing directories before compiling new content
     for subdir in pages:

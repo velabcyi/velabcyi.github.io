@@ -417,6 +417,90 @@ main{
 		max-width: 60ch;
 	}
 }
+form{
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	background-color: white;
+
+}
+#form-background{
+	/* overflow: visible; */
+	z-index: -1;
+	position: absolute;
+	/* max-width: 60ch; */
+	/* transform: translateX(-1rem); */
+	top: 0;
+    right: -1rem;
+    bottom: 0;
+    left: -1rem;
+	border: white;
+	border-style: solid;
+	border-radius: 0.8rem;
+	border-width: thin;
+	background-color: #ffffff;
+
+}
+
+form>*{
+	color: black;
+}
+form>*>*>*{
+	color: black;
+}
+form>*:hover{
+	color: black;
+}
+#conditionalInputs{
+	padding-top: 0rem;
+	padding-left: 1rem;
+	padding-bottom: 0.5rem;
+}
+.form-group {
+    margin-bottom: 0.5rem;
+	margin-left: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+    /* background-color: #f3f3f3; */
+    /* padding: 0.5rem; */
+    /* border-radius: 8px; */
+}
+
+input[type="email"], input[type="text"], textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+input[type="file"] {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: block;
+    width: 100%;
+}
+.form-upload{
+	position: relative;
+}
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
 #image-box {
     width: 100%;
     height: 280px;
@@ -490,4 +574,39 @@ a {
 
 .special-thanks p {
     margin: 0;
+}
+
+#recordButton, #stopButton {
+    padding: 10px 20px;
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#recordButton:disabled, #stopButton:disabled {
+    background-color: grey;
+    border-color: grey;
+}
+
+#recordButton:hover, #stopButton:hover {
+    border-color: pink;  /* Visual feedback when hovered */
+}
+
+#recordButton:focus, #stopButton:focus {
+    outline: none;
+    border-color: pink;  /* Visual feedback when recording */
+    animation: pulseBorder 1.5s infinite;
+}
+
+@keyframes pulseBorder {
+    0% { border-color: white; }
+    50% { border-color: pink; }
+    100% { border-color: white; }
+}
+
+#timer {
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
 }
