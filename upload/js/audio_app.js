@@ -19,93 +19,63 @@ var stopButton = document.getElementById("stopButton");
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 
+
+
 function startRecording() {
 	console.log("startRecording() called");
-
-	/*
-		Simple constraints object, for more advanced features see
-		https://addpipe.com/blog/audio-constraints-getusermedia/
-	*/
-    
-    var constraints = { audio: true, video:false }
-
-    /*
-    	We're using the standard promise based getUserMedia() 
-    	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-	*/
+	// Ensure all variables are scoped to the entire function, if needed elsewhere
+	var constraints = { audio: true, video: false }
 
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-		__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
+		console.log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
-		/*
-			create an audio context after getUserMedia is called
-			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
-			the sampleRate defaults to the one set in your OS for your playback device
+		gumStream = stream; // Assign stream to gumStream
+		audioContext = new AudioContext(); // Create a new audio context
 
-		*/
-		audioContext = new AudioContext();
+		// Display the recording format
+		console.log("Format: 2 channel WAV @ " + audioContext.sampleRate/1000 + "kHz");
+		input = audioContext.createMediaStreamSource(stream); // Create an audio source node from the stream
 
-		//update the format 
-		document.getElementById("formats").innerHTML="Format: 2 channel "+encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value+" @ "+audioContext.sampleRate/1000+"kHz"
-
-		//assign to gumStream for later use
-		gumStream = stream;
-		
-		/* use the stream */
-		input = audioContext.createMediaStreamSource(stream);
-		
-		//stop the input from playing back through the speakers
-		//input.connect(audioContext.destination)
-
-		//get the encoding 
-		encodingType = encodingTypeSelect.options[encodingTypeSelect.selectedIndex].value;
-		
-		//disable the encoding selector
-		encodingTypeSelect.disabled = true;
-
+		// Initialize the WebAudioRecorder
 		recorder = new WebAudioRecorder(input, {
-		  workerDir: "js/", // must end with slash
-		  encoding: encodingType,
-		  numChannels:2, //2 is the default, mp3 encoding supports only 2
-		  onEncoderLoading: function(recorder, encoding) {
-		    // show "loading encoder..." display
-		    __log("Loading "+encoding+" encoder...");
-		  },
-		  onEncoderLoaded: function(recorder, encoding) {
-		    // hide "loading encoder..." display
-		    __log(encoding+" encoder loaded");
-		  }
+			workerDir: "js/", // Directory where the worker js files are located
+			encoding: "wav", // Set encoding to WAV
+			numChannels: 2, // Stereo audio recording
+			onEncoderLoading: function(recorder, encoding) {
+				console.log("Loading " + encoding + " encoder...");
+			},
+			onEncoderLoaded: function(recorder, encoding) {
+				console.log(encoding + " encoder loaded");
+			}
 		});
 
 		recorder.onComplete = function(recorder, blob) { 
-			__log("Encoding complete");
-			createDownloadLink(blob,recorder.encoding);
-			encodingTypeSelect.disabled = false;
-		}
+			console.log("Encoding complete");
+			createDownloadLink(blob, "wav"); // Always use WAV as the encoding type
+		};
 
+		// Recorder options
 		recorder.setOptions({
-		  timeLimit:120,
-		  encodeAfterRecord:encodeAfterRecord,
-	      ogg: {quality: 0.5},
-	      mp3: {bitRate: 160}
-	    });
+			timeLimit: 120, // Maximum recording time
+			encodeAfterRecord: true, // Encoding the recorded audio immediately after recording
+		});
 
-		//start the recording process
+		// Start recording
 		recorder.startRecording();
-
-		 __log("Recording started");
+		console.log("Recording started");
 
 	}).catch(function(err) {
-	  	//enable the record button if getUSerMedia() fails
-    	recordButton.disabled = false;
-    	stopButton.disabled = true;
-
+	  	// Enable the record button if getUserMedia() fails
+    	document.getElementById('recordButton').disabled = false;
+    	document.getElementById('stopButton').disabled = true;
+    	console.error("getUserMedia error:", err);
 	});
 
-	//disable the record button
-    recordButton.disabled = true;
-    stopButton.disabled = false;
+	// Disable the record and enable the stop button
+	document.getElementById('recordButton').disabled = true;
+	document.getElementById('stopButton').disabled = false;
 }
+
 
 function stopRecording() {
 	console.log("stopRecording() called");
@@ -120,36 +90,43 @@ function stopRecording() {
 	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
 	recorder.finishRecording();
 
-	__log('Recording stopped');
+	console.log('Recording stopped');
 }
 
-function createDownloadLink(blob,encoding) {
-	
-	var url = URL.createObjectURL(blob);
-	var au = document.createElement('audio');
-	var li = document.createElement('li');
-	var link = document.createElement('a');
+function createDownloadLink(blob, encoding) {
+    var url = URL.createObjectURL(blob);
+    var au = document.createElement('audio');
+    var li = document.createElement('li');
+    // var link = document.createElement('a');
+    var removeBtn = document.createElement('button');  // Button to remove the file
 
-	//add controls to the <audio> element
-	au.controls = true;
-	au.src = url;
+    // Add controls to the <audio> element
+    au.controls = true;
+    au.src = url;
 
-	//link the a element to the blob
-	link.href = url;
-	link.download = new Date().toISOString() + '.'+encoding;
-	link.innerHTML = link.download;
+    // // Link the <a> element to the blob
+    // link.href = url;
+    // link.download = new Date().toISOString() + '.' + encoding;
+    // link.innerHTML = 'Download ' + link.download;
 
-	//add the new audio and a elements to the li element
-	li.appendChild(au);
-	li.appendChild(link);
+    // Add the new audio and <a> elements to the li element
+    li.appendChild(au);
+    // li.appendChild(link);
 
-	//add the li element to the ordered list
-	recordingsList.appendChild(li);
+    // Create and configure the remove button
+    removeBtn.textContent = 'X';
+    removeBtn.onclick = function() {
+        li.parentNode.removeChild(li);  // Remove the li element from the list
+    };
+
+    // Append the remove button to the list item
+    li.appendChild(removeBtn);
+
+    // Add the li element to the unified list
+    document.getElementById('filesList').appendChild(li);
 }
-
-
 
 //helper function
-function __log(e, data) {
-	log.innerHTML += "\n" + e + " " + (data || '');
-}
+// function __log(e, data) {
+// 	log.innerHTML += "\n" + e + " " + (data || '');
+// }

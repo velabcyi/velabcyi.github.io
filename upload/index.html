@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Media Capture and Upload Form</title>
+<link rel="stylesheet" type="text/css" href="style.css"> <!-- Optional CSS file for styling -->
 </head>
 <body>
 <h1>Upload Media with Metadata</h1>
 <form id="mediaForm" enctype="multipart/form-data">
-    <div>
+    <!-- Existing form elements... -->
+        <div>
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
     </div>
@@ -21,35 +23,27 @@
     </div>
     <div>
         <label for="cameraCapture">Capture Photo:</label>
-        <!-- <input type="file" id="cameraCapture" name="cameraCapture" accept="image/*" capture="user"> -->
         <input type="file" id="photo" name="photo" accept="image/*" capture>
     </div>
 	<div style="max-width: 28em;">
-		<p>Convert recorded audio to:</p>
-		<select id="encodingTypeSelect">
-		  <option value="wav">Waveform Audio (.wav)</option>
-		  <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
-		  <option value="ogg">Ogg Vorbis (.ogg)</option>
-		</select>
 		<div id="controls">
 			<button id="recordButton">Record</button>
 			<button id="stopButton" disabled>Stop</button>
 		</div>
-		<div id="formats"></div>
-		<pre>Log</pre>
-		<pre id="log"></pre>
-
-		<pre>Recordings</pre>
-		<ol id="recordingsList"></ol>
 	</div>
 
-	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
-	<script src="js/WebAudioRecorder.min.js"></script>
-	<script src="js/audio_app.js"></script>
+    <!-- Dedicated section for displaying uploaded/recorded files -->
+    <div>
+        <h2>Uploaded Files</h2>
+        <ul id="filesList"></ul> <!-- Files will be listed here -->
+    </div>
 
+    <!-- Form submission button -->
     <button type="button" onclick="submitForm()">Submit</button>
 </form>
 
+<script src="js/WebAudioRecorder.min.js"></script>
+<script src="js/audio_app.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
