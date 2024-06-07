@@ -28,7 +28,7 @@ body {
 	padding: 1rem;
     max-width: 60ch;
 	font-family: 'Roboto', Arial, sans-serif;
-	letter-spacing: .05em;
+	/* letter-spacing: .05em; */
 	color: rgb(255, 255, 255);
 }
 html {
@@ -37,7 +37,7 @@ html {
     margin-right: auto;
     max-width: 100ch;
 	font-family: 'Roboto', Arial, sans-serif;
-	letter-spacing: .05em;
+	/* letter-spacing: .05em; */
 	color: rgb(255, 255, 255);
 	font-size: 14pt; /* or consider using 100% to respect user's browser settings */
 }
@@ -216,18 +216,18 @@ body.using-mouse button:active {
     position: relative;
 	margin-top: .2rem;
 	text-align: left;
-	letter-spacing: .05em;
+	/* letter-spacing: .05em; */
 }
 
 .unicode-char{
 	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-	letter-spacing: .05em;
+	/* letter-spacing: .05em; */
 	font-weight: 200;
 
 }
 .small{
 	font-size: 60%;
-	letter-spacing: .02em;
+	/* letter-spacing: .02em; */
 
 }
 
@@ -257,7 +257,7 @@ body.using-mouse button:active {
 	margin-bottom: 13px;
 	text-align: right;
 	font-family: Roboto, Arial, sans-serif;
-	letter-spacing: .15em;
+	/* letter-spacing: 1rem; */
 	text-decoration: none;
 	overflow: hidden;
 	color:black;
