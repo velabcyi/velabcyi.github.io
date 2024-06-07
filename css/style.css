@@ -39,7 +39,7 @@ html {
 	font-family: 'Roboto', Arial, sans-serif;
 	letter-spacing: .05em;
 	color: rgb(255, 255, 255);
-	font-size: 100%; /* or consider using 100% to respect user's browser settings */
+	font-size: 16pt; /* or consider using 100% to respect user's browser settings */
 }
 span{
     line-height: 0pt;
