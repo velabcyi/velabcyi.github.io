@@ -125,7 +125,7 @@ h1.return a::before {
     height: 30px;                   /* Fixed height */
 	white-space: nowrap;
 }
-@media (max-width: 330px) {
+@media (max-width: 350px) {
 	#leftNav {
 	flex-direction: column;
 	gap: 0.25rem;      
