@@ -93,37 +93,70 @@ function stopRecording() {
 }
 
 function createDownloadLink(blob, encoding) {
-    var url = URL.createObjectURL(blob);
-    var au = document.createElement('audio');
-    var li = document.createElement('li');
-    // var link = document.createElement('a');
-    var removeBtn = document.createElement('button');  // Button to remove the file
+    const url = URL.createObjectURL(blob);
+    const au = document.createElement('audio');
+    const li = document.createElement('li');
+    const removeBtn = document.createElement('button');  // Button to remove the file
+    const fileName = new Date().toISOString() + '.' + encoding;  // Generate a filename based on the current timestamp and encoding
 
     // Add controls to the <audio> element
     au.controls = true;
     au.src = url;
 
-    // // Link the <a> element to the blob
-    // link.href = url;
-    // link.download = new Date().toISOString() + '.' + encoding;
-    // link.innerHTML = 'Download ' + link.download;
+    // Create the File object from the blob
+    const file = new File([blob], fileName, {type: `audio/${encoding}`});
 
-    // Add the new audio and <a> elements to the li element
-    li.appendChild(au);
-    // li.appendChild(link);
+    // Store the file reference in the li element for later upload
+    li.file = file;
 
     // Create and configure the remove button
     removeBtn.textContent = 'X';
     removeBtn.onclick = function() {
+        URL.revokeObjectURL(au.src);  // Clean up the object URL
         li.parentNode.removeChild(li);  // Remove the li element from the list
     };
 
-    // Append the remove button to the list item
+    // Append audio and remove button to the list item
+    li.appendChild(au);
     li.appendChild(removeBtn);
 
-    // Add the li element to the unified list
+    // Add the list item to the unified file list
     document.getElementById('filesList').appendChild(li);
 }
+
+
+// function createDownloadLink(blob, encoding) {
+//     var url = URL.createObjectURL(blob);
+//     var au = document.createElement('audio');
+//     var li = document.createElement('li');
+//     // var link = document.createElement('a');
+//     var removeBtn = document.createElement('button');  // Button to remove the file
+
+//     // Add controls to the <audio> element
+//     au.controls = true;
+//     au.src = url;
+
+//     // // Link the <a> element to the blob
+//     // link.href = url;
+//     // link.download = new Date().toISOString() + '.' + encoding;
+//     // link.innerHTML = 'Download ' + link.download;
+
+//     // Add the new audio and <a> elements to the li element
+//     li.appendChild(au);
+//     // li.appendChild(link);
+
+//     // Create and configure the remove button
+//     removeBtn.textContent = 'X';
+//     removeBtn.onclick = function() {
+//         li.parentNode.removeChild(li);  // Remove the li element from the list
+//     };
+
+//     // Append the remove button to the list item
+//     li.appendChild(removeBtn);
+
+//     // Add the li element to the unified list
+//     document.getElementById('filesList').appendChild(li);
+// }
 
 //helper function
 // function __log(e, data) {
