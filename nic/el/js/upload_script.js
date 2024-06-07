@@ -48,38 +48,109 @@ function appendFileToList(file) {
     document.getElementById('filesList').appendChild(li);
 }
 
-
-
 async function submitForm() {
-    const clowder = new ClowderJS('3c60303b-5d59-49be-b3ed-56e274b51e66', 'https://cyprus.ncsa.illinois.edu/clowder/api');
+    const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
     const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
     const datasetDesc = document.getElementById('text').value || 'No Description Provided';
-    
-    try {
-        const dataset = await clowder.createDataset('66621cb1e4b0d1566328ac6d', datasetName, datasetDesc);
-        console.log('Created Dataset:', dataset);
+    const email = document.getElementById('email').value;
+    const rights = document.getElementById('rights').value;
+    const contributorInfo = document.getElementById('contributorInfo').value || '';
+    console.log("Submitting form");
 
-        // Get all list items, which contain files
-        const listItems = document.getElementById('filesList').children;
-        for (const item of listItems) {
-            if (item.file) {
-                const fileResponse = await clowder.uploadFile(dataset.id, item.file);
-                console.log('File uploaded:', fileResponse);
-            }
+    // Validate inputs here if necessary
+    try {
+        // Disable submit button and show a loading indicator
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('loadingIndicator').style.display = 'block';
+        console.log("Creating Dataset");
+
+        // API call to create dataset
+        const createResponse = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ spaceId:"66621cb1e4b0d1566328ac6d", name: datasetName, description: datasetDesc })
+        });
+        console.log("Returned");
+
+
+        if (!createResponse.ok) {
+            throw new Error(`HTTP status ${createResponse.status}`);
         }
 
+        const dataset = await createResponse.json();
+        console.log('Created Dataset:', dataset);
+        console.log("Uploading metadata");
+
+        // Metadata handling
         const metadata = {
             data: {
+                subject: datasetName,
                 description: datasetDesc,
-                uploadDate: new Date().toISOString() // Capturing the upload date and time
+                email: email,
+                rights: rights,
+                contributorInfo: contributorInfo,
+                uploadDate: new Date().toISOString()
             }
         };
-        const metadataResponse = await clowder.addMetadata(dataset.id, metadata);
-        console.log('Metadata added:', metadataResponse);
+        console.log("Created metadata object");
+
+
+        const metadataResponse = await fetch(`https://clowderapi.web.illinois.edu/api/dataset/${dataset.datasetId}/metadata/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(metadata)
+        });
+
+        if (!metadataResponse.ok) {
+            throw new Error(`Error adding metadata: ${metadataResponse.statusText}`);
+        }
+
+        console.log('Metadata added:', await metadataResponse.json());
+
+        // File uploads
+        await handleFileUploads(dataset.uploadUrl, dataset.key);
 
         alert('Upload and dataset creation successful!');
     } catch (error) {
         console.error('Error during form submission:', error);
-        alert('An error occurred during upload!');
+        alert(`An error occurred: ${error.message}`);
+    } finally {
+        // Re-enable submit button and hide loading indicator
+        document.getElementById('submitBtn').disabled = false;
+        document.getElementById('loadingIndicator').style.display = 'none';
+    }
+}
+
+async function handleFileUploads(uploadUrl, apiKey) {
+    const listItems = document.getElementById('filesList').children;
+    if (listItems.length > 0) {
+        console.log("Uploading files...");
+        for (const item of listItems) {
+            if (item.file) {
+                // Prepare FormData with file
+                const formData = new FormData();
+                formData.append('file', item.file);
+                console.log('Uploading file:', item.file.name); // Log the file name being uploaded
+
+                // Configure fetch call
+                const fileResponse = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-API-Key': apiKey // Properly use the API key in headers if applicable
+                    },
+                    body: formData
+                });
+
+                // Handle response
+                if (fileResponse.ok) {
+                    const fileResult = await fileResponse.json();
+                    console.log('File uploaded:', fileResult);
+                } else {
+                    console.error('Error uploading file:', fileResponse.statusText);
+                }
+            }
+        }
+    } else {
+        console.log("No files to upload.");
     }
 }

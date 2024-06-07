@@ -72,8 +72,8 @@
                         switch (rights) {
                             case 'full_credit':
                                 inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'Who are you? What name do we attach to the contribution?';
-                                explanation.innerHTML = 'We will attach a name you set to the contribution which will persist in the archive and when redistributed. This follows the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
+                                contributorInfo.placeholder = 'What name do we attach to the contribution?';
+                                explanation.innerHTML = 'The credit you give which will persist in the archive and when redistributed. This follows the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
                                 break;
                             case 'conditional_credit':
                                 inputs.style.display = 'block';
@@ -181,7 +181,8 @@
                 </div>
 
                 <!-- Form submission button -->
-                <button type="button" onclick="submitForm()">Submit</button>
+                <button id="submitBtn" type="button" onclick="submitForm()">Submit</button>
+                <div id="loadingIndicator"></div>
             </form>
         </article>
     </main>

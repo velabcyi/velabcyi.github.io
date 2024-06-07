@@ -4,25 +4,6 @@ class ClowderJS {
         this.baseUrl = baseUrl;
     }
 
-    // async createDataset(spaceId, name, description) {
-    //     const url = `${this.baseUrl}/datasets/`;
-    //     const body = JSON.stringify({
-    //         name,
-    //         description,
-    //         spaceId
-    //     });
-
-    //     const response = await fetch(url, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-API-Key': this.apiKey
-    //         },
-    //         body: body
-    //     });
-    //     return await response.json();
-    // }
-
     async createDataset(spaceId, name, description) {
         // Step 1: Create the dataset
         const createUrl = `${this.baseUrl}/datasets/createempty`;
@@ -45,8 +26,6 @@ class ClowderJS {
             // Check if the dataset was successfully created before proceeding
             if (dataset && dataset.id) {
                 // Step 2: Associate the dataset with the space
-                //https://cyprus.ncsa.illinois.edu/clowder/api/spaces/66621cb1e4b0d1566328ac6d/addDatasetToSpace/66622a58e4b0d1566328adc4
-                //https://cyprus.ncsa.illinois.edu/clowder/api/spaces/66621cb1e4b0d1566328ac6d/addDatasetToSpace/66622a58e4b0d1566328adc4
                 const associateUrl = `${this.baseUrl}/spaces/${spaceId}/addDatasetToSpace/${dataset.id}`;
                 const associateResponse = await fetch(associateUrl, {
                     method: 'POST',
@@ -102,28 +81,3 @@ class ClowderJS {
         return await response.json();
     }
 }
-
-// // Example Usage
-// const clowder = new ClowderJS('3c60303b-5d59-49be-b3ed-56e274b51e66', 'https://cyprus.ncsa.illinois.edu/clowder/api');
-
-// // Create a new dataset
-// clowder.createDataset('66621cb1e4b0d1566328ac6d', 'Dataset Name', 'Dataset Description').then(dataset => {
-//     console.log('Created Dataset:', dataset);
-
-//     // Upload a file
-//     const fileInput = document.querySelector('input[type="file"]');
-//     const file = fileInput.files[0];
-//     clowder.uploadFile(dataset.id, file).then(fileResponse => {
-//         console.log('File uploaded:', fileResponse);
-
-//         // Add metadata to the dataset
-//         const metadata = {
-//             data: {
-//                 description: "This is a test dataset with metadata."
-//             }
-//         };
-//         clowder.addMetadata(dataset.id, metadata).then(metadataResponse => {
-//             console.log('Metadata added:', metadataResponse);
-//         });
-//     });
-// });

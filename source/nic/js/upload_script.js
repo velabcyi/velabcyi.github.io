@@ -94,8 +94,6 @@ async function submitForm() {
         };
         console.log("Created metadata object");
 
-        console.log(metadata);
-        console.log("posting");
 
         const metadataResponse = await fetch(`https://clowderapi.web.illinois.edu/api/dataset/${dataset.datasetId}/metadata/`, {
             method: 'POST',
