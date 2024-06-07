@@ -35,14 +35,14 @@
                 <!-- Text -->
                 <div class="form-group">
                     <label for="text">Description</label><br>
-                    <textarea id="text" name="text" placeholder="Add a comment, a message, a story, or describe the media. If you have a long message, we recommend writing on a computer and sending it as a file attachment so you retain a copy." rows="5"></textarea>
+                    <textarea id="text" name="text" placeholder="Share your memories, stories, or comments here. If long, please upload a document." rows="5"></textarea>
                 </div>
 
                 <!-- Rights dropdown -->
                 <div class="form-group">
                     <label for="rights">Permission and Credit*</label>
                     <select id="rights" name="rights" onchange="handleRightsChange()" required>
-                        <option value="" disabled selected>How should we handle your contribution?</option>
+                        <option value="" disabled selected>How should we handle your data?</option>
                         <option value="full_credit">Full Credit, Free Use</option>
                         <option value="anonymous">Anonymous, Free Use</option>
                         <option value="conditional_credit">Conditional Credit or Use</option>
@@ -89,17 +89,23 @@
                 </script>
                                     
                 <hr style="margin-top: 1rem; margin-bottom: 1rem;">
+                <span style="margin-bottom: 1rem;">Tools</span>
 
                 <!-- File Uploading -->
                 <div class="form-group">
-                    <label for="fileUpload">Attach files 📎</label>
+                    <!-- <label for="fileUpload">Attach files 📎</label> -->
+                    <!-- <input type="file" id="fileUpload" name="fileUpload" multiple> -->
+                    <label for="fileUpload" class="file-upload-button">Add Files 📎</label>
                     <input type="file" id="fileUpload" name="fileUpload" multiple>
                 </div>
 
                 <!-- Camera (Mobile) -->
                 <div class="form-group" id="cameraCaptureGroup">
-                    <label for="photo">Capture Photo 📷 </label>
+                    <!-- <label for="photo">Take Photo 📷 </label>
+                    <input type="file" id="photo" name="photo" accept="image/*" capture> -->
+                    <label for="photo" class="camera-button">Take Photo 📷</label>
                     <input type="file" id="photo" name="photo" accept="image/*" capture>
+
                 </div>
                 
                 <script>
@@ -123,7 +129,7 @@
                 <!-- Audio Recording-->
                 <!-- Audio Recording -->
                 <div class="form-group" id="audioControls">
-                    <button id="recordButton" onclick="toggleRecording(true)">🔴 Record Audio</button>
+                    <button id="recordButton" onclick="toggleRecording(true)">Record Audio 🎤</button>
                     <button id="stopButton" onclick="toggleRecording(false)" disabled style="display:none;">⏹️ Stop</button>
                     <span id="timer" style="display:none; color: black;">00:00</span>
                 </div>
@@ -175,11 +181,11 @@
             </script>
             <hr style="margin-top: 1rem;">
                 <!-- Displaying Uploaded/Recorded Files -->
-                <div style="margin-top:1.5rem">
+                <div id="preview-attachments" style="margin-top:1.5rem">
                     <span>Attachments:</span>
                     <ul id="filesList"></ul> <!-- Files will be listed here -->
+                <hr>
                 </div>
-
                 <!-- Form submission button -->
                 <button id="submitBtn" type="button" onclick="submitForm()">Submit</button>
                 <div id="loadingIndicator"></div>
