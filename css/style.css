@@ -63,7 +63,7 @@ nav{
     gap: 1rem;
     margin-bottom: 1rem;
     margin-top: 1rem;
-	width: 60ch;
+width: 100%;
 }
 article{
     margin:0;
@@ -84,7 +84,7 @@ h1,h2,h3,h4,h5{
 }
 button {
     color: rgb(255, 255, 255);
-	font-size: 80%;
+	font-size: 100%;
     background-color: black;
     border: none;  /* Removes default button border */
     appearance: none;  /* Removes default button appearance */
@@ -113,6 +113,8 @@ h1.return a::before {
     justify-content: space-between; /* Keeps #leftNav and #rightNav on either side */
     width: 100%;                    /* Takes full width */
     align-items: flex-end;          /* Aligns children to the bottom */
+	white-space: nowrap;
+	height: auto;
 }
 
 #leftNav {
@@ -121,6 +123,16 @@ h1.return a::before {
     align-items: flex-end;          /* Aligns items to the bottom */
     gap: 1rem;                      /* Space between items */
     height: 30px;                   /* Fixed height */
+	white-space: nowrap;
+}
+@media (max-width: 450px) {
+	#leftNav {
+	flex-direction: column;
+	gap: 0.25rem;      
+	height: auto;                   /* Fixed height */
+	/* Space between items */
+	}
+	
 }
 
 #rightNav {
