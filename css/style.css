@@ -39,7 +39,7 @@ html {
 	font-family: 'Roboto', Arial, sans-serif;
 	letter-spacing: .05em;
 	color: rgb(255, 255, 255);
-	font-size: 16pt; /* or consider using 100% to respect user's browser settings */
+	font-size: 14pt; /* or consider using 100% to respect user's browser settings */
 }
 span{
     line-height: 0pt;
@@ -125,7 +125,7 @@ h1.return a::before {
     height: 30px;                   /* Fixed height */
 	white-space: nowrap;
 }
-@media (max-width: 450px) {
+@media (max-width: 330px) {
 	#leftNav {
 	flex-direction: column;
 	gap: 0.25rem;      
@@ -144,6 +144,7 @@ h1.return a::before {
 }
 
 .bubble-link {
+	transform: translateX(-1rem);
 	font-weight: bold;
 	display: inline-block;
 	padding: 10px 20px;
@@ -416,7 +417,7 @@ main{
 	overflow: visible;
 	min-width: 100%;
 	max-width: 100%;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 
 }
 
@@ -546,8 +547,7 @@ button:hover {
 
 
 #image-box {
-    width: 100%;
-    height: 400px;
+	max-height: 300px;
     display: flex;              /* Ensures the container is a flexbox */
     align-items: center;        /* Centers the image vertically */
     justify-content: center;    /* Centers the image horizontally */
@@ -555,8 +555,7 @@ button:hover {
 }
 
 #image-box > img {
-    height: 100%;               /* Sets the image height to fill the container */
-    width: auto;                /* Maintains the image's aspect ratio */
+	width: 100%;
     object-fit: cover;          /* Ensures the image covers the container */
 }
 /* Credits Page Styles */
@@ -596,6 +595,7 @@ main>img{
 }
 a {
 	padding-right: 0.5rem;
+	white-space: nowrap;
 }
 
 .credits a {
