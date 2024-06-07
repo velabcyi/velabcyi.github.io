@@ -22,12 +22,12 @@
                 <!-- Subject -->
                 <div class="form-group">
                     <label for="subject">Subject*</label>
-                    <input type="text" id="subject" name="subject" required placeholder="A title helps us organize posts.">
+                    <input type="text" id="subject" name="subject" required placeholder="Titles help us organize posts.">
                 </div>
                 <!-- Email (Required) -->
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="email" id="email" name="email" required placeholder="Emails are a point of contact, if needed.">
+                    <input type="email" id="email" name="email" required placeholder="Emails are a point of contact.">
                 </div>
                 
 
@@ -35,17 +35,17 @@
                 <!-- Text -->
                 <div class="form-group">
                     <label for="text">Description</label><br>
-                    <textarea id="text" name="text" placeholder="Add a comment, a message, a story, or describe the media. If you have a long message, we recommend writing on a computer and sending it as a file attachment so you retain a copy." rows="5"></textarea>
+                    <textarea id="text" name="text" placeholder="Share your memories, stories, or comments here. If long, please upload a document." rows="5"></textarea>
                 </div>
 
                 <!-- Rights dropdown -->
                 <div class="form-group">
                     <label for="rights">Permission and Credit*</label>
                     <select id="rights" name="rights" onchange="handleRightsChange()" required>
-                        <option value="" disabled selected>How should we handle your contribution?</option>
-                        <option value="full_credit">Full Credit, Free Use</option>
-                        <option value="anonymous">Anonymous, Free Use</option>
-                        <option value="conditional_credit">Conditional Credit or Use</option>
+                        <option value="" disabled selected>How should we treat your data?</option>
+                        <option value="full_credit">Free Use, with Full Credit</option>
+                        <option value="anonymous">Free Use, but Anonymous</option>
+                        <option value="conditional_credit">Conditional Use or Credits</option>
                     </select>
                     
                     <!-- Conditional input field -->
@@ -77,7 +77,7 @@
                                 break;
                             case 'conditional_credit':
                                 inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'Who are you? What are your preferences for attribution and use?';
+                                contributorInfo.placeholder = 'What are your preferences for credit and use?';
                                 explanation.innerHTML = 'Let us know how we may refer to you or the contribution, and how the data may be used or distributed.';
                                 break;
                             case 'anonymous':
@@ -89,17 +89,23 @@
                 </script>
                                     
                 <hr style="margin-top: 1rem; margin-bottom: 1rem;">
+                <span style="margin-bottom: 1rem;">Tools</span>
 
                 <!-- File Uploading -->
                 <div class="form-group">
-                    <label for="fileUpload">Attach files 📎</label>
+                    <!-- <label for="fileUpload">Attach files 📎</label> -->
+                    <!-- <input type="file" id="fileUpload" name="fileUpload" multiple> -->
+                    <label for="fileUpload" class="file-upload-button">Add Files 📎</label>
                     <input type="file" id="fileUpload" name="fileUpload" multiple>
                 </div>
 
                 <!-- Camera (Mobile) -->
                 <div class="form-group" id="cameraCaptureGroup">
-                    <label for="photo">📷 Capture Photo:</label>
+                    <!-- <label for="photo">Take Photo 📷 </label>
+                    <input type="file" id="photo" name="photo" accept="image/*" capture> -->
+                    <label for="photo" class="camera-button">Take Photo 📷</label>
                     <input type="file" id="photo" name="photo" accept="image/*" capture>
+
                 </div>
                 
                 <script>
@@ -123,63 +129,111 @@
                 <!-- Audio Recording-->
                 <!-- Audio Recording -->
                 <div class="form-group" id="audioControls">
-                    <button id="recordButton" onclick="toggleRecording(true)">🔴 Record Audio</button>
+                    <button id="recordButton" onclick="toggleRecording(true)">Record Audio 🎤</button>
                     <button id="stopButton" onclick="toggleRecording(false)" disabled style="display:none;">⏹️ Stop</button>
-                    <span id="timer" style="display:none; color: black;">00:00</span>
+                    <span id="timer" style="display:none; color: black;">00:00 / 02:00 🔴</span>
                 </div>
 
                 
             <script>
-            let isRecording = false;
-            let recordingStartTime;
-            let recordInterval;
+                let isRecording = false;
+let recordingStartTime;
+let recordInterval;
+const maxRecordingTime = 120; // Maximum duration in seconds (2 minutes)
 
-            function toggleRecording(start) {
-                const recordButton = document.getElementById('recordButton');
-                const stopButton = document.getElementById('stopButton');
-                const timer = document.getElementById('timer');
+function toggleRecording(start) {
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+    const timer = document.getElementById('timer');
 
-                if (start && !isRecording) {
-                    // Start recording
-                    isRecording = true;
-                    recordButton.style.display = 'none';
-                    stopButton.style.display = 'inline';
-                    stopButton.disabled = false;
-                    recordingStartTime = Date.now();
-                    timer.style.display = 'inline';
-                    recordInterval = setInterval(updateTimer, 1000);
-                } else {
-                    // Stop recording
-                    isRecording = false;
-                    stopButton.style.display = 'none';
-                    recordButton.style.display = 'inline';
-                    recordButton.disabled = false;
-                    clearInterval(recordInterval);
-                    timer.style.display = 'none';
-                }
-            }
+    if (start && !isRecording) {
+        // Start recording
+        isRecording = true;
+        recordButton.style.display = 'none';
+        stopButton.style.display = 'inline';
+        stopButton.disabled = false;
+        recordingStartTime = Date.now();
+        timer.style.display = 'inline';
+        recordInterval = setInterval(updateTimer, 1000);
+    } else {
+        // Stop recording
+        isRecording = false;
+        stopButton.style.display = 'none';
+        recordButton.style.display = 'inline';
+        recordButton.disabled = false;
+        clearInterval(recordInterval);
+        timer.style.display = 'none';
+        timer.textContent = "00:00 / 02:00 🔴"; // Reset timer display
+    }
+}
 
-            function updateTimer() {
-                const now = Date.now();
-                const diff = now - recordingStartTime;
-                const seconds = Math.floor(diff / 1000) % 60;
-                const minutes = Math.floor(diff / 60000);
-                const formattedTime = `${padTime(minutes)}:${padTime(seconds)}`;
-                document.getElementById('timer').textContent = formattedTime;
-            }
+function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - recordingStartTime) / 1000);
+    if (elapsedTime >= maxRecordingTime) {
+        toggleRecording(false); // Stop recording if max time is reached
+    } else {
+        timer.textContent = formatTime(elapsedTime) + ' / 02:00 🔴';
+    }
+}
 
-            function padTime(num) {
-                return num.toString().padStart(2, '0');
-            }
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    minutes = minutes.toString().padStart(2, '0');
+    seconds = seconds.toString().padStart(2, '0');
+    return minutes + ':' + seconds;
+}
+
+            // let isRecording = false;
+            // let recordingStartTime;
+            // let recordInterval;
+
+            // function toggleRecording(start) {
+            //     const recordButton = document.getElementById('recordButton');
+            //     const stopButton = document.getElementById('stopButton');
+            //     const timer = document.getElementById('timer');
+
+            //     if (start && !isRecording) {
+            //         // Start recording
+            //         isRecording = true;
+            //         recordButton.style.display = 'none';
+            //         stopButton.style.display = 'inline';
+            //         stopButton.disabled = false;
+            //         recordingStartTime = Date.now();
+            //         timer.style.display = 'inline';
+            //         recordInterval = setInterval(updateTimer, 1000);
+            //     } else {
+            //         // Stop recording
+            //         isRecording = false;
+            //         stopButton.style.display = 'none';
+            //         recordButton.style.display = 'inline';
+            //         recordButton.disabled = false;
+            //         clearInterval(recordInterval);
+            //         timer.style.display = 'none';
+            //     }
+            // }
+
+            // function updateTimer() {
+            //     const now = Date.now();
+            //     const diff = now - recordingStartTime;
+            //     const seconds = Math.floor(diff / 1000) % 60;
+            //     const minutes = Math.floor(diff / 60000);
+            //     const formattedTime = `${padTime(minutes)}:${padTime(seconds)}`;
+            //     document.getElementById('timer').textContent = formattedTime;
+            // }
+
+            // function padTime(num) {
+            //     return num.toString().padStart(2, '0');
+            // }
 
             </script>
             <hr style="margin-top: 1rem;">
                 <!-- Displaying Uploaded/Recorded Files -->
-                <div style="margin-top:1.5rem">
+                <div id="preview-attachments" style="margin-top:1.5rem">
                     <span>Attachments:</span>
                     <ul id="filesList"></ul> <!-- Files will be listed here -->
+                    <hr>
                 </div>
-
                 <!-- Form submission button -->
                 <button id="submitBtn" type="button" onclick="submitForm()">Submit</button>
                 <div id="loadingIndicator"></div>

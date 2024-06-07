@@ -7,6 +7,9 @@ document.getElementById('photo').addEventListener('change', function(event) {
 });
 
 function handleFiles(files) {
+    const previewArea = document.getElementById('preview-attachments');
+    previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
+    
     for (let i = 0; i < files.length; i++) {
         appendFileToList(files[i]);
     }
