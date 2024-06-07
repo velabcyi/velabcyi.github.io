@@ -64,6 +64,7 @@ nav{
     margin-bottom: 1rem;
     margin-top: 1rem;
 width: 100%;
+/* white-space: nowrap; */
 }
 article{
     margin:0;
@@ -100,6 +101,7 @@ a:not(.subtext):not(h1 a)::after {
 	content: " \2197";
 	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
 	font-weight: 200;
+	white-space: nowrap;
   }
 h1.return a::before {
     content: " \2190"; /* Unicode for leftward arrow */
@@ -107,6 +109,7 @@ h1.return a::before {
     transform: translateX(-120%) translateY(-10%); /* Moves the arrow leftwards by its own width */
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 200;
+	
 }
 #footNav {
     display: flex;                  /* Ensures flexbox layout */
@@ -144,7 +147,7 @@ h1.return a::before {
 }
 
 .bubble-link {
-	transform: translateX(-1rem);
+	/* transform: translateX(-1rem); */
 	font-weight: bold;
 	display: inline-block;
 	padding: 10px 20px;
@@ -595,7 +598,6 @@ main>img{
 }
 a {
 	padding-right: 0.5rem;
-	white-space: nowrap;
 }
 
 .credits a {
