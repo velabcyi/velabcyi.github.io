@@ -62,6 +62,8 @@ function validateForm() {
   document.getElementById('rights').addEventListener('change', validateForm);
   document.getElementById('contributorInfo').addEventListener('input', validateForm);
 
+  validateForm()
+
   async function submitForm() {
     const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
     const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
@@ -105,7 +107,7 @@ function validateForm() {
         const createResponse = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ spaceId:"66621cb1e4b0d1566328ac6d", name: datasetName, description: enhancedDescription })
+            body: JSON.stringify({ spaceId:"66645048e4b0d1566328c985", name: datasetName, description: enhancedDescription })
         });
 
         if (!createResponse.ok) {
@@ -149,4 +151,3 @@ function validateForm() {
     }
 }
 validateForm();
-

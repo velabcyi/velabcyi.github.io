@@ -62,8 +62,6 @@ function validateForm() {
   document.getElementById('rights').addEventListener('change', validateForm);
   document.getElementById('contributorInfo').addEventListener('input', validateForm);
 
-  validateForm()
-
   async function submitForm() {
     const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
     const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
@@ -150,3 +148,5 @@ function validateForm() {
         document.getElementById('loadingIndicator').style.display = 'none';
     }
 }
+validateForm();
+

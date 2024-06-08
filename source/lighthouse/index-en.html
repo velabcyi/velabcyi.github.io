@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELAB: Media Capture and Upload Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta name="description" content="At the Virtual Environments Lab, we support European efforts in architectural heritage preservation and urban transformation through advanced digital solutions. Our mission includes developing tools to combat heritage decay, enhancing urban resilience, and promoting education in historic digital transitions. We focus on immersive visualization, interactive narratives, and creating digital twins to integrate tangible and intangible heritage.">
+    <meta property="og:title" content="Virtual Environments Lab – Preserving European Architectural Heritage">
+    <meta property="og:description" content="Supporting European urban heritage through advanced digital tools aimed at safeguarding, understanding, and transforming historic sites. Discover our innovative approaches to architectural preservation and education.">
+    <meta property="og:image" content="/images/image5.jpg">
+    <meta property="og:url" content="https://velab.cloud">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <header><h1 class="return"><a href="/home/en/">VELAB: Urban Lighthouse</a></h1></header>
+    <main>
+        <span>CONTRIBUTION FORM</span>
+        <article class="form-upload">
+            <div id="form-background"></div>
+            <form id="mediaForm" enctype="multipart/form-data">
+                <!-- Subject -->
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Titles help us organize posts.">
+                </div>
+                <!-- Email (Required) -->
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" required placeholder="Emails are a point of contact.">
+                </div>
+                <script>
+                    //if we have a stored email, fill it.
+                    window.addEventListener('DOMContentLoaded', function() {
+                    const emailInput = document.getElementById('email');
+                    const lastSubmittedEmail = localStorage.getItem('lastSubmittedEmail');
+
+                    if (lastSubmittedEmail) {
+                        emailInput.value = lastSubmittedEmail;
+                    }
+                    });
+                </script>
+
+                <!-- Text -->
+                <div class="form-group">
+                    <label for="text">Description</label><br>
+                    <textarea id="text" name="text" placeholder="Share your memories, stories, or comments here. If long, please upload a document." rows="5"></textarea>
+                </div>
+
+                <!-- Rights dropdown -->
+                <div class="form-group">
+                    <label for="rights">Permission and Credit*</label>
+                    <select id="rights" name="rights" onchange="handleRightsChange()" required>
+                        <option value="" disabled selected>How should we treat your data?</option>
+                        <option value="full_credit">Free Use, with Full Credit</option>
+                        <option value="anonymous">Free Use, but Anonymous</option>
+                        <option value="conditional_credit">Conditional Use or Credits</option>
+                    </select>
+                    
+                    <!-- Conditional input field -->
+                    <div id="conditionalInputs" style="display: none;">
+                        <textarea id="contributorInfo" name="contributorInfo" placeholder="Enter your name"></textarea>
+                    </div>
+
+                    <!-- Display explanation text based on selection -->
+                    <div id="rightsExplanation" style="padding-top: 10px;"></div>
+                </div>
+                <script>
+                    window.addEventListener('DOMContentLoaded', function() {
+                    const rightsSelect = document.getElementById('rights');
+                    const contributorInfoTextarea = document.getElementById('contributorInfo');
+
+                    const lastSubmittedEmail = localStorage.getItem('lastSubmittedEmail');
+                    const lastSelectedRights = localStorage.getItem('lastSelectedRights');
+                    const lastContributorInfo = localStorage.getItem('lastContributorInfo');
+
+                    if (lastSelectedRights) {
+                        rightsSelect.value = lastSelectedRights;
+                        handleRightsChange(); // Trigger the rights change event to show/hide the contributor info field
+                
+                    }
+
+                    if (lastContributorInfo) {
+                        contributorInfoTextarea.value = lastContributorInfo;
+                    }
+                    });
+                </script>
+
+                <script>
+                    function handleRightsChange() {
+                        var rights = document.getElementById('rights').value;
+                        var inputs = document.getElementById('conditionalInputs');
+                        var contributorInfo = document.getElementById('contributorInfo');
+                        var explanation = document.getElementById('rightsExplanation');
+                        
+                        // Hide the input and reset explanation text initially
+                        inputs.style.display = 'none';
+                        explanation.innerHTML = '';  // Clear existing text
+                        
+                        // Show inputs and update text based on selected rights
+                        switch (rights) {
+                            case 'full_credit':
+                                inputs.style.display = 'block';
+                                contributorInfo.placeholder = 'What name do we attach to the contribution?';
+                                explanation.innerHTML = 'The credit you give which will persist in the archive and when redistributed. This follows the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
+                                break;
+                            case 'conditional_credit':
+                                inputs.style.display = 'block';
+                                contributorInfo.placeholder = 'What are your preferences for credit and use?';
+                                explanation.innerHTML = 'Let us know how we may refer to you or the contribution, and how the data may be used or distributed.';
+                                break;
+                            case 'anonymous':
+                                explanation.innerHTML = 'Use/distribute the contribution freely. Attribution is inferred but indirect. "A Cypriot contributed...X" This follows the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</a>.';
+                                break;
+                        }
+                    }
+                    handleRightsChange(); // Call on page load if you want the text to be set even if user hasn't interacted yet
+                </script>
+                                    
+                <hr style="margin-top: 1rem; margin-bottom: 1rem;">
+                <span>Tools</span>
+
+                <!-- File Uploading -->
+                <div class="form-group" style="margin-top: 1rem;">
+                    <!-- <label for="fileUpload">Attach files 📎</label> -->
+                    <!-- <input type="file" id="fileUpload" name="fileUpload" multiple> -->
+                    <label for="fileUpload" class="file-upload-button">Add Files 📎</label>
+                    <input type="file" id="fileUpload" name="fileUpload" multiple>
+                </div>
+
+                <!-- Camera (Mobile) -->
+                <div class="form-group" id="cameraCaptureGroup">
+                    <!-- <label for="photo">Take Photo 📷 </label>
+                    <input type="file" id="photo" name="photo" accept="image/*" capture> -->
+                    <label for="photo" class="camera-button">Take Photo 📷</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" capture>
+
+                </div>
+                
+                <script>
+                    window.onload = function() {
+                        var cameraCaptureGroup = document.getElementById('cameraCaptureGroup');
+                        var photoInput = document.getElementById('photo');
+                    
+                        function checkIfMobile() {
+                            // Patterns for common mobile devices
+                            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        }
+                    
+                        if (!checkIfMobile()) {
+                            // Disable the input and possibly hide if not on a mobile device
+                            photoInput.disabled = true;
+                            cameraCaptureGroup.style.display = 'none';  // Hide the group entirely if desired
+                        }
+                    };
+                </script>
+                
+                <!-- Audio Recording -->
+                <div class="form-group" id="audioControls">
+                    <button id="recordButton" onclick="toggleRecording(true)">Record Audio 🎤</button>
+                    <button id="stopButton" onclick="toggleRecording(false)" disabled style="display:none;">⏹️ Stop</button>
+                    <span id="timer" style="display:none; color: black;">00:00 / 02:00 🔴</span>
+                </div>
+
+                
+            <script>
+                let isRecording = false;
+let recordingStartTime;
+let recordInterval;
+const maxRecordingTime = 120; // Maximum duration in seconds (2 minutes)
+
+function toggleRecording(start) {
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+    const timer = document.getElementById('timer');
+
+    if (start && !isRecording) {
+        // Start recording
+        isRecording = true;
+        recordButton.style.display = 'none';
+        stopButton.style.display = 'inline';
+        stopButton.disabled = false;
+        recordingStartTime = Date.now();
+        timer.style.display = 'inline';
+        recordInterval = setInterval(updateTimer, 1000);
+    } else {
+        // Stop recording
+        isRecording = false;
+        stopButton.style.display = 'none';
+        recordButton.style.display = 'inline';
+        recordButton.disabled = false;
+        clearInterval(recordInterval);
+        timer.style.display = 'none';
+        timer.textContent = "00:00 / 02:00 🔴"; // Reset timer display
+    }
+}
+
+function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - recordingStartTime) / 1000);
+    if (elapsedTime >= maxRecordingTime) {
+        toggleRecording(false); // Stop recording if max time is reached
+    } else {
+        timer.textContent = formatTime(elapsedTime) + ' / 02:00 🔴';
+    }
+}
+
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    minutes = minutes.toString().padStart(2, '0');
+    seconds = seconds.toString().padStart(2, '0');
+    return minutes + ':' + seconds;
+}
+
+            // let isRecording = false;
+            // let recordingStartTime;
+            // let recordInterval;
+
+            // function toggleRecording(start) {
+            //     const recordButton = document.getElementById('recordButton');
+            //     const stopButton = document.getElementById('stopButton');
+            //     const timer = document.getElementById('timer');
+
+            //     if (start && !isRecording) {
+            //         // Start recording
+            //         isRecording = true;
+            //         recordButton.style.display = 'none';
+            //         stopButton.style.display = 'inline';
+            //         stopButton.disabled = false;
+            //         recordingStartTime = Date.now();
+            //         timer.style.display = 'inline';
+            //         recordInterval = setInterval(updateTimer, 1000);
+            //     } else {
+            //         // Stop recording
+            //         isRecording = false;
+            //         stopButton.style.display = 'none';
+            //         recordButton.style.display = 'inline';
+            //         recordButton.disabled = false;
+            //         clearInterval(recordInterval);
+            //         timer.style.display = 'none';
+            //     }
+            // }
+
+            // function updateTimer() {
+            //     const now = Date.now();
+            //     const diff = now - recordingStartTime;
+            //     const seconds = Math.floor(diff / 1000) % 60;
+            //     const minutes = Math.floor(diff / 60000);
+            //     const formattedTime = `${padTime(minutes)}:${padTime(seconds)}`;
+            //     document.getElementById('timer').textContent = formattedTime;
+            // }
+
+            // function padTime(num) {
+            //     return num.toString().padStart(2, '0');
+            // }
+
+            </script>
+            <hr style="margin-top: 1rem;">
+                <!-- Displaying Uploaded/Recorded Files -->
+                <div id="preview-attachments" style="margin-top:1.5rem">
+                    <span>Attachments:</span>
+                    <ul id="filesList"></ul> <!-- Files will be listed here -->
+                    <hr>
+                </div>
+                <!-- Form submission button -->
+                <button id="submitBtn" type="button" disabled onclick="submitForm()">Submit</button>
+                <div id="loadingIndicator"></div>
+            </form>
+        </article>
+    </main>
+
+    <script src="js/WebAudioRecorder.min.js"></script>
+    <script src="js/clowder.js"></script>
+    <script src="js/audio_app.js"></script>
+    <script src="js/form.js"></script>
+    <script src="js/upload_script.js"></script>
+    <footer>
+        <nav id="footNav">
+            <div id="leftNav">
+                <a target="_blank" href="/contact/en/">Contact</a>
+                <a target="_blank" href="/privacy/en/">Privacy</a>
+            </div>
+            <div id="rightNav">
+                <img class="logo" src="/images/image6.png" alt="The Cyprus Institute">
+            </div>
+        </nav>
+    </footer>
+</body>
+</html>
