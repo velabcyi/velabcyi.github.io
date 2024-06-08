@@ -75,6 +75,7 @@ function validateForm() {
 
     // Validate inputs here if necessary
     try {
+
         // Disable submit button and show a loading indicator
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('loadingIndicator').style.display = 'block';
@@ -131,7 +132,10 @@ function validateForm() {
         }
         console.log('Metadata added.');
 
-        // console.log('Metadata added:', await metadataResponse.json());
+        // Store some of the form data in local storage
+        localStorage.setItem('lastSubmittedEmail', email);
+        localStorage.setItem('lastSelectedRights', rights);
+        localStorage.setItem('lastContributorInfo', contributorInfo);
 
         // File uploads
         await handleFileUploads(dataset.uploadUrl, dataset.key);
