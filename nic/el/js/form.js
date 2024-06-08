@@ -148,5 +148,10 @@ function validateForm() {
         document.getElementById('loadingIndicator').style.display = 'none';
     }
 }
-validateForm();
+window.addEventListener('DOMContentLoaded', function() {
+    // ... (existing code for autofilling fields) ...
+  
+    // Call validateForm() after a short delay (e.g., 100ms)
+    setTimeout(validateForm, 100);
+  });
 
