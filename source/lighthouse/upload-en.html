@@ -130,33 +130,6 @@
                     <label for="fileUpload" class="file-upload-button">Add Files 📎</label>
                     <input type="file" id="fileUpload" name="fileUpload" multiple>
                 </div>
-
-                <!-- Camera (Mobile) -->
-                <div class="form-group" id="cameraCaptureGroup">
-                    <!-- <label for="photo">Take Photo 📷 </label>
-                    <input type="file" id="photo" name="photo" accept="image/*" capture> -->
-                    <label for="photo" class="camera-button">Take Photo 📷</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" capture>
-
-                </div>
-                
-                <script>
-                    window.onload = function() {
-                        var cameraCaptureGroup = document.getElementById('cameraCaptureGroup');
-                        var photoInput = document.getElementById('photo');
-                    
-                        function checkIfMobile() {
-                            // Patterns for common mobile devices
-                            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                        }
-                    
-                        if (!checkIfMobile()) {
-                            // Disable the input and possibly hide if not on a mobile device
-                            photoInput.disabled = true;
-                            cameraCaptureGroup.style.display = 'none';  // Hide the group entirely if desired
-                        }
-                    };
-                </script>
                 
                 <!-- Audio Recording -->
                 <div class="form-group" id="audioControls">
