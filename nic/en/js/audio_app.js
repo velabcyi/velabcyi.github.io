@@ -116,12 +116,19 @@ function createDownloadLink(blob, encoding) {
         li.parentNode.removeChild(li);  // Remove the li element from the list
     };
 
-    // Append audio and remove button to the list item
-    li.appendChild(au);
-    li.appendChild(removeBtn);
+	appendFileToList(file);
+	const previewArea = document.getElementById('preview-attachments');
+    previewArea.style.display = "block";
 
-    // Add the list item to the unified file list
-    document.getElementById('filesList').appendChild(li);
+    // // Append audio and remove button to the list item
+    // li.appendChild(au);
+    // li.appendChild(removeBtn);
+
+    // // Add the list item to the unified file list
+    // document.getElementById('filesList').appendChild(li);
+	// const previewArea = document.getElementById('preview-attachments');
+    // previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
+
 }
 
 

@@ -1,3 +1,4 @@
+  //UPLOAD HANDLING
 document.getElementById('fileUpload').addEventListener('change', function(event) {
     handleFiles(event.target.files);
 });
@@ -7,12 +8,12 @@ document.getElementById('photo').addEventListener('change', function(event) {
 });
 
 function handleFiles(files) {
-    const previewArea = document.getElementById('preview-attachments');
-    previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
     
     for (let i = 0; i < files.length; i++) {
         appendFileToList(files[i]);
     }
+    const previewArea = document.getElementById('preview-attachments');
+    previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
 }
 
 function appendFileToList(file) {
@@ -51,79 +52,6 @@ function appendFileToList(file) {
     document.getElementById('filesList').appendChild(li);
 }
 
-async function submitForm() {
-    const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
-    const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
-    const datasetDesc = document.getElementById('text').value || 'No Description Provided';
-    const email = document.getElementById('email').value;
-    const rights = document.getElementById('rights').value;
-    const contributorInfo = document.getElementById('contributorInfo').value || '';
-    console.log("Submitting form");
-
-    // Validate inputs here if necessary
-    try {
-        // Disable submit button and show a loading indicator
-        document.getElementById('submitBtn').disabled = true;
-        document.getElementById('loadingIndicator').style.display = 'block';
-        console.log("Creating Dataset");
-
-        // API call to create dataset
-        const createResponse = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ spaceId:"66621cb1e4b0d1566328ac6d", name: datasetName, description: datasetDesc })
-        });
-        console.log("Returned");
-
-
-        if (!createResponse.ok) {
-            throw new Error(`HTTP status ${createResponse.status}`);
-        }
-
-        const dataset = await createResponse.json();
-        console.log('Created Dataset:', dataset);
-        console.log("Uploading metadata");
-
-        // Metadata handling
-        const metadata = {
-            data: {
-                subject: datasetName,
-                description: datasetDesc,
-                email: email,
-                rights: rights,
-                contributorInfo: contributorInfo,
-                uploadDate: new Date().toISOString()
-            }
-        };
-        console.log("Created metadata object");
-
-
-        const metadataResponse = await fetch(`https://clowderapi.web.illinois.edu/api/dataset/${dataset.datasetId}/metadata/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(metadata)
-        });
-
-        if (!metadataResponse.ok) {
-            throw new Error(`Error adding metadata: ${metadataResponse.statusText}`);
-        }
-
-        console.log('Metadata added:', await metadataResponse.json());
-
-        // File uploads
-        await handleFileUploads(dataset.uploadUrl, dataset.key);
-
-        alert('Upload and dataset creation successful!');
-    } catch (error) {
-        console.error('Error during form submission:', error);
-        alert(`An error occurred: ${error.message}`);
-    } finally {
-        // Re-enable submit button and hide loading indicator
-        document.getElementById('submitBtn').disabled = false;
-        document.getElementById('loadingIndicator').style.display = 'none';
-    }
-}
-
 async function handleFileUploads(uploadUrl, apiKey) {
     const listItems = document.getElementById('filesList').children;
     if (listItems.length > 0) {
@@ -147,7 +75,8 @@ async function handleFileUploads(uploadUrl, apiKey) {
                 // Handle response
                 if (fileResponse.ok) {
                     const fileResult = await fileResponse.json();
-                    console.log('File uploaded:', fileResult);
+                    console.log('File uploaded.');
+                    // console.log('File uploaded:', fileResult);
                 } else {
                     console.error('Error uploading file:', fileResponse.statusText);
                 }
