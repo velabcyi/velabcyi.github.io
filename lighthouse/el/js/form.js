@@ -62,8 +62,6 @@ function validateForm() {
   document.getElementById('rights').addEventListener('change', validateForm);
   document.getElementById('contributorInfo').addEventListener('input', validateForm);
 
-  validateForm()
-
   async function submitForm() {
     const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
     const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
@@ -75,6 +73,10 @@ function validateForm() {
 
     // Validate inputs here if necessary
     try {
+        document.getElementById('loadingOverlay').classList.remove('hidden');
+        document.getElementById('mediaForm').querySelectorAll('input, textarea, button, select').forEach(element => {
+          element.disabled = true;
+        });
 
         // Disable submit button and show a loading indicator
         document.getElementById('submitBtn').disabled = true;
@@ -137,8 +139,14 @@ function validateForm() {
         localStorage.setItem('lastSelectedRights', rights);
         localStorage.setItem('lastContributorInfo', contributorInfo);
 
+
         // File uploads
         await handleFileUploads(dataset.uploadUrl, dataset.key);
+        //clear files, subject, description
+        clearFiles();
+        document.getElementById('subject').value = '';
+        document.getElementById('text').value = '';
+
 
         alert('Upload and dataset creation successful!');
     } catch (error) {
@@ -148,11 +156,14 @@ function validateForm() {
         // Re-enable submit button and hide loading indicator
         document.getElementById('submitBtn').disabled = false;
         document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('loadingOverlay').classList.add('hidden');
+        document.getElementById('mediaForm').querySelectorAll('input, textarea, button, select').forEach(element => {
+        element.disabled = false;
+        });
     }
 }
-window.addEventListener('DOMContentLoaded', function() {
-  // ... (existing code for autofilling fields) ...
+window.addEventListener('DOMContentLoaded', function() {  
+    // Call validateForm() after a short delay (e.g., 100ms)
+    setTimeout(validateForm, 100);
+  });
 
-  // Call validateForm() after a short delay (e.g., 100ms)
-  setTimeout(validateForm, 100);
-});

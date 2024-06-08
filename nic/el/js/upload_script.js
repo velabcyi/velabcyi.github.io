@@ -15,6 +15,24 @@ function handleFiles(files) {
     const previewArea = document.getElementById('preview-attachments');
     previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
 }
+function clearFiles() {
+        const filesList = document.getElementById('filesList');
+        const fileUpload = document.getElementById('fileUpload');
+        const photo = document.getElementById('photo');
+        const previewArea = document.getElementById('preview-attachments');
+      
+        // Remove all <li> elements from the filesList
+        while (filesList.firstChild) {
+          filesList.removeChild(filesList.firstChild);
+        }
+      
+        // Clear the value of the file input elements
+        fileUpload.value = '';
+        photo.value = '';
+      
+        // Hide the preview area if there are no files remaining
+        previewArea.style.display = 'none';
+      }
 
 function appendFileToList(file) {
     const li = document.createElement('li');

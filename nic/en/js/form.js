@@ -73,6 +73,10 @@ function validateForm() {
 
     // Validate inputs here if necessary
     try {
+        document.getElementById('loadingOverlay').classList.remove('hidden');
+        document.getElementById('mediaForm').querySelectorAll('input, textarea, button, select').forEach(element => {
+          element.disabled = true;
+        });
 
         // Disable submit button and show a loading indicator
         document.getElementById('submitBtn').disabled = true;
@@ -135,8 +139,14 @@ function validateForm() {
         localStorage.setItem('lastSelectedRights', rights);
         localStorage.setItem('lastContributorInfo', contributorInfo);
 
+
         // File uploads
         await handleFileUploads(dataset.uploadUrl, dataset.key);
+        //clear files, subject, description
+        clearFiles();
+        document.getElementById('subject').value = '';
+        document.getElementById('text').value = '';
+
 
         alert('Upload and dataset creation successful!');
     } catch (error) {
@@ -146,11 +156,13 @@ function validateForm() {
         // Re-enable submit button and hide loading indicator
         document.getElementById('submitBtn').disabled = false;
         document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('loadingOverlay').classList.add('hidden');
+        document.getElementById('mediaForm').querySelectorAll('input, textarea, button, select').forEach(element => {
+        element.disabled = false;
+        });
     }
 }
-window.addEventListener('DOMContentLoaded', function() {
-    // ... (existing code for autofilling fields) ...
-  
+window.addEventListener('DOMContentLoaded', function() {  
     // Call validateForm() after a short delay (e.g., 100ms)
     setTimeout(validateForm, 100);
   });
