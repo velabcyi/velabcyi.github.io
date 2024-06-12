@@ -1,11 +1,15 @@
-  //UPLOAD HANDLING
-document.getElementById('fileUpload').addEventListener('change', function(event) {
-    handleFiles(event.target.files);
-});
-
-document.getElementById('photo').addEventListener('change', function(event) {
-    handleFiles(event.target.files);
-});
+//UPLOAD HANDLING
+if (document.getElementById('fileUpload')) {
+    document.getElementById('fileUpload').addEventListener('change', function(event) {
+      handleFiles(event.target.files);
+    });
+  }
+  
+  if (document.getElementById('photo')) {
+    document.getElementById('photo').addEventListener('change', function(event) {
+      handleFiles(event.target.files);
+    });
+  }
 
 function handleFiles(files) {
     

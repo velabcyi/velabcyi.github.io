@@ -5,11 +5,7 @@ if (document.getElementById('fileUpload')) {
     });
   }
   
-  if (document.getElementById('photo')) {
-    document.getElementById('photo').addEventListener('change', function(event) {
-      handleFiles(event.target.files);
-    });
-  }
+
 
 function handleFiles(files) {
     
@@ -22,7 +18,6 @@ function handleFiles(files) {
 function clearFiles() {
         const filesList = document.getElementById('filesList');
         const fileUpload = document.getElementById('fileUpload');
-        const photo = document.getElementById('photo');
         const previewArea = document.getElementById('preview-attachments');
       
         // Remove all <li> elements from the filesList
@@ -32,7 +27,6 @@ function clearFiles() {
       
         // Clear the value of the file input elements
         fileUpload.value = '';
-        photo.value = '';
       
         // Hide the preview area if there are no files remaining
         previewArea.style.display = 'none';

@@ -5,8 +5,7 @@ function validateForm() {
     const form = document.getElementById('mediaForm');
     const subjectInput = document.getElementById('subject');
     const emailInput = document.getElementById('email');
-    const rightsSelect = document.getElementById('rights');
-    const contributorInfoInput = document.getElementById('contributorInfo');
+    const rightsSelect = document.getElementById('tags');
     const submitBtn = document.getElementById('submitBtn');
   
     // Function to validate email format
@@ -42,10 +41,7 @@ function validateForm() {
   
     // Validate rights and contributor info
     let isRightsValid = rightsSelect.value !== '';
-    if (rightsSelect.value !== 'anonymous') {
-      isRightsValid = isRightsValid && contributorInfoInput.value.trim() !== '';
-    }
-    updateLabelText('rights', isRightsValid);
+    updateLabelText('tags', isRightsValid);
   
     if (isSubjectValid && isEmailInputValid && isRightsValid) {
       submitBtn.disabled = false;
@@ -59,16 +55,15 @@ function validateForm() {
   // Add event listeners to required fields
   document.getElementById('subject').addEventListener('input', validateForm);
   document.getElementById('email').addEventListener('input', validateForm);
-  document.getElementById('rights').addEventListener('change', validateForm);
-  document.getElementById('contributorInfo').addEventListener('input', validateForm);
+  document.getElementById('tags').addEventListener('change', validateForm);
 
   async function submitForm() {
     const apiUrl = 'https://clowderapi.web.illinois.edu/api/dataset/create';
     const datasetName = document.getElementById('subject').value || 'Default Dataset Name';
     const datasetDesc = document.getElementById('text').value || 'No Description Provided';
     const email = document.getElementById('email').value;
-    const rights = document.getElementById('rights').value;
-    const contributorInfo = document.getElementById('contributorInfo').value || '';
+    const tagsSelect = document.getElementById('tags');
+    const rights = Array.from(tagsSelect.selectedOptions).map(option => option.value);
     console.log("Submitting form");
 
     // Validate inputs here if necessary
@@ -91,8 +86,7 @@ function validateForm() {
                 userAgent: navigator.userAgent,
                 language: navigator.language,
                 email: email,
-                rights: rights,
-                contributorInfo: contributorInfo,
+                tags: rights,
                 uploadDate: new Date().toISOString()
             }
         };
@@ -136,8 +130,6 @@ function validateForm() {
 
         // Store some of the form data in local storage
         localStorage.setItem('lastSubmittedEmail', email);
-        localStorage.setItem('lastSelectedRights', rights);
-        localStorage.setItem('lastContributorInfo', contributorInfo);
 
 
         // File uploads

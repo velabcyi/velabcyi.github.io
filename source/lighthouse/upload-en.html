@@ -50,75 +50,19 @@
                     <textarea id="text" name="text" placeholder="Describe your post." rows="5"></textarea>
                 </div>
 
-                <!-- Rights dropdown -->
-                <div class="form-group">
-                    <label for="rights">Permission and Credit*</label>
-                    <select id="rights" name="rights" onchange="handleRightsChange()" required>
-                        <option value="" disabled selected>How should we treat your data?</option>
-                        <option value="full_credit">Free Use, with Full Credit</option>
-                        <option value="anonymous">Free Use, but Anonymous</option>
-                        <option value="conditional_credit">Conditional Use or Credits</option>
-                    </select>
-                    
-                    <!-- Conditional input field -->
-                    <div id="conditionalInputs" style="display: none;">
-                        <textarea id="contributorInfo" name="contributorInfo" placeholder="Enter your name"></textarea>
-                    </div>
-
-                    <!-- Display explanation text based on selection -->
-                    <div id="rightsExplanation" style="padding-top: 10px;"></div>
-                </div>
-                <script>
-                    window.addEventListener('DOMContentLoaded', function() {
-                    const rightsSelect = document.getElementById('rights');
-                    const contributorInfoTextarea = document.getElementById('contributorInfo');
-
-                    const lastSubmittedEmail = localStorage.getItem('lastSubmittedEmail');
-                    const lastSelectedRights = localStorage.getItem('lastSelectedRights');
-                    const lastContributorInfo = localStorage.getItem('lastContributorInfo');
-
-                    if (lastSelectedRights) {
-                        rightsSelect.value = lastSelectedRights;
-                        handleRightsChange(); // Trigger the rights change event to show/hide the contributor info field
                 
-                    }
 
-                    if (lastContributorInfo) {
-                        contributorInfoTextarea.value = lastContributorInfo;
-                    }
-                    });
-                </script>
-
-                <script>
-                    function handleRightsChange() {
-                        var rights = document.getElementById('rights').value;
-                        var inputs = document.getElementById('conditionalInputs');
-                        var contributorInfo = document.getElementById('contributorInfo');
-                        var explanation = document.getElementById('rightsExplanation');
-                        
-                        // Hide the input and reset explanation text initially
-                        inputs.style.display = 'none';
-                        explanation.innerHTML = '';  // Clear existing text
-                        
-                        // Show inputs and update text based on selected rights
-                        switch (rights) {
-                            case 'full_credit':
-                                inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'What name do we attach to the contribution?';
-                                explanation.innerHTML = 'The credit you give which will persist in the archive and when redistributed. This follows the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
-                                break;
-                            case 'conditional_credit':
-                                inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'What are your preferences for credit and use?';
-                                explanation.innerHTML = 'Let us know how we may refer to you or the contribution, and how the data may be used or distributed.';
-                                break;
-                            case 'anonymous':
-                                explanation.innerHTML = 'Use/distribute the contribution freely. Attribution is inferred but indirect. "A Cypriot contributed...X" This follows the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</a>.';
-                                break;
-                        }
-                    }
-                    handleRightsChange(); // Call on page load if you want the text to be set even if user hasn't interacted yet
-                </script>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <select id="tags" name="tags[]" multiple required>
+                      <option value="Accessibility">Accessibility</option>
+                      <option value="Temperature">Temperature</option>
+                      <option value="Biodiversity">Biodiversity</option>
+                      <option value="VisitorsUsers">Visitors/Users</option>
+                      <option value="AppearanceAesthetic">Appearance / Aesthetic</option>
+                      <option value="Safety">Safety</option>
+                    </select>
+                  </div>
                                     
                 <hr style="margin-top: 1rem; margin-bottom: 1rem;">
                 <span>Tools</span>
