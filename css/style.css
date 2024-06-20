@@ -19,8 +19,8 @@ p {
     margin-top: 0.5rem;
 }
 .logo{
-	filter: invert(1) saturate(0);
-	height: 35px;
+	height: 24px;
+	transform: translateY(-2px);
 	/* transform: translateY(-5px); */
 	/* margin-top: 2rem; */
 }
