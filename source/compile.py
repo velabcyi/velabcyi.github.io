@@ -31,30 +31,52 @@ def load_content(file_path):
 
 def create_redirect_html(lang, path):
     """
-    Creates an HTML file for redirection based on the language.
+    Creates an HTML file for redirection based on the language (en or el).
     """
-    return f'''<!DOCTYPE html>
-<html lang="{lang}">
-<head>
+    if lang not in ['en', 'el']:
+        raise ValueError("Language must be 'en' or 'el'")
+
+    common_head = f'''
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Virtual Environments Lab</title>
-    <meta name="description" content="At the Virtual Environments Lab, we support European efforts in architectural heritage preservation and urban transformation through advanced digital solutions. Our mission includes developing tools to combat heritage decay, enhancing urban resilience, and promoting education in historic digital transitions. We focus on immersive visualization, interactive narratives, and creating digital twins to integrate tangible and intangible heritage.">
-    <meta property="og:title" content="Virtual Environments Lab – Preserving European Architectural Heritage">
-    <meta property="og:description" content="Supporting European urban heritage through advanced digital tools aimed at safeguarding, understanding, and transforming historic sites. Discover our innovative approaches to architectural preservation and education.">
-    <meta property="og:image" content="/images/image5.jpg">
+    <meta property="og:image" content="images/velab-logo-white-tightcrop.png">
     <meta property="og:url" content="https://velab.cloud">
     <meta property="og:type" content="website">
+    '''
+
+    content = {
+        'en': {
+            'title': "Virtual Environments Lab",
+            'description': "At the Virtual Environments Lab, we support European efforts in architectural heritage preservation and urban transformation through advanced digital methods. Our mission includes developing tools to combat heritage decay, enhancing urban resilience, and promoting education in historic digital transitions. We focus on immersive visualization, interactive narratives, and creating digital twins to integrate tangible and intangible heritage.",
+            'og_title': "Virtual Environments Lab – Preserving European Architectural Heritage",
+            'og_description': "Supporting European urban heritage through advanced digital tools aimed at safeguarding, understanding, and transforming historic sites. Discover our innovative approaches to architectural preservation and education."
+        },
+        'el': {
+            'title': "VELAB: Φόρμα κατάθεσης και μεταφόρτωσης πληροφοριών",
+            'description': "Στο Virtual Environments Lab, υποστηρίζουμε τις ευρωπαϊκές προσπάθειες για τη διατήρηση της αρχιτεκτονικής κληρονομιάς και τον αστικό μετασχηματισμό μέσω προηγμένων ψηφιακών λύσεων. Η αποστολή μας περιλαμβάνει την ανάπτυξη εργαλείων για την κατανόηση της επίδρασης της αχρησίας και του κλίματος στην αρχιτεκτονική κληρονομιά, την ενίσχυση της αστικής ανθεκτικότητας και την προώθηση της εκπαίδευσης για την ψηφιακή μετάβαση. Εστιάζουμε στην εμβυθιστική οπτικοποίηση, στις διαδραστικές αφηγήσεις και στη δημιουργία ψηφιακών διδύμων για την ανοιχτή πρόσβαση στην ενσωμάτωση της υλικής και άυλης κληρονομιάς.",
+            'og_title': "Virtual Environments Lab – Διατήρηση της Ευρωπαϊκής Αρχιτεκτονικής Κληρονομιάς",
+            'og_description': "ποστήριξη της ευρωπαϊκής αστικής κληρονομιάς μέσω προηγμένων ψηφιακών εργαλείων που στοχεύουν στη διαφύλαξη, κατανόηση και επανάχρηση ιστορικών τόπων και χώρων. Ανακαλύψτε τις καινοτόμες προσεγγίσεις μας για την αρχιτεκτονική διατήρηση και ψηφιακή εκπαίδευση."
+        }
+    }
+
+    return f'''<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+    {common_head}
+    <title>{content[lang]['title']}</title>
+    <meta name="description" content="{content[lang]['description']}">
+    <meta property="og:title" content="{content[lang]['og_title']}">
+    <meta property="og:description" content="{content[lang]['og_description']}">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {{
-            const userLang = navigator.language || navigator.userLanguage;
-            const langCode = userLang.startsWith('el') ? 'el' : 'en';
-            window.location.replace('{path}/' + langCode + '/');
-        }});
+    document.addEventListener('DOMContentLoaded', function () {{
+        const userLang = navigator.language || navigator.userLanguage;
+        const langCode = userLang.startsWith('el') ? 'el' : 'en';
+        window.location.replace('{path}/' + langCode + '/');
+    }});
     </script>
     <noscript>
-        <meta http-equiv="refresh" content="0; url={path}/{lang}/">
+    <meta http-equiv="refresh" content="0; url={path}/{lang}/">
     </noscript>
 </head>
 <body style="background-color: black">
