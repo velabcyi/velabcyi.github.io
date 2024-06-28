@@ -48,15 +48,15 @@ def create_redirect_html(lang, path):
     content = {
         'en': {
             'title': "Virtual Environments Lab",
-            'description': "At the Virtual Environments Lab, we support European efforts in architectural heritage preservation and urban transformation through advanced digital methods. Our mission includes developing tools to combat heritage decay, enhancing urban resilience, and promoting education in historic digital transitions. We focus on immersive visualization, interactive narratives, and creating digital twins to integrate tangible and intangible heritage.",
+            'description': "At the Virtual Environments Lab, we support European efforts in architectural heritage preservation and urban transformation through advanced digital solutions. Our mission includes developing tools to combat heritage decay, enhancing urban resilience, and promoting education in historic digital transitions. We focus on immersive visualization, interactive narratives, and creating digital twins to integrate tangible and intangible heritage.",
             'og_title': "Virtual Environments Lab – Preserving European Architectural Heritage",
             'og_description': "Supporting European urban heritage through advanced digital tools aimed at safeguarding, understanding, and transforming historic sites. Discover our innovative approaches to architectural preservation and education."
         },
         'el': {
             'title': "VELAB: Φόρμα κατάθεσης και μεταφόρτωσης πληροφοριών",
-            'description': "Στο Virtual Environments Lab, υποστηρίζουμε τις ευρωπαϊκές προσπάθειες για τη διατήρηση της αρχιτεκτονικής κληρονομιάς και τον αστικό μετασχηματισμό μέσω προηγμένων ψηφιακών λύσεων. Η αποστολή μας περιλαμβάνει την ανάπτυξη εργαλείων για την κατανόηση της επίδρασης της αχρησίας και του κλίματος στην αρχιτεκτονική κληρονομιά, την ενίσχυση της αστικής ανθεκτικότητας και την προώθηση της εκπαίδευσης για την ψηφιακή μετάβαση. Εστιάζουμε στην εμβυθιστική οπτικοποίηση, στις διαδραστικές αφηγήσεις και στη δημιουργία ψηφιακών διδύμων για την ανοιχτή πρόσβαση στην ενσωμάτωση της υλικής και άυλης κληρονομιάς.",
+            'description': "Στο Virtual Environments Lab, υποστηρίζουμε τις ευρωπαϊκές προσπάθειες για τη διατήρηση της αρχιτεκτονικής κληρονομιάς και τον αστικό μετασχηματισμό μέσω προηγμένων ψηφιακών λύσεων. Η αποστολή μας περιλαμβάνει την ανάπτυξη εργαλείων για την κατανόηση της επίδρασης της μη χρήσης, των ανθρωπογενών και περιβαλλοντικών παραγόντων καθώς και της αλλαγής του κλίματος στην αρχιτεκτονική μας κληρονομιά, την ενίσχυση της αστικής ανθεκτικότητας και την προώθηση της εκπαίδευσης για την ψηφιακή μετάβαση. Εστιάζουμε στην εμβυθιστική οπτικοποίηση, στις διαδραστικές αφηγήσεις και στη δημιουργία ψηφιακών διδύμων για την ανοικτή πρόσβαση στην ενσωμάτωση της υλικής και άυλης κληρονομιάς.",
             'og_title': "Virtual Environments Lab – Διατήρηση της Ευρωπαϊκής Αρχιτεκτονικής Κληρονομιάς",
-            'og_description': "ποστήριξη της ευρωπαϊκής αστικής κληρονομιάς μέσω προηγμένων ψηφιακών εργαλείων που στοχεύουν στη διαφύλαξη, κατανόηση και επανάχρηση ιστορικών τόπων και χώρων. Ανακαλύψτε τις καινοτόμες προσεγγίσεις μας για την αρχιτεκτονική διατήρηση και ψηφιακή εκπαίδευση."
+            'og_description': "Υποστήριξη της Ευρωπαϊκής αρχιτεκτονικής κληρονομιάς αστικών τοπίων μέσω προηγμένων ψηφιακών εργαλείων που στοχεύουν στη διαφύλαξη, κατανόηση και επανάχρηση ιστορικών περιβαλλόντων. Ανακαλύψτε τις καινοτόμες προσεγγίσεις μας για την αρχιτεκτονική διατήρηση και ψηφιακή εκπαίδευση."
         }
     }
 

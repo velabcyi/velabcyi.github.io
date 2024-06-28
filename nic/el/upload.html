@@ -13,52 +13,42 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <header><h1 class="return"><a href="/nic/en/">VELAB: Nicosia International Airport</a></h1></header>
+    <header><h1 class="return"><a href="/nic/el/">VELAB: Διεθνές Αεροδρόμιο Λευκωσίας VE</a></h1></header>
     <div id="loadingOverlay" class="hidden loadingOverlay"> 
         <div class="loading-spinner"></div>
     </div>
     <main>
-        <span>CONTRIBUTION FORM</span>
-        <article class="form-upload">
-            <div id="form-background"></div>
-            <form id="mediaForm" enctype="multipart/form-data">
-                <!-- Subject -->
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required placeholder="Titles help us organize posts.">
-                </div>
-                <!-- Email (Required) -->
-                <div class="form-group">
-                    <label for="email">Email*</label>
-                    <input type="email" id="email" name="email" required placeholder="Emails are a point of contact.">
-                </div>
-                <script>
-                    //if we have a stored email, fill it.
-                    window.addEventListener('DOMContentLoaded', function() {
-                    const emailInput = document.getElementById('email');
-                    const lastSubmittedEmail = localStorage.getItem('lastSubmittedEmail');
+        <span>ΦΟΡΜΑ ΚΑΤΑΘΕΣΗΣ ΠΛΗΡΟΦΟΡΙΩΝ</span>
+       <article class="form-upload">
+           <div id="form-background"></div>
+           <form id="mediaForm" enctype="multipart/form-data">
+               <!-- Subject -->
+               <div class="form-group">
+                   <label for="subject">Θέμα*</label>
+                   <input type="text" id="subject" name="subject" required placeholder="Η περιγραφή του θέματος μας βοηθάει να οργανώσουμε τις πληροφορίες.">
+               </div>
+               <!-- Email (Required) -->
+               <div class="form-group">
+                   <label for="email">Email*</label>
+                   <input type="email" id="email" name="email" required placeholder="Η ηλεκτρονική σας διεύθυνση θα μας βοηθήσει να επικοινωνήσουμε μαζί σας.">
+               </div>
 
-                    if (lastSubmittedEmail) {
-                        emailInput.value = lastSubmittedEmail;
-                    }
-                    });
-                </script>
+               <!-- Text -->
+               <div class="form-group">
+                   <label for="text">Περιγραφή</label><br>
+                   <textarea id="text" name="text" placeholder="Μοιραστείτε τις αναμνήσεις, τις ιστορίες ή τα σχόλιά σας εδώ. Εάν είναι μεγάλο, μεταφορτώστε το σχετικό έγγραφο." rows="5"></textarea>
+               </div>
 
-                <!-- Text -->
-                <div class="form-group">
-                    <label for="text">Description</label><br>
-                    <textarea id="text" name="text" placeholder="Share your memories, stories, or comments here. If long, please upload a document." rows="5"></textarea>
-                </div>
 
                 <!-- Rights dropdown -->
                 <div class="form-group">
-                    <label for="rights">Permission and Credit*</label>
-                    <select id="rights" name="rights" onchange="handleRightsChange()" required>
-                        <option value="" disabled selected>How should we treat your data?</option>
-                        <option value="full_credit">Free Use, with Full Credit</option>
-                        <option value="anonymous">Free Use, but Anonymous</option>
-                        <option value="conditional_credit">Conditional Use or Credits</option>
-                    </select>
+                    <label for="rights">Άδεια και ιδιοκτησία*</label>
+                   <select id="rights" name="rights" onchange="handleRightsChange()" required>
+                       <option value="" disabled selected>Πώς πρέπει να χειριζόμαστε τα δεδομένα σας;</option>
+                       <option value="full_credit">Δωρεάν χρήση, με πλήρη αναφορά ιδιοκτησίας</option>
+                       <option value="anonymous">Δωρεάν χρήση, αλλά ανώνυμη</option>
+                       <option value="conditional_credit">Χρήση υπό όρους ή πίστωση ιδιοκτησίας</option>
+                   </select>
                     
                     <!-- Conditional input field -->
                     <div id="conditionalInputs" style="display: none;">
@@ -102,20 +92,20 @@
                         
                         // Show inputs and update text based on selected rights
                         switch (rights) {
-                            case 'full_credit':
-                                inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'What name do we attach to the contribution?';
-                                explanation.innerHTML = 'The credit you give which will persist in the archive and when redistributed. This follows the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
-                                break;
-                            case 'conditional_credit':
-                                inputs.style.display = 'block';
-                                contributorInfo.placeholder = 'What are your preferences for credit and use?';
-                                explanation.innerHTML = 'Let us know how we may refer to you or the contribution, and how the data may be used or distributed.';
-                                break;
-                            case 'anonymous':
-                                explanation.innerHTML = 'Use/distribute the contribution freely. Attribution is inferred but indirect. "A Cypriot contributed...X" This follows the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</a>.';
-                                break;
-                        }
+                           case 'full_credit':
+                               inputs.style.display = 'block';
+                               contributorInfo.placeholder = 'Τι όνομα θα θέλατε να αναφέρουμε στη συνεισφορά σας;';
+                               explanation.innerHTML = 'Η πίστωση χρήσης που δίνετε η οποία θα παραμείνει στο αρχείο και όταν αναδιανεμηθεί. Αυτή ακολουθεί το πρότυπο <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.';
+                               break;
+                           case 'conditional_credit':
+                               inputs.style.display = 'block';
+                               contributorInfo.placeholder = 'Ποιες είναι οι προτιμήσεις σας για πίστωση χρήσης;';
+                               explanation.innerHTML = 'Ενημερώστε μας πώς μπορούμε να αναφερθούμε σε εσάς ή στη συνεισφορά και πώς μπορούν να χρησιμοποιηθούν ή να διανεμηθούν τα δεδομένα που μοιράζεστε μαζί μας.';
+                               break;
+                           case 'anonymous':
+                               explanation.innerHTML = 'Χρησιμοποιήστε/διανείμετε τη συνεισφορά ελεύθερα. Η απόδοση συνάγεται αλλά είναι έμμεση. «Ένας πολίτης της Κυπριακής Δημοκρατίας συνέβαλε με την προσφορά των δεδομένων …Χ» Ακολουθεί το πρότυπο <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</a>.';
+                               break;
+                       }
                     }
                     handleRightsChange(); // Call on page load if you want the text to be set even if user hasn't interacted yet
                 </script>
@@ -124,21 +114,21 @@
                 <span>Tools</span>
 
                 <!-- File Uploading -->
-                <div class="form-group" style="margin-top: 1rem;">
-                    <!-- <label for="fileUpload">Attach files 📎</label> -->
-                    <!-- <input type="file" id="fileUpload" name="fileUpload" multiple> -->
-                    <label for="fileUpload" class="file-upload-button">Add Files 📎</label>
-                    <input type="file" id="fileUpload" name="fileUpload" multiple>
-                </div>
+               <div class="form-group">
+                <!-- <label for="fileUpload">Attach files 📎</label> -->
+                <!-- <input type="file" id="fileUpload" name="fileUpload" multiple> -->
+                <label for="fileUpload" class="file-upload-button">Προσθέστε αρχεία 📎</label>
+                <input type="file" id="fileUpload" name="fileUpload" multiple>
+            </div>
 
-                <!-- Camera (Mobile) -->
-                <div class="form-group" id="cameraCaptureGroup">
-                    <!-- <label for="photo">Take Photo 📷 </label>
-                    <input type="file" id="photo" name="photo" accept="image/*" capture> -->
-                    <label for="photo" class="camera-button">Take Photo 📷</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" capture>
 
-                </div>
+            <!-- Camera (Mobile) -->
+            <div class="form-group" id="cameraCaptureGroup">
+                <!-- <label for="photo">Βγάλε φωτογραφία 📷 </label>
+                <input type="file" id="photo" name="photo" accept="image/*" capture> -->
+                <label for="photo" class="camera-button">Βγάλε φωτογραφία 📷</label>
+                <input type="file" id="photo" name="photo" accept="image/*" capture>
+            </div>
                 
                 <script>
                     window.onload = function() {
@@ -160,10 +150,11 @@
                 
                 <!-- Audio Recording -->
                 <div class="form-group" id="audioControls">
-                    <button id="recordButton" onclick="toggleRecording(true)">Record Audio 🎤</button>
-                    <button id="stopButton" onclick="toggleRecording(false)" disabled style="display:none;">⏹️ Stop</button>
+                    <button id="recordButton" onclick="toggleRecording(true)">Εγγραφή ήχου 🎤</button>
+                    <button id="stopButton" onclick="toggleRecording(false)" disabled style="display:none;">⏹️ Τέλος εγγραφής</button>
                     <span id="timer" style="display:none; color: black;">00:00 / 02:00 🔴</span>
                 </div>
+ 
 
                 
             <script>
@@ -270,11 +261,11 @@ function formatTime(seconds) {
                     type="button" 
                     disabled 
                     onclick="submitForm()"
-                    data-submit-text="Submit" 
-                    data-required-text="Fill out required* fields to submit.">>
-                    Submit
+                    data-submit-text="Υποβολή" 
+                    data-required-text="Συμπληρώστε τα υποχρεωτικά* πεδία για υποβολή.">>
+                    Υποβολή
                 </button>
-                <div id="loadingIndicator"></div>
+                <div id="loadingIndicator"></div> 
             </form>
         </article>
     </main>
@@ -284,6 +275,15 @@ function formatTime(seconds) {
     <script src="js/audio_app.js"></script>
     <script src="js/form.js"></script>
     <script src="js/upload_script.js"></script>
-    <footer></footer>
+    <footer><nav id="footNav">
+    <div id="leftNav">
+        <a href="/contact/el/">Επικοινωνία</a>
+        <a href="/privacy/el/">Πολιτική</a>
+    </div>
+    <div id="rightNav">
+        <img class="logo" src="/images/velab-logo-white-tightcrop.png" alt="Το Κυπριακό Ινστιτούτο">
+        <!-- <div style="font-size: 6pt;">© 2024 CYI.</div> -->
+    </div>
+</nav></footer>
 </body>
 </html>

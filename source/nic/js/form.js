@@ -47,12 +47,13 @@ function validateForm() {
     }
     updateLabelText('rights', isRightsValid);
   
+    // Then in your JavaScript:
     if (isSubjectValid && isEmailInputValid && isRightsValid) {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit";
+      submitBtn.textContent = submitBtn.dataset.submitText;
     } else {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Fill out required* fields to submit.";
+      submitBtn.textContent = submitBtn.dataset.requiredText;
     }
   }
   
