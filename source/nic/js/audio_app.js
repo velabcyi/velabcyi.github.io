@@ -14,9 +14,20 @@ const recordButton = document.getElementById('recordButton');
 const stopButton = document.getElementById('stopButton');
 const timer = document.getElementById('timer');
 
-// Add event listeners
-recordButton.addEventListener("click", () => toggleRecording(true));
-stopButton.addEventListener("click", () => toggleRecording(false));
+document.addEventListener('DOMContentLoaded', function() {
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+  
+    recordButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      toggleRecording(true);
+    });
+  
+    stopButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      toggleRecording(false);
+    });
+  });
 
 function toggleRecording(start) {
     if (start && !isRecording) {
