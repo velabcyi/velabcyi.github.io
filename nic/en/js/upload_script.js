@@ -59,6 +59,7 @@ function appendFileToList(file) {
             URL.revokeObjectURL(this.src);
         };
         li.appendChild(img);
+        li.appendChild(textNode);
     } else if (file.type.startsWith('audio/')) {
         const audio = document.createElement('audio');
         audio.controls = true;
@@ -69,7 +70,6 @@ function appendFileToList(file) {
         li.appendChild(audio);
     }
 
-    li.appendChild(textNode);
     li.appendChild(removeBtn);
     document.getElementById('filesList').appendChild(li);
 }
