@@ -670,7 +670,7 @@ button:hover {
     margin-bottom: 0.3rem;
     font-size: 100%;
     position: relative;
-    padding-left: 1.2em;
+    padding-left: 0;
 }
 main>img{
 	width: 100%;
