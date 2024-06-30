@@ -1,171 +1,180 @@
-//webkitURL is deprecated but nevertheless
+// Existing variables and setup
 URL = window.URL || window.webkitURL;
+var gumStream, recorder, input, AudioContext, audioContext;
+AudioContext = window.AudioContext || window.webkitAudioContext;
 
-var gumStream; 						//stream from getUserMedia()
-var recorder; 						//WebAudioRecorder object
-var input; 							//MediaStreamAudioSourceNode  we'll be recording
-var encodingType; 					//holds selected encoding for resulting audio (file)
-var encodeAfterRecord = true;       // when to encode
+// New variables for UI control
+let isRecording = false;
+let recordingStartTime;
+let recordInterval;
+const maxRecordingTime = 120; // Maximum duration in seconds (2 minutes)
 
-// shim for AudioContext when it's not avb. 
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioContext; //new audio context to help us record
+// Get UI elements
+const recordButton = document.getElementById('recordButton');
+const stopButton = document.getElementById('stopButton');
+const timer = document.getElementById('timer');
 
-var encodingTypeSelect = document.getElementById("encodingTypeSelect");
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
+// Add event listeners
+recordButton.addEventListener("click", () => toggleRecording(true));
+stopButton.addEventListener("click", () => toggleRecording(false));
 
-//add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-
-
-function startRecording() {
-	console.log("startRecording() called");
-	// Ensure all variables are scoped to the entire function, if needed elsewhere
-	var constraints = { audio: true, video: false }
-
-	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-		console.log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
-
-		gumStream = stream; // Assign stream to gumStream
-		audioContext = new AudioContext(); // Create a new audio context
-
-		// Display the recording format
-		console.log("Format: 2 channel WAV @ " + audioContext.sampleRate/1000 + "kHz");
-		input = audioContext.createMediaStreamSource(stream); // Create an audio source node from the stream
-
-		// Initialize the WebAudioRecorder
-		recorder = new WebAudioRecorder(input, {
-			workerDir: "js/", // Directory where the worker js files are located
-			encoding: "wav", // Set encoding to WAV
-			numChannels: 2, // Stereo audio recording
-			onEncoderLoading: function(recorder, encoding) {
-				console.log("Loading " + encoding + " encoder...");
-			},
-			onEncoderLoaded: function(recorder, encoding) {
-				console.log(encoding + " encoder loaded");
-			}
-		});
-
-		recorder.onComplete = function(recorder, blob) { 
-			console.log("Encoding complete");
-			createDownloadLink(blob, "wav"); // Always use WAV as the encoding type
-		};
-
-		// Recorder options
-		recorder.setOptions({
-			timeLimit: 120, // Maximum recording time
-			encodeAfterRecord: true, // Encoding the recorded audio immediately after recording
-		});
-
-		// Start recording
-		recorder.startRecording();
-		console.log("Recording started");
-
-	}).catch(function(err) {
-	  	// Enable the record button if getUserMedia() fails
-    	document.getElementById('recordButton').disabled = false;
-    	document.getElementById('stopButton').disabled = true;
-    	console.error("getUserMedia error:", err);
-	});
-
-	// Disable the record and enable the stop button
-	document.getElementById('recordButton').disabled = true;
-	document.getElementById('stopButton').disabled = false;
+function toggleRecording(start) {
+    if (start && !isRecording) {
+        startRecording();
+    } else if (isRecording) {
+        stopRecording();
+    }
 }
 
+function startRecording() {
+    console.log("startRecording() called");
+    var constraints = { audio: true, video: false };
+
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        console.log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
+
+        isRecording = true;
+        recordButton.style.display = 'none';
+        stopButton.style.display = 'inline';
+        stopButton.disabled = false;
+        recordingStartTime = Date.now();
+        timer.style.display = 'inline';
+        recordInterval = setInterval(updateTimer, 1000);
+
+        gumStream = stream;
+        audioContext = new AudioContext();
+
+        input = audioContext.createMediaStreamSource(stream);
+
+        recorder = new WebAudioRecorder(input, {
+            workerDir: "js/",
+            encoding: "wav",
+            numChannels: 2,
+            onEncoderLoading: function(recorder, encoding) {
+                console.log("Loading " + encoding + " encoder...");
+            },
+            onEncoderLoaded: function(recorder, encoding) {
+                console.log(encoding + " encoder loaded");
+            }
+        });
+
+        recorder.onComplete = function(recorder, blob) { 
+            console.log("Encoding complete");
+            createDownloadLink(blob, "wav");
+        };
+
+        recorder.setOptions({
+            timeLimit: 120,
+            encodeAfterRecord: true,
+        });
+
+        recorder.startRecording();
+        console.log("Recording started");
+
+    }).catch(function(err) {
+        console.error("getUserMedia error:", err);
+        handlePermissionDenial(err);
+    });
+}
+function handlePermissionDenial(err) {
+    const lang = document.documentElement.lang;
+    let messages = {
+        en: {
+            denied: "Microphone access was denied. ",
+            dismissed: "Please try again and click 'Allow' in the permission dialog.",
+            settings: "You may need to enable microphone access in your browser settings.",
+            notFound: "No microphone was found. Please ensure your microphone is properly connected.",
+            unexpected: "An unexpected error occurred. Please check your browser settings or try a different browser."
+        },
+        el: {
+            denied: "Η πρόσβαση στο μικρόφωνο απορρίφθηκε. ",
+            dismissed: "Παρακαλώ δοκιμάστε ξανά και κάντε κλικ στο 'Επιτρέπεται' στο παράθυρο διαλόγου άδειας.",
+            settings: "Ίσως χρειαστεί να ενεργοποιήσετε την πρόσβαση στο μικρόφωνο στις ρυθμίσεις του προγράμματος περιήγησής σας.",
+            notFound: "Δεν βρέθηκε μικρόφωνο. Βεβαιωθείτε ότι το μικρόφωνό σας είναι σωστά συνδεδεμένο.",
+            unexpected: "Παρουσιάστηκε ένα απροσδόκητο σφάλμα. Παρακαλώ ελέγξτε τις ρυθμίσεις του προγράμματος περιήγησής σας ή δοκιμάστε ένα διαφορετικό πρόγραμμα περιήγησης."
+        }
+    };
+
+    // Default to English if the language is not Greek
+    const m = messages[lang === 'el' ? 'el' : 'en'];
+
+    let message = m.denied;
+
+    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        if (err.message.includes('Permission dismissed')) {
+            message += m.dismissed;
+        } else {
+            message += m.settings;
+        }
+    } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        message = m.notFound;
+    } else {
+        message += m.unexpected;
+    }
+
+    alert(message);
+
+    resetUI();
+}
+function getBrowserSpecificSettingsLink() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf("firefox") > -1) {
+        return "about:preferences#privacy";
+    } else if (userAgent.indexOf("chrome") > -1) {
+        return "chrome://settings/content/microphone";
+    } else if (userAgent.indexOf("safari") > -1) {
+        return "https://support.apple.com/guide/safari/websites-ibrwe2159f50/mac";
+    }
+    return null;
+}
 
 function stopRecording() {
-	console.log("stopRecording() called");
-	
-	//stop microphone access
-	gumStream.getAudioTracks()[0].stop();
+    console.log("stopRecording() called");
+    
+    if (gumStream) {
+        gumStream.getAudioTracks()[0].stop();
+    }
 
-	//disable the stop button
-	stopButton.disabled = true;
-	recordButton.disabled = false;
-	
-	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
-	recorder.finishRecording();
+    if (recorder && recorder.finishRecording) {
+        recorder.finishRecording();
+    }
 
-	console.log('Recording stopped');
+    resetUI();
+    clearInterval(recordInterval);
+    console.log('Recording stopped');
+}
+
+function resetUI() {
+    isRecording = false;
+    stopButton.style.display = 'none';
+    recordButton.style.display = 'inline';
+    recordButton.disabled = false;
+    timer.style.display = 'none';
+    timer.textContent = "00:00 / 02:00 🔴";
+}
+
+function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - recordingStartTime) / 1000);
+    if (elapsedTime >= maxRecordingTime) {
+        toggleRecording(false); // Stop recording if max time is reached
+    } else {
+        timer.textContent = formatTime(elapsedTime) + ' / 02:00 🔴';
+    }
+}
+
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    minutes = minutes.toString().padStart(2, '0');
+    seconds = seconds.toString().padStart(2, '0');
+    return minutes + ':' + seconds;
 }
 
 function createDownloadLink(blob, encoding) {
     const url = URL.createObjectURL(blob);
-    const au = document.createElement('audio');
-    const li = document.createElement('li');
-    const removeBtn = document.createElement('button');  // Button to remove the file
-    const fileName = new Date().toISOString() + '.' + encoding;  // Generate a filename based on the current timestamp and encoding
-
-    // Add controls to the <audio> element
-    au.controls = true;
-    au.src = url;
-
-    // Create the File object from the blob
+    const fileName = new Date().toISOString() + '.' + encoding;
     const file = new File([blob], fileName, {type: `audio/${encoding}`});
-
-    // Store the file reference in the li element for later upload
-    li.file = file;
-
-    // Create and configure the remove button
-    removeBtn.textContent = 'X';
-    removeBtn.onclick = function() {
-        URL.revokeObjectURL(au.src);  // Clean up the object URL
-        li.parentNode.removeChild(li);  // Remove the li element from the list
-    };
-
-	appendFileToList(file);
-	const previewArea = document.getElementById('preview-attachments');
+    appendFileToList(file);
+    const previewArea = document.getElementById('preview-attachments');
     previewArea.style.display = "block";
-
-    // // Append audio and remove button to the list item
-    // li.appendChild(au);
-    // li.appendChild(removeBtn);
-
-    // // Add the list item to the unified file list
-    // document.getElementById('filesList').appendChild(li);
-	// const previewArea = document.getElementById('preview-attachments');
-    // previewArea.style.display = files.length>0?"block":"none"; // Set to default or 'block' to show
-
 }
-
-
-// function createDownloadLink(blob, encoding) {
-//     var url = URL.createObjectURL(blob);
-//     var au = document.createElement('audio');
-//     var li = document.createElement('li');
-//     // var link = document.createElement('a');
-//     var removeBtn = document.createElement('button');  // Button to remove the file
-
-//     // Add controls to the <audio> element
-//     au.controls = true;
-//     au.src = url;
-
-//     // // Link the <a> element to the blob
-//     // link.href = url;
-//     // link.download = new Date().toISOString() + '.' + encoding;
-//     // link.innerHTML = 'Download ' + link.download;
-
-//     // Add the new audio and <a> elements to the li element
-//     li.appendChild(au);
-//     // li.appendChild(link);
-
-//     // Create and configure the remove button
-//     removeBtn.textContent = 'X';
-//     removeBtn.onclick = function() {
-//         li.parentNode.removeChild(li);  // Remove the li element from the list
-//     };
-
-//     // Append the remove button to the list item
-//     li.appendChild(removeBtn);
-
-//     // Add the li element to the unified list
-//     document.getElementById('filesList').appendChild(li);
-// }
-
-//helper function
-// function __log(e, data) {
-// 	log.innerHTML += "\n" + e + " " + (data || '');
-// }

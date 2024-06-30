@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <header><h1 class="return"><a href="/nic/el/">VELAB: Διεθνές Αεροδρόμιο Λευκωσίας VE</a></h1></header>
+    <header><h1 class="return"><a href="/nic/el/">VELAB: ΔΙΕΘΝΕΣ ΑΕΡΟΔΡΟΜΙΟ ΛΕΥΚΩΣΙΑΣ - ΕΝΑ ΕΙΚΟΝΙΚΟ ΠΕΡΙΒΑΛΛΟΝ</a></h1></header>
     <div id="loadingOverlay" class="hidden loadingOverlay"> 
         <div class="loading-spinner"></div>
     </div>
@@ -36,7 +36,7 @@
                <!-- Text -->
                <div class="form-group">
                    <label for="text">Περιγραφή</label><br>
-                   <textarea id="text" name="text" placeholder="Μοιραστείτε τις αναμνήσεις, τις ιστορίες ή τα σχόλιά σας εδώ. Εάν είναι μεγάλο, μεταφορτώστε το σχετικό έγγραφο." rows="5"></textarea>
+                   <textarea id="text" name="text" placeholder="Μοιραστείτε τις αναμνήσεις, ιστορίες ή τα σχόλιά σας εδώ. Εάν δεν χωράει το κείμενο, παρακαλούμε ανεβάστε τα ως αρχείο πατώντας το κουμπί παρακάτω." rows="5"></textarea>
                </div>
 
 
@@ -111,7 +111,7 @@
                 </script>
                                     
                 <hr style="margin-top: 1rem; margin-bottom: 1rem;">
-                <span>Tools</span>
+                <span>Εργαλεία</span>
 
                 <!-- File Uploading -->
                <div class="form-group">
@@ -157,98 +157,7 @@
  
 
                 
-            <script>
-                let isRecording = false;
-let recordingStartTime;
-let recordInterval;
-const maxRecordingTime = 120; // Maximum duration in seconds (2 minutes)
 
-function toggleRecording(start) {
-    const recordButton = document.getElementById('recordButton');
-    const stopButton = document.getElementById('stopButton');
-    const timer = document.getElementById('timer');
-
-    if (start && !isRecording) {
-        // Start recording
-        isRecording = true;
-        recordButton.style.display = 'none';
-        stopButton.style.display = 'inline';
-        stopButton.disabled = false;
-        recordingStartTime = Date.now();
-        timer.style.display = 'inline';
-        recordInterval = setInterval(updateTimer, 1000);
-    } else {
-        // Stop recording
-        isRecording = false;
-        stopButton.style.display = 'none';
-        recordButton.style.display = 'inline';
-        recordButton.disabled = false;
-        clearInterval(recordInterval);
-        timer.style.display = 'none';
-        timer.textContent = "00:00 / 02:00 🔴"; // Reset timer display
-    }
-}
-
-function updateTimer() {
-    const elapsedTime = Math.floor((Date.now() - recordingStartTime) / 1000);
-    if (elapsedTime >= maxRecordingTime) {
-        toggleRecording(false); // Stop recording if max time is reached
-    } else {
-        timer.textContent = formatTime(elapsedTime) + ' / 02:00 🔴';
-    }
-}
-
-function formatTime(seconds) {
-    let minutes = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    minutes = minutes.toString().padStart(2, '0');
-    seconds = seconds.toString().padStart(2, '0');
-    return minutes + ':' + seconds;
-}
-
-            // let isRecording = false;
-            // let recordingStartTime;
-            // let recordInterval;
-
-            // function toggleRecording(start) {
-            //     const recordButton = document.getElementById('recordButton');
-            //     const stopButton = document.getElementById('stopButton');
-            //     const timer = document.getElementById('timer');
-
-            //     if (start && !isRecording) {
-            //         // Start recording
-            //         isRecording = true;
-            //         recordButton.style.display = 'none';
-            //         stopButton.style.display = 'inline';
-            //         stopButton.disabled = false;
-            //         recordingStartTime = Date.now();
-            //         timer.style.display = 'inline';
-            //         recordInterval = setInterval(updateTimer, 1000);
-            //     } else {
-            //         // Stop recording
-            //         isRecording = false;
-            //         stopButton.style.display = 'none';
-            //         recordButton.style.display = 'inline';
-            //         recordButton.disabled = false;
-            //         clearInterval(recordInterval);
-            //         timer.style.display = 'none';
-            //     }
-            // }
-
-            // function updateTimer() {
-            //     const now = Date.now();
-            //     const diff = now - recordingStartTime;
-            //     const seconds = Math.floor(diff / 1000) % 60;
-            //     const minutes = Math.floor(diff / 60000);
-            //     const formattedTime = `${padTime(minutes)}:${padTime(seconds)}`;
-            //     document.getElementById('timer').textContent = formattedTime;
-            // }
-
-            // function padTime(num) {
-            //     return num.toString().padStart(2, '0');
-            // }
-
-            </script>
             <hr style="margin-top: 1rem;">
                 <!-- Displaying Uploaded/Recorded Files -->
                 <div id="preview-attachments" style="margin-top:1.5rem">
