@@ -648,6 +648,27 @@ button:hover {
 	width: 100%;
     object-fit: cover;          /* Ensures the image covers the container */
 }
+#video-box {
+    max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+#video-box > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Update main>img to main>video if needed */
+main > video {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
 /* Credits Page Styles */
 .credits {
     margin-top: 2rem;
