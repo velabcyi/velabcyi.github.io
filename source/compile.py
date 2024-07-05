@@ -22,10 +22,10 @@ def clear_directory(directory):
 
 def load_content(file_path):
     """
-    Loads content from a file if it exists.
+    Loads content from a file if it exists, using UTF-8 encoding.
     """
     if os.path.exists(file_path):
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     return ''
 
@@ -105,6 +105,7 @@ def inject_content(html_content, header, footer):
     return html_content
 
 
+# Make sure to also update the file writing operations to use UTF-8
 def process_files(source, target, lang):
     """
     Copies and renames files as necessary to the correct language-specific directories.
@@ -122,9 +123,9 @@ def process_files(source, target, lang):
         else:
             target_filename = item.replace(f'-{lang}.html', '.html')
             if item.endswith(f'{lang}.html'):  # Language specific HTML file
-                with open(source_path, 'r') as file:
+                with open(source_path, 'r', encoding='utf-8') as file:
                     content = inject_content(file.read(), header, footer)
-                with open(os.path.join(target, target_filename), 'w') as output_file:
+                with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
             elif not item.startswith('index-') and not item.endswith('.html'):
                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
@@ -150,10 +151,10 @@ if __name__ == "__main__":
             process_files(source_subdir, target_subdir, lang)
 
     # Create redirection index.html for the main site and each subdirectory
-    with open(os.path.join(output_dir, 'index.html'), 'w') as f:
+    with open(os.path.join(output_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(create_redirect_html('en', '/home'))
 
     for subdir in pages:
         target_subdir = os.path.join(output_dir, subdir)
-        with open(os.path.join(target_subdir, 'index.html'), 'w') as f:
+        with open(os.path.join(target_subdir, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(create_redirect_html('en', f'/{subdir}'))
