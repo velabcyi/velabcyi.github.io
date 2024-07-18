@@ -201,5 +201,21 @@
         <!-- <div style="font-size: 6pt;">© 2024 CYI. All rights reserved</div> -->
     </div>
 </nav></footer>
-</body>
+
+    <script>
+      fetch('https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/nic/upload.html'))
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('You are viewer number ' + data.count);
+        })
+        .catch(error => {
+          console.error('Error fetching view count:', error);
+        });
+    </script>
+    </body>
 </html>

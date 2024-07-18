@@ -85,14 +85,32 @@ def create_redirect_html(lang, path):
 
 import re
 
-def inject_content(html_content, header, footer):
+# def inject_content(html_content, header, footer):
+#     """
+#     Injects header and footer into the HTML content if the respective <header> or <footer>
+#     tags are empty.
+#     """
+#     # Regular expressions to find empty <header> and <footer> tags
+#     header_pattern = re.compile(r'<header>\s*</header>', re.IGNORECASE)
+#     footer_pattern = re.compile(r'<footer>\s*</footer>', re.IGNORECASE)
+
+#     # Check if the <header> tag is empty and inject header content if it is
+#     if header_pattern.search(html_content):
+#         html_content = header_pattern.sub(f'<header>{header}</header>', html_content)
+
+#     # Check if the <footer> tag is empty and inject footer content if it is
+#     if footer_pattern.search(html_content):
+#         html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
+
+#     return html_content
+def inject_content(html_content, header, footer, page_path):
     """
-    Injects header and footer into the HTML content if the respective <header> or <footer>
-    tags are empty.
+    Injects header, footer, and counter script into the HTML content.
     """
     # Regular expressions to find empty <header> and <footer> tags
     header_pattern = re.compile(r'<header>\s*</header>', re.IGNORECASE)
     footer_pattern = re.compile(r'<footer>\s*</footer>', re.IGNORECASE)
+    body_close_pattern = re.compile(r'</body>', re.IGNORECASE)
 
     # Check if the <header> tag is empty and inject header content if it is
     if header_pattern.search(html_content):
@@ -102,11 +120,52 @@ def inject_content(html_content, header, footer):
     if footer_pattern.search(html_content):
         html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
 
+    # Inject the counter script before the closing </body> tag
+    counter_script = f'''
+    <script>
+      fetch('https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}'))
+        .then(response => {{
+          if (!response.ok) {{
+            throw new Error('Network response was not ok');
+          }}
+          return response.json();
+        }})
+        .then(data => {{
+          console.log('You are viewer number ' + data.count);
+        }})
+        .catch(error => {{
+          console.error('Error fetching view count:', error);
+        }});
+    </script>
+    '''
+    html_content = body_close_pattern.sub(f'{counter_script}</body>', html_content)
+
     return html_content
-
-
 # Make sure to also update the file writing operations to use UTF-8
-def process_files(source, target, lang):
+# def process_files(source, target, lang):
+#     """
+#     Copies and renames files as necessary to the correct language-specific directories.
+#     """
+#     header = load_content(f'./source/header-{lang}.html')
+#     footer = load_content(f'./source/footer-{lang}.html')
+
+#     for item in os.listdir(source):
+#         source_path = os.path.join(source, item)
+#         if os.path.isdir(source_path):
+#             target_path = os.path.join(target, item)
+#             if not os.path.exists(target_path):
+#                 os.makedirs(target_path)
+#             process_files(source_path, target_path, lang)  # Recurse into subdirectories
+#         else:
+#             target_filename = item.replace(f'-{lang}.html', '.html')
+#             if item.endswith(f'{lang}.html'):  # Language specific HTML file
+#                 with open(source_path, 'r', encoding='utf-8') as file:
+#                     content = inject_content(file.read(), header, footer)
+#                 with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
+#                     output_file.write(content)
+#             elif not item.startswith('index-') and not item.endswith('.html'):
+#                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
+def process_files(source, target, lang, current_path=''):
     """
     Copies and renames files as necessary to the correct language-specific directories.
     """
@@ -116,20 +175,21 @@ def process_files(source, target, lang):
     for item in os.listdir(source):
         source_path = os.path.join(source, item)
         if os.path.isdir(source_path):
+            new_path = os.path.join(current_path, item)
             target_path = os.path.join(target, item)
             if not os.path.exists(target_path):
                 os.makedirs(target_path)
-            process_files(source_path, target_path, lang)  # Recurse into subdirectories
+            process_files(source_path, target_path, lang, new_path)  # Recurse into subdirectories
         else:
             target_filename = item.replace(f'-{lang}.html', '.html')
-            if item.endswith(f'{lang}.html'):  # Language specific HTML file
+            if item.endswith(f'-{lang}.html'):  # Language specific HTML file
+                page_path = os.path.join(current_path, target_filename)
                 with open(source_path, 'r', encoding='utf-8') as file:
-                    content = inject_content(file.read(), header, footer)
+                    content = inject_content(file.read(), header, footer, f'/{lang}'+page_path)
                 with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
             elif not item.startswith('index-') and not item.endswith('.html'):
                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
-
 # Main Execution
 if __name__ == "__main__":
     pages = ['home', 'nic', 'privacy', 'contact','lighthouse']
@@ -144,11 +204,19 @@ if __name__ == "__main__":
                 clear_directory(target_subdir)
 
     # Processing files and directories
+    # for subdir in pages:
+    #     source_subdir = os.path.join(source_dir, subdir)
+    #     for lang in languages:
+    #         target_subdir = os.path.join(output_dir, subdir, lang)
+    #         process_files(source_subdir, target_subdir, lang)
+
+    # Processing files and directories
     for subdir in pages:
         source_subdir = os.path.join(source_dir, subdir)
         for lang in languages:
             target_subdir = os.path.join(output_dir, subdir, lang)
-            process_files(source_subdir, target_subdir, lang)
+            process_files(source_subdir, target_subdir, lang, f'/{subdir}')
+
 
     # Create redirection index.html for the main site and each subdirectory
     with open(os.path.join(output_dir, 'index.html'), 'w', encoding='utf-8') as f:
