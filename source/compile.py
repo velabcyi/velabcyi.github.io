@@ -121,21 +121,51 @@ def inject_content(html_content, header, footer, page_path):
         html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
 
     # Inject the counter script before the closing </body> tag
+    # counter_script = f'''
+    # <script>
+    #   fetch('https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}'))
+    #     .then(response => {{
+    #       if (!response.ok) {{
+    #         throw new Error('Network response was not ok');
+    #       }}
+    #       return response.json();
+    #     }})
+    #     .then(data => {{
+    #       console.log('You are viewer number ' + data.count);
+    #     }})
+    #     .catch(error => {{
+    #       console.error('Error fetching view count:', error);
+    #     }});
+    # </script>
+    # '''
     counter_script = f'''
     <script>
-      fetch('https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}'))
-        .then(response => {{
-          if (!response.ok) {{
-            throw new Error('Network response was not ok');
-          }}
-          return response.json();
-        }})
-        .then(data => {{
-          console.log('You are viewer number ' + data.count);
-        }})
-        .catch(error => {{
-          console.error('Error fetching view count:', error);
+    (function() {{
+        function sendCount(url) {{
+            if (navigator.sendBeacon) {{
+                navigator.sendBeacon(url);
+            }} else {{
+                fetch(url, {{ method: 'POST', keepalive: true }}).catch(error => console.error('Error:', error));
+            }}
+        }}
+
+        function loadCounter() {{
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}');
+            sendCount(url);
+        }}
+
+        if (document.readyState === 'complete') {{
+            loadCounter();
+        }} else {{
+            window.addEventListener('load', loadCounter);
+        }}
+
+        // Optionally, you can also send the count when the user is leaving the page
+        window.addEventListener('unload', function() {{
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}');
+            sendCount(url);
         }});
+    }})();
     </script>
     '''
     html_content = body_close_pattern.sub(f'{counter_script}</body>', html_content)
