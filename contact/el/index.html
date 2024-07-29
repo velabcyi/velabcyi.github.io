@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header><h1 class="return"><a href="/home/el/">Virtual Environments Lab</a></h1></header>
+    <header><h1 class="return"><a href="/home/el/">Virtual Environments Lab</a></h1>
+    <div class="lang-toggle">
+        <a href="/contact/en/" class="lang-button">
+            EN
+        </a>
+    </div>
+    </header>
     <main>
         <article>
             <h2>Επικοινωνία</h2>
@@ -42,7 +48,7 @@
         }
 
         function loadCounter() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/el/contact/index.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/contact/index.html');
             sendCount(url);
         }
 
@@ -54,7 +60,7 @@
 
         // Optionally, you can also send the count when the user is leaving the page
         window.addEventListener('unload', function() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/el/contact/index.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/contact/index.html');
             sendCount(url);
         });
     })();

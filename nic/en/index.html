@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header><h1 class="return"><a href="/home/en">Virtual Environments Lab</a></h1></header>
+    <header><h1 class="return"><a href="/home/en">Virtual Environments Lab</a></h1>
+    <div class="lang-toggle">
+        <a href="/nic/el/" class="lang-button">
+            EL
+        </a>
+    </div>
+    </header>
     <main>
         <!-- <div id="image-box">
             <img src="./assets/screen1.jpg" alt="Nicosia International Airport">
@@ -70,7 +76,7 @@
         }
 
         function loadCounter() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/nic/index.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/nic/index.html');
             sendCount(url);
         }
 
@@ -82,7 +88,7 @@
 
         // Optionally, you can also send the count when the user is leaving the page
         window.addEventListener('unload', function() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/nic/index.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/nic/index.html');
             sendCount(url);
         });
     })();

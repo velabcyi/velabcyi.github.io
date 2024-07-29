@@ -83,61 +83,103 @@ def create_redirect_html(lang, path):
 </body>
 </html>'''
 
-import re
-
-# def inject_content(html_content, header, footer):
-#     """
-#     Injects header and footer into the HTML content if the respective <header> or <footer>
-#     tags are empty.
-#     """
-#     # Regular expressions to find empty <header> and <footer> tags
-#     header_pattern = re.compile(r'<header>\s*</header>', re.IGNORECASE)
-#     footer_pattern = re.compile(r'<footer>\s*</footer>', re.IGNORECASE)
-
-#     # Check if the <header> tag is empty and inject header content if it is
-#     if header_pattern.search(html_content):
-#         html_content = header_pattern.sub(f'<header>{header}</header>', html_content)
-
-#     # Check if the <footer> tag is empty and inject footer content if it is
-#     if footer_pattern.search(html_content):
-#         html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
-
-#     return html_content
-def inject_content(html_content, header, footer, page_path):
+def generate_language_toggle_url(current_url, current_lang):
     """
-    Injects header, footer, and counter script into the HTML content.
+    Generates the URL for the language toggle button.
+    
+    Args:
+    current_url (str): The current page's URL path (e.g., '/home/index.html' or '/about/' or '/nic/upload.html')
+    current_lang (str): The current language ('en' or 'el')
+    
+    Returns:
+    str: The URL for the other language version of the current page
     """
-    # Regular expressions to find empty <header> and <footer> tags
-    header_pattern = re.compile(r'<header>\s*</header>', re.IGNORECASE)
+    other_lang = 'el' if current_lang == 'en' else 'en'
+    
+    # Remove leading slash if present
+    if current_url.startswith('/'):
+        current_url = current_url[1:]
+    
+    # Split the URL into parts
+    parts = current_url.split('/')
+    
+    # Handle the last part (file or directory name)
+    if parts[-1] == 'index.html':
+        # Remove 'index.html' and replace or append the language code
+        parts.pop()
+        if parts and parts[-1] in ['en', 'el']:
+            parts[-1] = other_lang
+        else:
+            parts.append(other_lang)
+    elif '.' in parts[-1]:
+        # It's a file, insert the language code before the filename
+        filename = parts.pop()
+        if parts and parts[-1] in ['en', 'el']:
+            parts[-1] = other_lang
+        else:
+            parts.append(other_lang)
+        parts.append(filename)
+    else:
+        # It's a directory, just append the language code
+        if parts and parts[-1] in ['en', 'el']:
+            parts[-1] = other_lang
+        else:
+            parts.append(other_lang)
+    
+    # Reconstruct the URL
+    new_url = '/' + '/'.join(parts)
+    
+    # Ensure the URL ends with a trailing slash if it's not pointing to a file
+    if '.' not in parts[-1]:
+        new_url += '/'
+    
+    return new_url
+
+def inject_content(html_content, header, footer, page_path, current_lang):
+    """
+    Injects header, footer, language toggle button, and counter script into the HTML content.
+    The language toggle is always injected, while the header content is only injected if the <header> tag is empty.
+    """
+    # Regular expressions to find header, footer, and body close tags
+    header_pattern = re.compile(r'<header>.*?</header>', re.IGNORECASE | re.DOTALL)
     footer_pattern = re.compile(r'<footer>\s*</footer>', re.IGNORECASE)
     body_close_pattern = re.compile(r'</body>', re.IGNORECASE)
 
-    # Check if the <header> tag is empty and inject header content if it is
-    if header_pattern.search(html_content):
-        html_content = header_pattern.sub(f'<header>{header}</header>', html_content)
+    # Generate language toggle URL
+    other_lang = 'el' if current_lang == 'en' else 'en'
+    toggle_url = generate_language_toggle_url(page_path, current_lang)
+
+    # Create language toggle button
+    lang_toggle = f'''
+    <div class="lang-toggle">
+        <a href="{toggle_url}" class="lang-button">
+            {other_lang.upper()}
+        </a>
+    </div>
+    '''
+
+    # Function to replace or append to header
+    def header_replacement(match):
+        existing_header = match.group(0)
+        if existing_header.strip() == '<header></header>':
+            # If header is empty, inject both header content and language toggle
+            return f'<header>{header}{lang_toggle}</header>'
+        else:
+            # If header has content, only inject language toggle
+            return existing_header[:-9] + lang_toggle + '</header>'
+
+    # Replace or append to header
+    html_content = header_pattern.sub(header_replacement, html_content)
+
+    # If no header tag found, add one with the language toggle
+    if '<header>' not in html_content:
+        html_content = f'<header>{lang_toggle}</header>{html_content}'
 
     # Check if the <footer> tag is empty and inject footer content if it is
     if footer_pattern.search(html_content):
         html_content = footer_pattern.sub(f'<footer>{footer}</footer>', html_content)
 
     # Inject the counter script before the closing </body> tag
-    # counter_script = f'''
-    # <script>
-    #   fetch('https://colter.us/ex/count.php?p=' + encodeURIComponent('{page_path}'))
-    #     .then(response => {{
-    #       if (!response.ok) {{
-    #         throw new Error('Network response was not ok');
-    #       }}
-    #       return response.json();
-    #     }})
-    #     .then(data => {{
-    #       console.log('You are viewer number ' + data.count);
-    #     }})
-    #     .catch(error => {{
-    #       console.error('Error fetching view count:', error);
-    #     }});
-    # </script>
-    # '''
     counter_script = f'''
     <script>
     (function() {{
@@ -171,30 +213,6 @@ def inject_content(html_content, header, footer, page_path):
     html_content = body_close_pattern.sub(f'{counter_script}</body>', html_content)
 
     return html_content
-# Make sure to also update the file writing operations to use UTF-8
-# def process_files(source, target, lang):
-#     """
-#     Copies and renames files as necessary to the correct language-specific directories.
-#     """
-#     header = load_content(f'./source/header-{lang}.html')
-#     footer = load_content(f'./source/footer-{lang}.html')
-
-#     for item in os.listdir(source):
-#         source_path = os.path.join(source, item)
-#         if os.path.isdir(source_path):
-#             target_path = os.path.join(target, item)
-#             if not os.path.exists(target_path):
-#                 os.makedirs(target_path)
-#             process_files(source_path, target_path, lang)  # Recurse into subdirectories
-#         else:
-#             target_filename = item.replace(f'-{lang}.html', '.html')
-#             if item.endswith(f'{lang}.html'):  # Language specific HTML file
-#                 with open(source_path, 'r', encoding='utf-8') as file:
-#                     content = inject_content(file.read(), header, footer)
-#                 with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
-#                     output_file.write(content)
-#             elif not item.startswith('index-') and not item.endswith('.html'):
-#                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
 def process_files(source, target, lang, current_path=''):
     """
     Copies and renames files as necessary to the correct language-specific directories.
@@ -215,11 +233,13 @@ def process_files(source, target, lang, current_path=''):
             if item.endswith(f'-{lang}.html'):  # Language specific HTML file
                 page_path = os.path.join(current_path, target_filename)
                 with open(source_path, 'r', encoding='utf-8') as file:
-                    content = inject_content(file.read(), header, footer, f'/{lang}'+page_path)
+                    content = inject_content(file.read(), header, footer, page_path, lang)
                 with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
             elif not item.startswith('index-') and not item.endswith('.html'):
                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
+
+
 # Main Execution
 if __name__ == "__main__":
     pages = ['home', 'nic', 'privacy', 'contact','lighthouse']
@@ -232,13 +252,6 @@ if __name__ == "__main__":
             os.makedirs(target_subdir, exist_ok=True)
             if os.path.exists(target_subdir):
                 clear_directory(target_subdir)
-
-    # Processing files and directories
-    # for subdir in pages:
-    #     source_subdir = os.path.join(source_dir, subdir)
-    #     for lang in languages:
-    #         target_subdir = os.path.join(output_dir, subdir, lang)
-    #         process_files(source_subdir, target_subdir, lang)
 
     # Processing files and directories
     for subdir in pages:

@@ -378,6 +378,7 @@ body.using-mouse .subtext:hover {
 a:hover{
     color: black;
     background-color: white;
+    cursor: pointer;
 }
 
 
@@ -776,4 +777,22 @@ a {
 		object-fit: cover;
 		object-position: center; /* Adjusts the alignment of the image within its frame */
 	
+}
+
+.lang-toggle {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: auto;
+    margin-left: auto;
+    white-space: nowrap;
+}
+.lang-toggle>a{
+    padding: 0px;
+    white-space: nowrap;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

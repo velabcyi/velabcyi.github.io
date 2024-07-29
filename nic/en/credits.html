@@ -7,7 +7,13 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header><h1 class="return"><a href="/nic/en/">VELAB: Nicosia International Airport</a></h1></header>
+<header><h1 class="return"><a href="/nic/en/">VELAB: Nicosia International Airport</a></h1>
+    <div class="lang-toggle">
+        <a href="/nic/el/credits.html" class="lang-button">
+            EL
+        </a>
+    </div>
+    </header>
 <main>
 <article class="credits">
 <h2>Credits</h2>
@@ -116,7 +122,7 @@
         }
 
         function loadCounter() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/nic/credits.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/nic/credits.html');
             sendCount(url);
         }
 
@@ -128,7 +134,7 @@
 
         // Optionally, you can also send the count when the user is leaving the page
         window.addEventListener('unload', function() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/nic/credits.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/nic/credits.html');
             sendCount(url);
         });
     })();

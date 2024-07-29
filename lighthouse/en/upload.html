@@ -13,7 +13,13 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <header><h1 class="return"><a href="/home/en/">VELAB: URBAN LIGTHOUSE</a></h1></header>
+    <header><h1 class="return"><a href="/home/en/">VELAB: URBAN LIGTHOUSE</a></h1>
+    <div class="lang-toggle">
+        <a href="/lighthouse/el/upload.html" class="lang-button">
+            EL
+        </a>
+    </div>
+    </header>
     <div id="loadingOverlay" class="hidden loadingOverlay"> 
         <div class="loading-spinner"></div>
     </div>
@@ -217,7 +223,7 @@ function formatTime(seconds) {
         }
 
         function loadCounter() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/lighthouse/upload.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/lighthouse/upload.html');
             sendCount(url);
         }
 
@@ -229,7 +235,7 @@ function formatTime(seconds) {
 
         // Optionally, you can also send the count when the user is leaving the page
         window.addEventListener('unload', function() {
-            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/en/lighthouse/upload.html');
+            const url = 'https://colter.us/ex/count.php?p=' + encodeURIComponent('/lighthouse/upload.html');
             sendCount(url);
         });
     })();
