@@ -242,7 +242,7 @@ def process_files(source, target, lang, current_path=''):
 
 # Main Execution
 if __name__ == "__main__":
-    pages = ['home', 'nic', 'privacy', 'contact','lighthouse']
+    pages = ['home', 'nic', 'privacy', 'contact','lighthouse', 'nicworkshop']
 
     # Clearing directories before compiling new content
     for subdir in pages:
