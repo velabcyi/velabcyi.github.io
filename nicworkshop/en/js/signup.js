@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             const count = data.count;
-            signupBtn.textContent = `Sign Up (${25-count} seats remain)`;
+            signupBtn.textContent = `Register for the Workshop | ${25-count} seats remain`;
             if (count >= 25) {
                 signupBtn.textContent = 'Workshop Full';
                 signupBtn.style.pointerEvents = 'none';
