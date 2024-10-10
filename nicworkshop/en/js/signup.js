@@ -10,6 +10,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const creditsListElement = document.getElementById('creditsList');
     const signupURL = 'https://colter.us/ex/nicworkshop/signup.php';
 
+    // Check page language
+    const pageLanguage = document.documentElement.lang || 'en';
+    
+    // Translations
+    const translations = {
+        en: {
+            signUp: 'Register for the Workshop',
+            workshopFull: 'Workshop Full',
+            seatsRemain: 'seats remain',
+            fillAllFields: 'Please fill in all fields',
+            enterValidEmail: 'Please enter a valid email address',
+            signupSuccessful: 'Signup successful!',
+            error: 'Error:',
+            tryAgain: 'An error occurred. Please try again.',
+            unableToRetrieveCount: 'Unable to retrieve signup count',
+            unableToRetrieveCredits: 'Unable to retrieve credits.',
+            errorRetrievingCredits: 'An error occurred while retrieving credits.'
+        },
+        el: {
+            signUp: 'Εγγραφή στο Εργαστήριο',
+            workshopFull: 'Το Εργαστήριο είναι Πλήρες',
+            seatsRemain: 'θέσεις απομένουν',
+            fillAllFields: 'Παρακαλώ συμπληρώστε όλα τα πεδία',
+            enterValidEmail: 'Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email',
+            signupSuccessful: 'Η εγγραφή ολοκληρώθηκε με επιτυχία!',
+            error: 'Σφάλμα:',
+            tryAgain: 'Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.',
+            unableToRetrieveCount: 'Αδυναμία ανάκτησης αριθμού εγγραφών',
+            unableToRetrieveCredits: 'Αδυναμία ανάκτησης πιστώσεων.',
+            errorRetrievingCredits: 'Παρουσιάστηκε σφάλμα κατά την ανάκτηση των πιστώσεων.'
+        }
+    };
+
+    // Get translation based on page language
+    const t = translations[pageLanguage] || translations.en;
+
     updateSignupCount();
 
     signupBtn.onclick = function() {
@@ -48,11 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         if (name.trim() === '' || email.trim() === '') {
-            alert('Please fill in all fields');
+            alert(t.fillAllFields);
             return false;
         }
         if (!isValidEmail(email)) {
-            alert('Please enter a valid email address');
+            alert(t.enterValidEmail);
             return false;
         }
         return true;
@@ -72,17 +108,17 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Signup successful!');
+                alert(t.signupSuccessful);
                 form.reset();
                 updateSignupCount();
                 signupModal.style.display = 'none';
             } else {
-                alert('Error: ' + data.message);
+                alert(t.error + ' ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred. Please try again.');
+            alert(t.tryAgain);
         });
     }
 
@@ -91,24 +127,21 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             const count = data.count;
-            signupBtn.textContent = `Register for the Workshop | ${25-count} seats remain`;
+            signupBtn.textContent = `${t.signUp} | ${25-count} ${t.seatsRemain}`;
             if (count >= 25) {
-                signupBtn.textContent = 'Workshop Full';
+                signupBtn.textContent = t.workshopFull;
                 signupBtn.style.pointerEvents = 'none';
                 signupBtn.style.opacity = '0.5';
                 if (form) {
                     form.style.display = 'none';
                 }
             }
-            // if (signupCountElement) {
-            //     signupCountElement.textContent = `Current signups: ${count}`;
-            // }
         })
         .catch(error => {
             console.error('Error:', error);
-            signupBtn.textContent = 'Sign Up';
+            signupBtn.textContent = t.signUp;
             if (signupCountElement) {
-                signupCountElement.textContent = 'Unable to retrieve signup count';
+                signupCountElement.textContent = t.unableToRetrieveCount;
             }
         });
     }
@@ -120,12 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 displayCredits(data.credits);
             } else {
-                creditsListElement.innerHTML = '<p>Unable to retrieve credits.</p>';
+                creditsListElement.innerHTML = `<p>${t.unableToRetrieveCredits}</p>`;
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            creditsListElement.innerHTML = '<p>An error occurred while retrieving credits.</p>';
+            creditsListElement.innerHTML = `<p>${t.errorRetrievingCredits}</p>`;
         });
     }
 

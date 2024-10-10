@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELAB: ΔΙΕΘΝΕΣ ΑΕΡΟΔΡΟΜΙΟ ΛΕΥΚΩΣΙΑΣ - ΕΝΑ ΕΙΚΟΝΙΚΟ ΠΕΡΙΒΑΛΛΟΝ</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: none;
+            background-color: rgba(0,0,0,0.4);
+        }
+        input[type="text"],input[type="email"]{
+            /* padding-bottom: 2rem; */
+            margin-bottom: 1rem;
+        }
+        .modal-content>a{
+            color: blue;
+        }
+        .modal-content>p{
+            color: black;
+        }
+        .modal-content>p>a{
+            color: blue;
+        }
+        .modal-content>p>a:hover{
+            color: cyan;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 1rem;
+
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #signupCount{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+    <main>
+        <div id="image-box">
+            <img src="./assets/workshop.jpg" alt="Εργαστήριο Εικονικού Περιβάλλοντος Διεθνούς Αεροδρομίου Λευκωσίας">
+        </div>
+        
+        <article>
+            <div class="title">
+                <h2>Μια ημέρα στο Αεροδρόμιο Λευκωσίας</h2>
+                <span id="entry-date">2024</span>
+                <span id="entry-tags" style="margin-left: 0.25rem;">ΣΑΒ, 30 ΝΟΕΜ, 10πμ</span>
+                <span id="entry-tags" style="margin-left: 0.5rem;"><a target="_blank" href="https://maps.app.goo.gl/tcjXXTkDbufNh4UG9">Πολιτιστικό Ίδρυμα Τράπεζας Κύπρου, Λευκωσία.</a></span>
+            </div>
+            <nav>
+                <a href="#" class="bubble-link" id="signup-button">Εγγραφή στο εργαστήριο</a>
+            </nav>
+            <p>
+                Μια καθηλωτική ψηφιακή αναπαράσταση του Διεθνούς Αεροδρομίου Λευκωσίας όπως ήταν το 1969 παρουσιάζεται στην έκθεση <a href="https://boccf.org/el-gr/homepage/exhibitions-actions/exhibitionsevents/kypros-nisos/">«Cyprus Insula»</a> στο Πολιτιστικό Ίδρυμα Τράπεζας Κύπρου, αναδεικνύοντας την πολιτιστική και ιστορική αξία αυτού του μη προσβάσιμου χώρου σήμερα, για τον εκσυγχρονισμό της νεοσύστατης τότε Κυπριακής Δημοκρατίας, καθώς και την αρχιτεκτονική κληρονομιά αυτής της καινοτόμου κτιριακής υποδομής που εγκαταλείφθηκε. Στο πλαίσιο της σειράς δημόσιων εκδηλώσεων της έκθεσης, θα πραγματοποιηθεί συμμετοχικό εργαστήριο στο Πολιτιστικό Ίδρυμα Τράπεζας Κύπρου το Σάββατο 30 Νοεμβρίου στις 10:00 π.μ., ανοιχτό για όλους.
+            </p>
+            <p>
+                Ελάτε να εμβυθιστείτε σε μια εικονική αναπαράσταση του αεροδρομίου, εξερευνήστε σπάνιο αρχειακό υλικό και μοιραστείτε μαζί μας ιστορίες θαυμασμού για το αεροδρόμιο καθώς και τις αναμνήσεις σας από αυτό. Βοηθήστε μας να τεκμηριώσουμε τον ρόλο του αεροδρομίου στη διαμόρφωση της κυπριακής νεωτερικότητας. Η συμβολή σας θα μας βοηθήσει να διατηρήσουμε τη θέση του αεροδρομίου στη συλλογική μνήμη της Κύπρου!
+            </p>
+            <nav>
+                <a href="./schedule.pdf" target="_blank">Κατεβάστε την Ατζέντα</a>
+                <a id="credits-button">Συντελεστές και Επικοινωνία</a>
+            </nav>
+            <div id="signupModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Εγγραφή για το Εργαστήριο</h2>
+                    <p id="signupCount">Χρησιμοποιούμε το email σας για επιβεβαίωση και αποστολή ενημερώσεων.</p> 
+                    <p>Επικοινωνία: <a href="mailto:g.artopoulos@cyi.ac.cy?subject=Σχετικά με: Εγγραφή Εργαστηρίου NIC-Air" target="_blank">g.artopoulos@cyi.ac.cy</a></p>
+                    <form id="signupForm">
+                        <label for="name">Όνομα:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <button type="submit">Υποβολή</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Credits Modal -->
+            <div id="creditsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Το Ινστιτούτο Κύπρου</p>
+                    <p>Colter Wehmeier <a href="mailto:c.wehmeier@cyi.ac.cy?subject=Σχετικά με: Εργαστήριο NIC-Air" target="_blank">c.wehmeier@cyi.ac.cy</a></p>
+                    <p>Δρ. Γεώργιος Αρτόπουλος <a href="mailto:g.artopoulos@cyi.ac.cy?subject=Σχετικά με: Εργαστήριο NIC-Air" target="_blank">g.artopoulos@cyi.ac.cy</a></p>
+                    <!-- <br>
+                    <p>Κυπριακές Αερογραμμές</p>
+                    <p>Αλέξης</p>
+                    <br>
+                    <p>ΠΙΤΚ</p>
+                    <p>Δήμητρα</p>
+                    <p>Θωμάζης</p> -->
+                    <hr>
+                </div>
+            </div>
+            <script src="./js/signup.js"></script>
+
+            <!-- Development Notes Section (hidden in production) -->
+            <div id="dev-notes" style="display:none;">
+                <hr>
+                <h3>Σημειωματάρια Προγραμματιστών</h3>
+                <ul>
+                    <li><a href="https://docs.google.com/document/d/1fbJ1xCoqAMNeKrBHZmPqZhsMV7nYsdJHugQBgRJvX0o/edit?usp=sharing" target="_blank">Ατζέντα / Πρόγραμμα Εργαστηρίου</a></li>
+                    <li><a href="https://docs.google.com/document/d/1EZe5aosLISJGMxgiWjV7rfP9p3k8_GelBxN37KujkM4/edit?usp=sharing" target="_blank">Πρωτόκολλο Περιπτέρου + Ανάπτυξη Ερωτήσεων/Έρευνας</a></li>
+                    <li><a href="https://docs.google.com/document/d/1PBehosIH6Ov1vJ-DVsd0LtoIXVvZbuvps--Ku5owGBk/edit?usp=sharing" target="_blank">Ανάπτυξη Περίληψης</a></li>
+                    <li><a href="https://docs.google.com/document/d/1t8OXWNyE1D5P_FO-NX55FxoaLVHB12MDdw5hryhq8IA/edit?usp=sharing" target="_blank">Σχεδιασμός Δημοσίευσης</a></li>
+                </ul>
+            </div>
+            <hr>
+        </article>
+    </main>
+    <footer>
+        <nav id="footNav">
+            <div id="leftNav">
+                <a href="/contact/el/">Επικοινωνία</a>
+                <a href="/privacy/el/">Απόρρητο</a>
+            </div>
+            <div id="rightNav">
+                <img class="logo" src="/images/velab-logo-white-tightcrop.png" alt="Το Ινστιτούτο Κύπρου">
+                <img class="logo" src="/images/UDigiSH.png" alt="Το Κυπριακό Ινστιτούτο">
+                <img class="logo" src="/images/DARIAH EU-cropped-white.png" alt="Το Κυπριακό Ινστιτούτο">
+            </div>
+        </nav>
+    </footer>
+</body>
+</html>
