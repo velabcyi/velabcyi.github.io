@@ -1,5 +1,5 @@
 
-const videoFiles = ["panorama-at-cafe_compressed.mp4", "parkinglog-to-tarmac-day-with-photos_compressed.mp4", "dialogue-checkin_compressed.mp4", "3-interactions-at-passport_compressed.mp4", "tarmac-and-bus_compressed.mp4", "parking-tarmac-plane-video_compressed.mp4", "full-run-1_compressed.mp4", "walkway-pano_compressed.mp4", "main-hall-walkway-pano_compressed.mp4", "clip_13_compressed.mp4", "clip_3_compressed.mp4", "clip_9_compressed.mp4", "clip_12_compressed.mp4", "clip_2_compressed.mp4"];
+const videoFiles = ["panorama-at-cafe_compressed.mp4", "parkinglog-to-tarmac-day-with-photos_compressed.mp4", "dialogue-checkin_compressed.mp4", "3-interactions-at-passport_compressed.mp4", "tarmac-and-bus_compressed.mp4", "parking-tarmac-plane-video_compressed.mp4", "full-run-1_compressed.mp4", "walkway-pano_compressed.mp4", "main-hall-walkway-pano_compressed.mp4", "clip_3_compressed.mp4", "clip_9_compressed.mp4", "clip_12_compressed.mp4", "clip_2_compressed.mp4"];
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
