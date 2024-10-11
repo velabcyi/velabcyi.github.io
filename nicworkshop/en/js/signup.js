@@ -101,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function submitForm() {
         const formData = new FormData(form);
+        const userName = formData.get('name');
+        const userEmail = formData.get('email');
+
         fetch(signupURL, {
             method: 'POST',
             body: formData
@@ -112,13 +115,57 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.reset();
                 updateSignupCount();
                 signupModal.style.display = 'none';
+                
+                // Send success notification
+                sendNotification(
+                    "nic_workshop_2024_signup",
+                    `Signup Success: ${userName}`,
+                    `New user signed up with email: ${userEmail}`
+                );
             } else {
                 alert(t.error + ' ' + data.message);
+                
+                // Send failure notification
+                sendNotification(
+                    "nic_workshop_2024_signup",
+                    `Signup Failure: ${userName}`,
+                    `Signup failed for email: ${userEmail} - ${data.message}`
+                );
             }
         })
         .catch(error => {
             console.error('Error:', error);
             alert(t.tryAgain);
+            
+            // Send error notification
+            sendNotification(
+                "nic_workshop_2024_signup",
+                `Signup Error: ${userName || 'Unknown'}`,
+                `Error during signup process for email: ${userEmail || 'Unknown'} - ${error.message}`
+            );
+        });
+    }
+
+
+    function sendNotification(appId, title, message) {
+        const url = "https://colter.us/log/";
+        const payload = {
+            from: appId,
+            title: title,
+            message: message
+        };
+
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error sending notification:', error);
+            return { success: false, error: error.message };
         });
     }
 
