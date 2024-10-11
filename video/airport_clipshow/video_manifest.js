@@ -40,7 +40,7 @@ function playNextVideo(videoElement, playlist) {
     }
     const nextVideo = playlist.pop();
     videoElement.src = getVideoPath(nextVideo);
-    videoElement.play();
+    // videoElement.play();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
