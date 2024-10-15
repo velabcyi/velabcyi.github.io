@@ -1,4 +1,3 @@
-
 const videoFiles = ["panorama-at-cafe_compressed.mp4", "parkinglog-to-tarmac-day-with-photos_compressed.mp4", "dialogue-checkin_compressed.mp4", "3-interactions-at-passport_compressed.mp4", "tarmac-and-bus_compressed.mp4", "parking-tarmac-plane-video_compressed.mp4", "full-run-1_compressed.mp4", "walkway-pano_compressed.mp4", "main-hall-walkway-pano_compressed.mp4", "clip_3_compressed.mp4", "clip_9_compressed.mp4", "clip_12_compressed.mp4", "clip_2_compressed.mp4"];
 
 function shuffleArray(array) {
@@ -46,7 +45,6 @@ function playNextVideo(videoElement, playlist) {
 document.addEventListener('DOMContentLoaded', () => {
     const targetElementId = getTargetElementId();
     const targetElement = targetElementId ? document.getElementById(targetElementId) : document.body;
-
     if (!targetElement) {
         console.error(`Target element with id "${targetElementId}" not found. Video will not be displayed.`);
         return;
@@ -59,12 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     videoElement.style.height = '100%';
     targetElement.appendChild(videoElement);
 
-    let playlist = [...videoFiles];
-    shuffleArray(playlist);
+    let playlist = [];
 
     videoElement.addEventListener('ended', () => {
         playNextVideo(videoElement, playlist);
     });
 
+    // Initial play
     playNextVideo(videoElement, playlist);
 });
