@@ -698,6 +698,9 @@ main>img{
 	width: 100%;
 	height: 280px;
 }
+#dev-notes{
+    display: none;
+}
 
 .credits li::before {
     content: "";

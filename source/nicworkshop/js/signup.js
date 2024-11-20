@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
             tryAgain: 'An error occurred. Please try again.',
             unableToRetrieveCount: 'Unable to retrieve signup count',
             unableToRetrieveCredits: 'Unable to retrieve credits.',
-            errorRetrievingCredits: 'An error occurred while retrieving credits.'
+            errorRetrievingCredits: 'An error occurred while retrieving credits.',
+            reasonTooLong: 'Your connection description must be less than 500 characters'
         },
         el: {
             signUp: 'Εγγραφή στο Εργαστήριο',
@@ -39,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             tryAgain: 'Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.',
             unableToRetrieveCount: 'Αδυναμία ανάκτησης αριθμού εγγραφών',
             unableToRetrieveCredits: 'Αδυναμία ανάκτησης πιστώσεων.',
-            errorRetrievingCredits: 'Παρουσιάστηκε σφάλμα κατά την ανάκτηση των πιστώσεων.'
+            errorRetrievingCredits: 'Παρουσιάστηκε σφάλμα κατά την ανάκτηση των πιστώσεων.',
+                    reasonTooLong: 'Η περιγραφή της σύνδεσής σας πρέπει να είναι μικρότερη από 500 χαρακτήρες'
         }
     };
 
@@ -83,27 +85,87 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        if (name.trim() === '' || email.trim() === '') {
+        const reason = document.getElementById('reason').value;
+    
+        // Check if any field is empty
+        if (name.trim() === '' || email.trim() === '' || reason.trim() === '') {
             alert(t.fillAllFields);
             return false;
         }
+    
+        // Validate email format
         if (!isValidEmail(email)) {
             alert(t.enterValidEmail);
             return false;
         }
+    
+        // Validate reason length (max 500 characters)
+        if (reason.length > 500) {
+            alert(t.reasonTooLong);
+            return false;
+        }
+    
         return true;
     }
+    
 
     function isValidEmail(email) {
         const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         return re.test(email);
     }
 
+    // function submitForm() {
+    //     const formData = new FormData(form);
+    //     const userName = formData.get('name');
+    //     const userEmail = formData.get('email');
+
+    //     fetch(signupURL, {
+    //         method: 'POST',
+    //         body: formData
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             alert(t.signupSuccessful);
+    //             form.reset();
+    //             updateSignupCount();
+    //             signupModal.style.display = 'none';
+                
+    //             // Send success notification
+    //             sendNotification(
+    //                 "nic_workshop_2024_signup",
+    //                 `Signup Success: ${userName}`,
+    //                 `New user signed up with email: ${userEmail}`
+    //             );
+    //         } else {
+    //             alert(t.error + ' ' + data.message);
+                
+    //             // Send failure notification
+    //             sendNotification(
+    //                 "nic_workshop_2024_signup",
+    //                 `Signup Failure: ${userName}`,
+    //                 `Signup failed for email: ${userEmail} - ${data.message}`
+    //             );
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //         alert(t.tryAgain);
+            
+    //         // Send error notification
+    //         sendNotification(
+    //             "nic_workshop_2024_signup",
+    //             `Signup Error: ${userName || 'Unknown'}`,
+    //             `Error during signup process for email: ${userEmail || 'Unknown'} - ${error.message}`
+    //         );
+    //     });
+    // }
     function submitForm() {
         const formData = new FormData(form);
         const userName = formData.get('name');
         const userEmail = formData.get('email');
-
+        const userReason = formData.get('reason');
+    
         fetch(signupURL, {
             method: 'POST',
             body: formData
@@ -116,11 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateSignupCount();
                 signupModal.style.display = 'none';
                 
-                // Send success notification
+                // Send success notification with reason included
                 sendNotification(
                     "nic_workshop_2024_signup",
                     `Signup Success: ${userName}`,
-                    `New user signed up with email: ${userEmail}`
+                    `New user signed up with email: ${userEmail}\nConnection: ${userReason}`
                 );
             } else {
                 alert(t.error + ' ' + data.message);
@@ -129,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 sendNotification(
                     "nic_workshop_2024_signup",
                     `Signup Failure: ${userName}`,
-                    `Signup failed for email: ${userEmail} - ${data.message}`
+                    `Signup failed for email: ${userEmail}\nConnection: ${userReason}\nError: ${data.message}`
                 );
             }
         })
@@ -141,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
             sendNotification(
                 "nic_workshop_2024_signup",
                 `Signup Error: ${userName || 'Unknown'}`,
-                `Error during signup process for email: ${userEmail || 'Unknown'} - ${error.message}`
+                `Error during signup process for email: ${userEmail || 'Unknown'}\nConnection: ${userReason || 'Unknown'}\nError: ${error.message}`
             );
         });
     }
