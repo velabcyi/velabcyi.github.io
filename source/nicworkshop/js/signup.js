@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
             error: 'Error:',
             tryAgain: 'An error occurred. Please try again.',
             unableToRetrieveCount: 'Unable to retrieve registration count',
-            reasonTooLong: 'Your description must be less than 500 characters'
+            reasonTooLong: 'Your description must be less than 500 characters',
+            reasonTooShort: 'Your description must be at least 50 characters'
         },
         el: {
             signUp: 'Εκδήλωση Ενδιαφέροντος',
@@ -37,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
             error: 'Σφάλμα:',
             tryAgain: 'Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.',
             unableToRetrieveCount: 'Αδυναμία ανάκτησης αριθμού εγγραφών',
-            reasonTooLong: 'Η περιγραφή σας πρέπει να είναι μικρότερη από 500 χαρακτήρες'
+            reasonTooLong: 'Η περιγραφή σας πρέπει να είναι μικρότερη από 500 χαρακτήρες',
+            reasonTooShort: 'Η περιγραφή σας πρέπει να είναι τουλάχιστον 50 χαρακτήρες'
         }
     };
 
@@ -95,7 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     
-        // Validate reason length (max 500 characters)
+        // Validate reason length (min 50, max 500 characters)
+        if (reason.length < 50) {
+            alert(t.reasonTooShort);
+            return false;
+        }
         if (reason.length > 500) {
             alert(t.reasonTooLong);
             return false;
@@ -181,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSignupCount() {
-        return;
+        return; //we dont show this. too many signups.
         fetch(signupURL + '?action=getCount')
         .then(response => response.json())
         .then(data => {
