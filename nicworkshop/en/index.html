@@ -35,13 +35,13 @@
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
             max-width: 500px;
             border-radius: 1rem;
-
+            color: black;
         }
         .close {
             color: #aaa;
@@ -88,32 +88,21 @@
                 <span id="entry-tags" style="margin-left: 0.5rem;"><a target="_blank" href="https://maps.app.goo.gl/tcjXXTkDbufNh4UG9">Bank of Cyprus Cultural Foundation, Nicosia.</a></span>
             </div>
             <nav>
-                <a href="#" class="bubble-link" id="signup-button">Register for the workshop</a>
+                <a href="#" class="bubble-link" id="signup-button">Sign up for Workshop</a>
                 <!-- <a href="./schedule.pdf" class="bubble-link">Download Schedule</a> -->
             </nav>
-            <p>
-                A captivating <a href="/nic/">digital reconstruction of Nicosia International Airport</a> as it existed in 1969 is on display at the <a href="https://boccf.org/en-gb/homepage/exhibitions-actions/exhibitionsevents/kypros-nisos/">"Cyprus Insula"</a> exhibition in the Bank of Cyprus Cultural Foundation. This showcase highlights the cultural and historical significance of this now-inaccessible site, which played a crucial role in modernizing the newly established Republic of Cyprus. It also celebrates the architectural legacy of this innovative yet abandoned structure.</p>
-            <p>
-                As part of the exhibition's public events series, an interactive workshop will be held at the Bank of Cyprus Cultural Foundation on Saturday, November 30 at 10:00 a.m. This event is open to all.
-            </p>
-            <p>
-                We invite you to immerse yourself in a virtual recreation of the airport, explore rare archival materials, and share your stories and memories of this remarkable place. Your participation will help us document the airport's pivotal role in shaping modern Cyprus. By contributing, you'll aid in preserving the airport's significance in Cyprus's collective memory.
-            </p>
-            <!-- <p>
-                The Cyprus Institute invites you to a one-day immersive workshop showcasing new digital methods to study and preserve modern architectural heritage in Cyprus. The workshop will feature our <a href="/nic/">virtual reconstruction of Nicosia International Airport</a>, currently exhibited at the <a href="https://boccf.org/en-gb/homepage/exhibitions-actions/exhibitionsevents/kypros-nisos/">Bank of Cyprus Cultural Foundation</a>.
+                <p>A captivating <a href="/nic/">digital reconstruction of Nicosia International Airport</a> as it was in 1969 is on display at the <a href="https://boccf.org/en-gb/homepage/exhibitions-actions/exhibitionsevents/kypros-nisos/">"Cyprus Insula"</a> exhibition in the Bank of Cyprus Cultural Foundation. This showcase highlights the cultural and historical significance of this now-inaccessible site, which played a crucial role in modernizing the newly established Republic of Cyprus.</p>
+                    
+                <p>As part of the exhibition's public events series, we are organizing an interactive workshop focused on collecting memories and materials related to the airport, while gathering feedback on our work. The workshop will be held at the Bank of Cyprus Cultural Foundation on Saturday, November 30 at 10:00 a.m. 
                 </p>
-            <h2>Objectives:</h2>-->
-            <!--<ul>
-                <li>Present our work on the airport alongside existing cultural heritage efforts.</li>x
-                <li>Gather feedback on the virtual reconstruction</li>
-                <li>Reflect on the airport and Cyprus' modern legacy</li>
-                <li>Explore future applications of virtual environments in heritage</li>
-            </ul> -->
+                    
+                <p>We invite those with personal memories, family stories, photographs, or historical materials to join us for group activities and exploration of the virtual environment. Can't make the workshop? The virtual environment is available during normal museum hours, and we may organize additional interactive tours later, using our signups as a point of contact.
+                </p>
             <nav>
                 <a href="https://docs.google.com/document/d/1fbJ1xCoqAMNeKrBHZmPqZhsMV7nYsdJHugQBgRJvX0o/edit?usp=sharing" target="_blank">See Agenda / Schedule</a>
                 <a id="credits-button">Credits and Contact</a>
             </nav>
-            <div id="signupModal" class="modal">
+            <!-- <div id="signupModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h2>Sign Up for the Workshop</h2>
@@ -129,7 +118,28 @@
                         <button type="submit">Submit</button>
                     </form>
                 </div>
+            </div> -->
+            <div id="signupModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Workshop Interest Form</h2>
+                    <p id="signupCount">Due to limited space in the exhibition, we must prioritize participants with information about the airport to share, including family memories or memorabilia, own experiences, or any other knowledge they feel can help us better capture the airport's role for Cyprus and its value today.</p>
+                    <p>Selected participants will be confirmed via email. If space is limited, we will work to schedule additional interactive tours for interested parties.</p>
+                    <p>Contact: <a href="mailto:g.artopoulos@cyi.ac.cy?subject=Re: NIC-Air Workshop Interest" target="_blank">g.artopoulos@cyi.ac.cy</a></p>
+                    <p>Phone signup with BOCCF: <a href="tel:+35722128175">22 128 175</a></p>
+                    <hr>
+                    <form id="signupForm">
+                        <label for="name">Name:*</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="email">Email:*</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="reason">What is your reason for attending and what can you contribute about the airport?*</label>
+                        <input type="text" id="reason" name="reason" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
             </div>
+            
             <!-- Credits Modal -->
             <div id="creditsModal" class="modal">
                 <div class="modal-content">

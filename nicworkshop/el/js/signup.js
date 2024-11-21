@@ -16,32 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Translations
     const translations = {
         en: {
-            signUp: 'Register for the Workshop',
-            workshopFull: 'Workshop Full',
-            seatsRemain: 'seats remain',
+            signUp: 'Express Interest in Attending',
+            workshopFull: 'Interest List Full',
+            seatsRemain: 'spots available for interest registration',
             fillAllFields: 'Please fill in all fields',
             enterValidEmail: 'Please enter a valid email address',
-            signupSuccessful: 'Signup successful!',
+            signupSuccessful: 'Thank you for your interest! We will contact selected participants via email.',
             error: 'Error:',
             tryAgain: 'An error occurred. Please try again.',
-            unableToRetrieveCount: 'Unable to retrieve signup count',
-            unableToRetrieveCredits: 'Unable to retrieve credits.',
-            errorRetrievingCredits: 'An error occurred while retrieving credits.',
-            reasonTooLong: 'Your connection description must be less than 500 characters'
+            unableToRetrieveCount: 'Unable to retrieve registration count',
+            reasonTooLong: 'Your description must be less than 500 characters'
         },
         el: {
-            signUp: 'Εγγραφή στο Εργαστήριο',
-            workshopFull: 'Το Εργαστήριο είναι Πλήρες',
-            seatsRemain: 'θέσεις απομένουν',
+            signUp: 'Εκδήλωση Ενδιαφέροντος',
+            workshopFull: 'Η Λίστα Ενδιαφέροντος είναι Πλήρης',
+            seatsRemain: 'θέσεις διαθέσιμες για εκδήλωση ενδιαφέροντος',
             fillAllFields: 'Παρακαλώ συμπληρώστε όλα τα πεδία',
             enterValidEmail: 'Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email',
-            signupSuccessful: 'Η εγγραφή ολοκληρώθηκε με επιτυχία!',
+            signupSuccessful: 'Ευχαριστούμε για το ενδιαφέρον σας! Θα επικοινωνήσουμε με τους επιλεγμένους συμμετέχοντες μέσω email.',
             error: 'Σφάλμα:',
             tryAgain: 'Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.',
             unableToRetrieveCount: 'Αδυναμία ανάκτησης αριθμού εγγραφών',
-            unableToRetrieveCredits: 'Αδυναμία ανάκτησης πιστώσεων.',
-            errorRetrievingCredits: 'Παρουσιάστηκε σφάλμα κατά την ανάκτηση των πιστώσεων.',
-                    reasonTooLong: 'Η περιγραφή της σύνδεσής σας πρέπει να είναι μικρότερη από 500 χαρακτήρες'
+            reasonTooLong: 'Η περιγραφή σας πρέπει να είναι μικρότερη από 500 χαρακτήρες'
         }
     };
 
@@ -113,53 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         return re.test(email);
     }
-
-    // function submitForm() {
-    //     const formData = new FormData(form);
-    //     const userName = formData.get('name');
-    //     const userEmail = formData.get('email');
-
-    //     fetch(signupURL, {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             alert(t.signupSuccessful);
-    //             form.reset();
-    //             updateSignupCount();
-    //             signupModal.style.display = 'none';
-                
-    //             // Send success notification
-    //             sendNotification(
-    //                 "nic_workshop_2024_signup",
-    //                 `Signup Success: ${userName}`,
-    //                 `New user signed up with email: ${userEmail}`
-    //             );
-    //         } else {
-    //             alert(t.error + ' ' + data.message);
-                
-    //             // Send failure notification
-    //             sendNotification(
-    //                 "nic_workshop_2024_signup",
-    //                 `Signup Failure: ${userName}`,
-    //                 `Signup failed for email: ${userEmail} - ${data.message}`
-    //             );
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //         alert(t.tryAgain);
-            
-    //         // Send error notification
-    //         sendNotification(
-    //             "nic_workshop_2024_signup",
-    //             `Signup Error: ${userName || 'Unknown'}`,
-    //             `Error during signup process for email: ${userEmail || 'Unknown'} - ${error.message}`
-    //         );
-    //     });
-    // }
     function submitForm() {
         const formData = new FormData(form);
         const userName = formData.get('name');
@@ -232,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSignupCount() {
+        return;
         fetch(signupURL + '?action=getCount')
         .then(response => response.json())
         .then(data => {
