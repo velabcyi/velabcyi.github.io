@@ -98,10 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         // Validate reason length (min 50, max 500 characters)
-        if (reason.length < 50) {
-            alert(t.reasonTooShort);
-            return false;
-        }
+        // if (reason.length < 50) {
+        //     alert(t.reasonTooShort);
+        //     return false;
+        // }
         if (reason.length > 500) {
             alert(t.reasonTooLong);
             return false;
