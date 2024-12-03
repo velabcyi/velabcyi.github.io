@@ -1,8 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>NIC Airport Virtual Environment - Feature Priority Analysis</title>
     <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8fafc;
+            color: #1f2937;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+
+        .priority-item {
+            display: grid;
+            grid-template-columns: 48px 1fr 100px;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            align-items: center;
+        }
+
+        .rank {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .feature-info {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+            color: #111827;
+        }
+
+        .feature-description {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .bar-container {
+            position: relative;
+            height: 24px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .confidence-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .metrics {
+            text-align: right;
+            font-size: 0.875rem;
+        }
+
+        .percentage {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .confidence {
+            color: #6b7280;
+        }
+
+        .legend {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .legend p {
+            margin: 0.25rem 0;
+        }
+
+        .scale {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
         body { 
             font-family: system-ui, -apple-system, sans-serif;
             line-height: 1.6;
@@ -31,27 +142,8 @@
             font-weight: bold;
             color: #2563eb;
         }
-        .ranking {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f9fafb;
-            border-radius: 4px;
-        }
-        .rank-number {
-            font-size: 24px;
-            font-weight: bold;
-            margin-right: 20px;
-            color: #4b5563;
-            min-width: 40px;
-        }
-        .confidence-bar {
-            background: #93c5fd;
-            height: 20px;
-            margin-left: 20px;
-            border-radius: 2px;
-        }
+
+
         section {
             margin: 40px 0;
         }
@@ -82,9 +174,7 @@
             <li>Non-responses (N): 9 participants</li>
             <li>Non-conforming responses: 3 participants
                 <ul>
-                    <li>ID 05: Used 4-6 scale instead of 1-6 ranking</li>
-                    <li>ID 01: Repeated value 1 multiple times</li>
-                    <li>ID 21: Used inconsistent number repetitions</li>
+                    <li>Gave each item a 1-6 rating rather than fitting each item in a 1-6 rank</li>
                 </ul>
             </li>
         </ul>
@@ -175,41 +265,105 @@
 
     <section>
         <h2>Overall Ranking</h2>
-        <div class="ranking">
-            <span class="rank-number">1</span>
-            <span>Historical Photos & Documents</span>
-            <div class="confidence-bar" style="width: 85%"></div>
-            <span style="margin-left: 10px">0.658</span>
-        </div>
-        <div class="ranking">
-            <span class="rank-number">2</span>
-            <span>3D Recreation</span>
-            <div class="confidence-bar" style="width: 75%"></div>
-            <span style="margin-left: 10px">0.577</span>
-        </div>
-        <div class="ranking">
-            <span class="rank-number">3</span>
-            <span>360° Views</span>
-            <div class="confidence-bar" style="width: 70%"></div>
-            <span style="margin-left: 10px">0.554</span>
-        </div>
-        <div class="ranking">
-            <span class="rank-number">4</span>
-            <span>Factual Historical Information</span>
-            <div class="confidence-bar" style="width: 65%"></div>
-            <span style="margin-left: 10px">0.462</span>
-        </div>
-        <div class="ranking">
-            <span class="rank-number">5</span>
-            <span>Community Stories</span>
-            <div class="confidence-bar" style="width: 60%"></div>
-            <span style="margin-left: 10px">0.423</span>
-        </div>
-        <div class="ranking">
-            <span class="rank-number">6</span>
-            <span>Character Interactions</span>
-            <div class="confidence-bar" style="width: 55%"></div>
-            <span style="margin-left: 10px">0.378</span>
+        <div class="container">
+            <h1>Feature Priority Analysis</h1>
+            
+            <div class="priority-item">
+                <div class="rank">1</div>
+                <div class="feature-info">
+                    <div class="feature-name">Historical Photos & Documents</div>
+                    <div class="feature-description">More Historical photos, videos, and documents</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 65.8%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">65.8%</div>
+                    <div class="confidence">High confidence</div>
+                </div>
+            </div>
+    
+            <div class="priority-item">
+                <div class="rank">2</div>
+                <div class="feature-info">
+                    <div class="feature-name">3D Recreation</div>
+                    <div class="feature-description">More complete 3D recreation of spaces</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 57.7%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">57.7%</div>
+                    <div class="confidence">Med-high conf.</div>
+                </div>
+            </div>
+    
+            <div class="priority-item">
+                <div class="rank">3</div>
+                <div class="feature-info">
+                    <div class="feature-name">360° Views</div>
+                    <div class="feature-description">More 360° views comparing past/present</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 55.4%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">55.4%</div>
+                    <div class="confidence">Medium conf.</div>
+                </div>
+            </div>
+    
+            <div class="priority-item">
+                <div class="rank">4</div>
+                <div class="feature-info">
+                    <div class="feature-name">Historical Info</div>
+                    <div class="feature-description">More Factual Historical information</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 46.2%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">46.2%</div>
+                    <div class="confidence">Med-low conf.</div>
+                </div>
+            </div>
+    
+            <div class="priority-item">
+                <div class="rank">5</div>
+                <div class="feature-info">
+                    <div class="feature-name">Community Stories</div>
+                    <div class="feature-description">More Community stories and memories</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 42.3%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">42.3%</div>
+                    <div class="confidence">Low conf.</div>
+                </div>
+            </div>
+    
+            <div class="priority-item">
+                <div class="rank">6</div>
+                <div class="feature-info">
+                    <div class="feature-name">Character Interactions</div>
+                    <div class="feature-description">More Character interactions and dialogues</div>
+                    <div class="bar-container">
+                        <div class="confidence-bar" style="width: 37.8%"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="percentage">37.8%</div>
+                    <div class="confidence">Low conf.</div>
+                </div>
+            </div>
+    
+            <div class="legend">
+                <p>• Percentages represent normalized preference scores from pairwise analysis</p>
+                <p>• Confidence levels indicate consistency of preferences across respondents</p>
+                <p>• Analysis based on 13 participant responses with ranking data</p>
+                <p>• Higher scores (>60%) with high confidence suggest strong consensus</p>
+            </div>
         </div>
     </section>
 
