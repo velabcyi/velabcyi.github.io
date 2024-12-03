@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NIC Airport Virtual Environment - Revised Relationship Analysis</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        .methodology-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .construct-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            background: #ffffff;
+        }
+        .correlation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .correlation-item {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .stat-value {
+            font-family: monospace;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .warning {
+            color: #991b1b;
+            font-style: italic;
+        }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        .correlation-matrix {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .correlation-matrix table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .correlation-matrix td {
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .correlation-note {
+            background: #e5e7eb;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Revised Relationship Analysis</h1>
+    
+    <section>
+        <h2>Methodology</h2>
+        <div class="methodology-note">
+            <p><strong>Response Grouping:</strong> Likert items were grouped into four constructs to evaluate distinct aspects of the virtual environment experience:</p>
+            <ul>
+                <li><strong>Usability:</strong> Basic interaction measures (touchscreen controls, spatial orientation)</li>
+                <li><strong>Content:</strong> Information presentation (clarity, photo integration)</li>
+                <li><strong>Immersion:</strong> Sense of presence and historical connection (VE vs photos, historical meaning, atmosphere)</li>
+                <li><strong>Realism Impact:</strong> Perceived importance of increased visual fidelity</li>
+            </ul>
+            <p>This grouping enables analysis of relationships between functional, informational, and experiential aspects of the virtual environment.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Technology Experience Analysis</h2>
+        <p class="warning">Note: Small sample sizes limit statistical significance. Interpretations should be treated as preliminary.</p>
+        
+        <div class="construct-box">
+            <h3>High Tech Experience (C/D) (n=9)</h3>
+            <ul>
+                <li>Usability: <span class="stat-value">4.52 ± 0.37</span></li>
+                <li>Content: <span class="stat-value">4.59 ± 0.33</span></li>
+                <li>Immersion: <span class="stat-value">4.41 ± 0.44</span></li>
+                <li>Realism Impact: <span class="stat-value">3.65 ± 0.63</span> (more accepting of current realism level)</li>
+            </ul>
+        </div>
+        
+        <div class="construct-box">
+            <h3>Lower Tech Experience (A/B) (n=7)</h3>
+            <ul>
+                <li>Usability: <span class="stat-value">4.88 ± 0.22</span></li>
+                <li>Content: <span class="stat-value">4.32 ± 0.37</span></li>
+                <li>Immersion: <span class="stat-value">3.96 ± 0.36</span></li>
+                <li>Realism Impact: <span class="stat-value">3.25 ± 0.44</span> (more likely to want increased realism)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Construct Correlations</h2>
+        <div class="correlation-matrix">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Usability</td>
+                    <td>Content</td>
+                    <td>Immersion</td>
+                    <td>Realism Impact</td>
+                </tr>
+                <tr>
+                    <td>Usability</td>
+                    <td style="background: #f0f9ff">1.000</td>
+                    <td style="background: #f0f9ff">0.287</td>
+                    <td style="background: #fee2e2">-0.094</td>
+                    <td style="background: #f0f9ff">0.000</td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td style="background: #f0f9ff">0.287</td>
+                    <td style="background: #f0f9ff">1.000</td>
+                    <td style="background: #dbeafe">0.628</td>
+                    <td style="background: #dbeafe">0.513</td>
+                </tr>
+                <tr>
+                    <td>Immersion</td>
+                    <td style="background: #fee2e2">-0.094</td>
+                    <td style="background: #dbeafe">0.628</td>
+                    <td style="background: #f0f9ff">1.000</td>
+                    <td style="background: #dbeafe">0.567</td>
+                </tr>
+                <tr>
+                    <td>Realism Impact</td>
+                    <td style="background: #f0f9ff">0.000</td>
+                    <td style="background: #dbeafe">0.513</td>
+                    <td style="background: #dbeafe">0.567</td>
+                    <td style="background: #f0f9ff">1.000</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="correlation-note">
+            <p><strong>Notable Patterns:</strong></p>
+            <ul>
+                <li>Strong correlations (>0.5) form a cluster between content, immersion, and realism impact, suggesting these aspects of experience are interrelated</li>
+                <li>Usability shows independence from other measures (correlations near 0), indicating interface effectiveness was consistent regardless of other aspects of the experience</li>
+                <li>The slight negative correlation between immersion and usability (-0.094) is negligible and likely due to chance</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Key Findings</h2>
+        <ol>
+            <li><strong>Interface Independence:</strong> High usability scores across all tech experience levels (4.52-4.88) and lack of correlation with other measures indicate the interface successfully accommodated users regardless of their technical background or experience quality.</li>
+            
+            <li><strong>Content-Immersion Link:</strong> Strong correlation (r=0.628) between content clarity and immersion ratings suggests clear presentation of historical content enhances the sense of presence in the virtual space. This relationship appears consistent across tech experience levels.</li>
+            
+            <li><strong>Realism Impact Pattern:</strong> Less tech-experienced users (mean 3.25) more strongly believed increased realism would affect their experience compared to tech-savvy users (3.65). This suggests different expectations and comfort levels with abstract representations based on technology familiarity.</li>
+            
+            <li><strong>Experience vs Technology:</strong> Higher tech experience correlates with stronger immersion despite lower perceived importance of realism, suggesting more technically experienced users might better engage with abstract representations. This could inform future design decisions about visual fidelity requirements for different user groups.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Limitations</h2>
+        <ul>
+            <li>Small sample sizes, particularly when divided by demographics (n=7 and n=9 for tech experience groups)</li>
+            <li>Potential response bias due to workshop setting and guided interaction format</li>
+            <li>Limited age distribution prevents meaningful age-based analysis</li>
+            <li>Missing responses in some categories may affect correlation calculations</li>
+            <li>Short interaction time (15-minute sessions) may influence immersion and realism impact ratings</li>
+        </ul>
+    </section>
+</body>
+</html>

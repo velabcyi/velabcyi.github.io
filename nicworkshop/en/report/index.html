@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NICVE Workshop Analysis</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .analysis-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .analysis-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+        }
+        .view-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        .view-link:hover {
+            background: #1d4ed8;
+        }
+        .key-finding {
+            background: #f3f4f6;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+        .overview {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+        }
+        h1 {
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NICVE Workshop Analysis</h1>
+    <p class="subtitle">Analysis of participant responses from the Nicosia International Airport Virtual Environment workshop</p>
+
+    <div class="overview">
+        <p>Workshop Booth Play Activity Overview:</p>
+        <ul>
+            <li>22 participants in groups of 5-6</li>
+            <li>15-minute semi-guided interactions with the virtual environment</li>
+            <li>Majority of participants aged 55+</li>
+            <li>Mix of technical experience levels</li>
+            <li>Strong personal connections to the airport's heritage</li>
+        </ul>
+    </div>
+
+    <div class="analysis-grid">
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2 class="card-title">1. Demographic Analysis</h2>
+                <a href="demo.html" target="_blank" class="view-link">View Analysis</a>
+            </div>
+            <p>Analysis of participant backgrounds, including age distribution, tech experience, and connection to the airport's heritage.</p>
+            <div class="key-finding">Key Finding: Predominantly 55+ age group with balanced gender distribution and strong personal/family connections to the airport.</div>
+        </div>
+
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2 class="card-title">2. Booth Play Experience</h2>
+                <a href="likert.html" target="_blank" class="view-link">View Analysis</a>
+            </div>
+            <p>Analysis of Likert-scale responses about the virtual environment experience, including usability, content clarity, and immersion.</p>
+            <div class="key-finding">Key Finding: High usability scores across all tech experience levels, with strong correlation between content clarity and immersion.</div>
+        </div>
+
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2 class="card-title">3. VE Improvement Priorities</h2>
+                <a href="rank.html" target="_blank" class="view-link">View Analysis</a>
+            </div>
+            <p>Analysis of how participants ranked different potential improvements to the virtual environment.</p>
+            <div class="key-finding">Key Finding: Strong preference for historical media documentation and 3D visualization over narrative and community features.</div>
+        </div>
+
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2 class="card-title">4. Tech Comfort Impact Analysis</h2>
+                <a href="tech.html" target="_blank" class="view-link">View Analysis</a>
+            </div>
+            <p>Detailed analysis of how technology experience levels influenced participant engagement and preferences.</p>
+            <div class="key-finding">Key Finding: Tech-experienced users reported higher immersion despite being less concerned about visual realism.</div>
+        </div>
+
+
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2 class="card-title">5. Proximity to Airport </h2>
+                <a href="proximity.html" target="_blank" class="view-link">View Analysis</a>
+            </div>
+            <p>Analysis of how direct experience with the airport (primary vs secondary connections) influenced experience and priorities around the VE.</p>
+            <div class="key-finding">Key Finding: Direct experience led to greater interest in interactive features and less concern about visual realism, while those with secondary connections emphasized documentation and visual authenticity.</div>
+        </div>
+    </div>
+</body>
+</html>

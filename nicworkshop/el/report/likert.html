@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NIC Airport Virtual Environment - Experience Analysis</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #333;
+        }
+        .response-bar {
+            display: flex;
+            height: 30px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .response-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            background: #ffffff;
+        }
+        .correlation-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .correlation-matrix th, .correlation-matrix td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+        .correlation-matrix th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        .correlation-cell {
+            font-family: monospace;
+        }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Virtual Environment Experience Analysis</h1>
+    
+    <section>
+        <h2>Response Overview</h2>
+        <p>Analysis of 8 Likert-scale questions (1-5 scale) with 17-19 responses per question.</p>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ef4444"></div>
+                Strongly Disagree (1)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f97316"></div>
+                Disagree (2)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #eab308"></div>
+                Neutral (3)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #22c55e"></div>
+                Agree (4)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3b82f6"></div>
+                Strongly Agree (5)
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <div style="margin-bottom: 30px;">
+                <p><strong>"The touchscreen controls were intuitive to use"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 17.6%; background: #eab308;">3</div>
+                    <div class="response-segment" style="width: 17.6%; background: #22c55e;">3</div>
+                    <div class="response-segment" style="width: 64.7%; background: #3b82f6;">11</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>"We could easily orient ourselves in the space"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                    <div class="response-segment" style="width: 42.1%; background: #22c55e;">8</div>
+                    <div class="response-segment" style="width: 57.9%; background: #3b82f6;">11</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>   "The content was accessible and clear"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 10.5%; background: #eab308;">2</div>
+                    <div class="response-segment" style="width: 31.6%; background: #22c55e;">6</div>
+                    <div class="response-segment" style="width: 57.9%; background: #3b82f6;">11</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>"The virtual environment brought me to the space in ways that photographs or documents cannot"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 16.7%; background: #eab308;">3</div>
+                    <div class="response-segment" style="width: 27.8%; background: #22c55e;">5</div>
+                    <div class="response-segment" style="width: 55.6%; background: #3b82f6;">10</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong> "Seeing the airport as it was in 1969 was more meaningful than seeing its current-day state"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 5.3%; background: #f97316;">1</div>
+                    <div class="response-segment" style="width: 21.1%; background: #eab308;">4</div>
+                    <div class="response-segment" style="width: 10.5%; background: #22c55e;">2</div>
+                    <div class="response-segment" style="width: 63.2%; background: #3b82f6;">12</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>"It was useful to relate historical photographs to their locations in the 3D space"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 11.1%; background: #eab308;">2</div>
+                    <div class="response-segment" style="width: 27.8%; background: #22c55e;">5</div>
+                    <div class="response-segment" style="width: 61.1%; background: #3b82f6;">11</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>"The experience would be the same even if the airport looked more realistic"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 5.6%; background: #ef4444;">1</div>
+                    <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                    <div class="response-segment" style="width: 44.4%; background: #eab308;">8</div>
+                    <div class="response-segment" style="width: 38.9%; background: #22c55e;">7</div>
+                    <div class="response-segment" style="width: 11.1%; background: #3b82f6;">2</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p><strong>"The virtual environment captured the atmosphere I remember/imagine of the airport"</strong></p>
+                <div class="response-bar">
+                    <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                    <div class="response-segment" style="width: 11.1%; background: #f97316;">2</div>
+                    <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                    <div class="response-segment" style="width: 66.7%; background: #22c55e;">12</div>
+                    <div class="response-segment" style="width: 22.2%; background: #3b82f6;">4</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Statistical Summary</h2>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <h3>Highest Rated</h3>
+                <p>Easy spatial orientation (4.58 ± 0.49)</p>
+                <p>Content accessibility (4.47 ± 0.68)</p>
+                <p>Photos in 3D space (4.50 ± 0.69)</p>
+            </div>
+            <div class="stat-card">
+                <h3>Most Consistent</h3>
+                <p>Spatial orientation (SD = 0.49)</p>
+                <p>Content accessibility (SD = 0.68)</p>
+                <p>Photos in 3D space (SD = 0.69)</p>
+            </div>
+            <div class="stat-card">
+                <h3>Most Divisive</h3>
+                <p>1969 vs present (SD = 0.98)</p>
+                <p>Realism importance (SD = 0.90)</p>
+                <p>Atmosphere capture (SD = 0.82)</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Notable Correlations</h2>
+        <p>Scale: -1 (perfect negative) to 1 (perfect positive)</p>
+        <p>Only strong correlations (|r| > 0.5) shown:</p>
+        <ul>
+            <li>Atmosphere capture & Realism importance: 0.73</li>
+            <li>VE immersion & Atmosphere capture: 0.71</li>
+            <li>Photos in 3D & Atmosphere capture: 0.68</li>
+            <li>Content clarity & Touchscreen controls: 0.63</li>
+            <li>VE immersion & Photos in 3D: 0.59</li>
+            <li>Photos in 3D & Realism importance: 0.59</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Key Findings</h2>
+        <ol>
+            <li><strong>Core Functionality Success:</strong> Basic interaction and orientation features received consistently high ratings (means > 4.5) with low variance, suggesting robust core functionality.</li>
+            
+            <li><strong>Mixed Views on Realism:</strong> The only question averaging below 4.0 concerned whether realism would affect the experience, showing a normal distribution of responses rather than the positive skew seen elsewhere.</li>
+            
+            <li><strong>Atmosphere-Realism Link:</strong> Strong correlations between atmosphere capture, realism importance, and immersion suggest these aspects are closely linked in users' experience.</li>
+        </ol>
+
+        <h3>Implications</h3>
+        <p>The results suggest that while the basic functionality and spatial orientation aspects of the virtual environment are working well, there's a complex relationship between realism, atmosphere, and immersion that merits further investigation. The strong correlations between these elements suggest that improvements in one area might yield benefits across the entire experience.</p>
+    </section>
+</body>
+</html>

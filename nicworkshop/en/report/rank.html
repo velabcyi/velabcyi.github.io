@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NIC Airport Virtual Environment - Feature Priority Analysis</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        .matrix-cell {
+            transition: background-color 0.2s;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .ranking {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 4px;
+        }
+        .rank-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+            color: #4b5563;
+            min-width: 40px;
+        }
+        .confidence-bar {
+            background: #93c5fd;
+            height: 20px;
+            margin-left: 20px;
+            border-radius: 2px;
+        }
+        section {
+            margin: 40px 0;
+        }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NIC Airport Virtual Environment - Feature Priority Analysis</h1>
+    
+    <section>
+        <h2>Survey Overview</h2>
+        <p>Participants were asked to rank 6 potential improvements for the virtual environment from most valuable (1) to least valuable (6):</p>
+        <ol>
+            <li>More complete 3D recreation of spaces</li>
+            <li>Adding more Historical photos, videos, and documents</li>
+            <li>More 360° views comparing past/present</li>
+            <li>More Character interactions and dialogues</li>
+            <li>More Community stories and memories</li>
+            <li>More Factual Historical information</li>
+        </ol>
+        <p><strong>Response Analysis:</strong></p>
+        <ul>
+            <li>Total participants with ranking data: 13</li>
+            <li>Non-responses (N): 9 participants</li>
+            <li>Non-conforming responses: 3 participants
+                <ul>
+                    <li>ID 05: Used 4-6 scale instead of 1-6 ranking</li>
+                    <li>ID 01: Repeated value 1 multiple times</li>
+                    <li>ID 21: Used inconsistent number repetitions</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Methodology</h2>
+        <p>To accommodate both proper rankings and non-conforming responses, we used a pairwise preference analysis:</p>
+        <ul>
+            <li>For proper rankings: Direct conversion to win/loss probabilities (1.0 for preferred option)</li>
+            <li>For ratings: Probabilistic interpretation of preference strength (0.5 for equal ratings)</li>
+            <li>Final matrix represents probability of row option being preferred over column option</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Preference Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>vs.</th>
+                    <th>3D Recreation</th>
+                    <th>Historical Photos</th>
+                    <th>360° Views</th>
+                    <th>Character Interactions</th>
+                    <th>Community Stories</th>
+                    <th>Historical Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>3D Recreation</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(108,108,255)">0.577</td>
+                    <td style="background: rgb(147,147,255)">0.423</td>
+                    <td style="background: rgb(78,78,255)">0.692</td>
+                    <td style="background: rgb(98,98,255)">0.615</td>
+                    <td style="background: rgb(108,108,255)">0.577</td>
+                </tr>
+                <tr>
+                    <td>Historical Photos</td>
+                    <td style="background: rgb(147,147,255)">0.423</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(118,118,255)">0.538</td>
+                    <td style="background: rgb(49,49,255)">0.808</td>
+                    <td style="background: rgb(78,78,255)">0.692</td>
+                    <td style="background: rgb(68,68,255)">0.731</td>
+                </tr>
+                <tr>
+                    <td>360° Views</td>
+                    <td style="background: rgb(108,108,255)">0.577</td>
+                    <td style="background: rgb(137,137,255)">0.462</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(88,88,255)">0.654</td>
+                    <td style="background: rgb(118,118,255)">0.538</td>
+                    <td style="background: rgb(118,118,255)">0.538</td>
+                </tr>
+                <tr>
+                    <td>Character Interactions</td>
+                    <td style="background: rgb(177,177,255)">0.308</td>
+                    <td style="background: rgb(206,206,255)">0.192</td>
+                    <td style="background: rgb(167,167,255)">0.346</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(147,147,255)">0.423</td>
+                </tr>
+                <tr>
+                    <td>Community Stories</td>
+                    <td style="background: rgb(157,157,255)">0.385</td>
+                    <td style="background: rgb(177,177,255)">0.308</td>
+                    <td style="background: rgb(137,137,255)">0.462</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                    <td style="background: rgb(137,137,255)">0.462</td>
+                </tr>
+                <tr>
+                    <td>Historical Info</td>
+                    <td style="background: rgb(147,147,255)">0.423</td>
+                    <td style="background: rgb(186,186,255)">0.269</td>
+                    <td style="background: rgb(137,137,255)">0.462</td>
+                    <td style="background: rgb(108,108,255)">0.577</td>
+                    <td style="background: rgb(118,118,255)">0.538</td>
+                    <td style="background: rgb(128,128,255)">0.500</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Overall Ranking</h2>
+        <div class="ranking">
+            <span class="rank-number">1</span>
+            <span>Historical Photos & Documents</span>
+            <div class="confidence-bar" style="width: 85%"></div>
+            <span style="margin-left: 10px">0.658</span>
+        </div>
+        <div class="ranking">
+            <span class="rank-number">2</span>
+            <span>3D Recreation</span>
+            <div class="confidence-bar" style="width: 75%"></div>
+            <span style="margin-left: 10px">0.577</span>
+        </div>
+        <div class="ranking">
+            <span class="rank-number">3</span>
+            <span>360° Views</span>
+            <div class="confidence-bar" style="width: 70%"></div>
+            <span style="margin-left: 10px">0.554</span>
+        </div>
+        <div class="ranking">
+            <span class="rank-number">4</span>
+            <span>Factual Historical Information</span>
+            <div class="confidence-bar" style="width: 65%"></div>
+            <span style="margin-left: 10px">0.462</span>
+        </div>
+        <div class="ranking">
+            <span class="rank-number">5</span>
+            <span>Community Stories</span>
+            <div class="confidence-bar" style="width: 60%"></div>
+            <span style="margin-left: 10px">0.423</span>
+        </div>
+        <div class="ranking">
+            <span class="rank-number">6</span>
+            <span>Character Interactions</span>
+            <div class="confidence-bar" style="width: 55%"></div>
+            <span style="margin-left: 10px">0.378</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>Key Observations</h2>
+        <ol>
+            <li><strong>Visual and Spatial Focus:</strong> Among the 13 respondents, immediate visual elements (photos, 3D, 360° views) consistently ranked higher than narrative elements, with historical photos showing the highest win rate in pairwise comparisons.</li>
+            
+            <li><strong>Session Context Impact:</strong> The preference for quick-to-digest visual content over narrative elements aligns with the 15-minute session format, where exploration and visual engagement naturally took precedence over longer-form engagement.</li>
+            
+            <li><strong>Complementary Priorities:</strong> The lower ranking of narrative features may reflect the workshop format where storytelling occurred primarily through in-person interaction at the booth rather than within the virtual environment.</li>
+        </ol>
+
+        <h3>Reflections</h3>
+        <p>The results suggest an interesting dynamic between researcher and participant priorities. While researchers value participant narratives and memories, participants showed stronger interest in the unique visual-spatial offerings of the virtual environment. This preference pattern likely reflects both the short session duration and the presence of alternative channels for storytelling during the workshop.</p>
+        
+        <p>These findings should be interpreted within the specific context of the workshop format. For longer engagement sessions or solo experiences, particularly with visitors who lack personal memories of the space, we might expect different priorities to emerge - especially regarding narrative content and historical documentation.</p>
+    </section>
+</body>
+</html>

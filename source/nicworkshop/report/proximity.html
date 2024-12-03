@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Primary vs Secondary Connection Analysis</title>
+    <style>
+                body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #333;
+        }
+        .response-bar {
+            display: flex;
+            height: 30px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .response-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            background: #ffffff;
+        }
+        .correlation-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .correlation-matrix th, .correlation-matrix td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+        .correlation-matrix th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        .correlation-cell {
+            font-family: monospace;
+        }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        body { 
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        .methodology-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            background: #ffffff;
+        }
+        .stat-value {
+            font-family: monospace;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .significant {
+            color: #059669;
+            font-weight: 500;
+        }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Primary vs Secondary Connection Analysis</h1>
+    
+    <section>
+        <h2>Methodology</h2>
+        <div class="methodology-note">
+            <p><strong>Connection Classification:</strong></p>
+            <ul>
+                <li><strong>Primary:</strong> Former employees or those with direct travel memories (n=9)</li>
+                <li><strong>Secondary:</strong> Family stories, heritage interest, or professional interest without direct experience (n=12)</li>
+                <li>One participant had no connection data (excluded)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Response Distribution by Connection Type</h2>
+        <p>Analysis of 8 Likert-scale questions (1-5 scale) with 17-19 responses per question.</p>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ef4444"></div>
+                Strongly Disagree (1)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f97316"></div>
+                Disagree (2)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #eab308"></div>
+                Neutral (3)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #22c55e"></div>
+                Agree (4)
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3b82f6"></div>
+                Strongly Agree (5)
+            </div>
+        </div>
+        <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <h3>Primary Connection Responses (n=7)</h3>
+                
+                <div style="margin-top: 30px;">
+                    <!-- <div style="margin-bottom: 30px;">
+                        <p><strong>Touchscreen controls intuitive</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 14.3%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 14.3%; background: #22c55e;">1</div>
+                            <div class="response-segment" style="width: 71.4%; background: #3b82f6;">5</div>
+                        </div>
+                    </div> -->
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Easy spatial orientation</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                            <div class="response-segment" style="width: 28.6%; background: #22c55e;">2</div>
+                            <div class="response-segment" style="width: 71.4%; background: #3b82f6;">5</div>
+                        </div>
+                    </div>
+
+                    <!-- <div style="margin-bottom: 30px;">
+                        <p><strong>Content accessible and clear</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 14.3%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 28.6%; background: #22c55e;">2</div>
+                            <div class="response-segment" style="width: 57.1%; background: #3b82f6;">4</div>
+                        </div>
+                    </div>  -->
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>VE more immersive than photos alone</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 28.6%; background: #eab308;">2</div>
+                            <div class="response-segment" style="width: 14.3%; background: #22c55e;">1</div>
+                            <div class="response-segment" style="width: 57.1%; background: #3b82f6;">4</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>1969 more meaningful than present</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 28.6%; background: #eab308;">2</div>
+                            <div class="response-segment" style="width: 14.3%; background: #22c55e;">1</div>
+                            <div class="response-segment" style="width: 57.1%; background: #3b82f6;">4</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Photos in 3D space useful</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 14.3%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 28.6%; background: #22c55e;">2</div>
+                            <div class="response-segment" style="width: 57.1%; background: #3b82f6;">4</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>More Realism wouldn't affect experience</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 28.6%; background: #eab308;">2</div>
+                            <div class="response-segment" style="width: 57.1%; background: #22c55e;">4</div>
+                            <div class="response-segment" style="width: 14.3%; background: #3b82f6;">1</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Captured remembered/imagined atmosphere</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 14.3%; background: #f97316;">1</div>
+                            <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                            <div class="response-segment" style="width: 57.1%; background: #22c55e;">4</div>
+                            <div class="response-segment" style="width: 28.6%; background: #3b82f6;">2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Secondary Connection Responses (n=12)</h3>
+                
+                <div style="margin-top: 30px;">
+                    <!-- <div style="margin-bottom: 30px;">
+                        <p><strong>Touchscreen controls intuitive</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 20%; background: #eab308;">2</div>
+                            <div class="response-segment" style="width: 20%; background: #22c55e;">2</div>
+                            <div class="response-segment" style="width: 60%; background: #3b82f6;">6</div>
+                        </div>
+                    </div> -->
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Easy spatial orientation</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                            <div class="response-segment" style="width: 50%; background: #22c55e;">6</div>
+                            <div class="response-segment" style="width: 50%; background: #3b82f6;">6</div>
+                        </div>
+                    </div>
+
+                    <!-- <div style="margin-bottom: 30px;">
+                        <p><strong>Content accessible and clear</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 8.3%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 33.3%; background: #22c55e;">4</div>
+                            <div class="response-segment" style="width: 58.3%; background: #3b82f6;">7</div>
+                        </div>
+                    </div> -->
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>VE more immersive than photos alone</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 9.1%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 36.4%; background: #22c55e;">4</div>
+                            <div class="response-segment" style="width: 54.5%; background: #3b82f6;">6</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>1969 more meaningful than present</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 8.3%; background: #f97316;">1</div>
+                            <div class="response-segment" style="width: 16.7%; background: #eab308;">2</div>
+                            <div class="response-segment" style="width: 8.3%; background: #22c55e;">1</div>
+                            <div class="response-segment" style="width: 66.7%; background: #3b82f6;">8</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Photos in 3D space useful</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 9.1%; background: #eab308;">1</div>
+                            <div class="response-segment" style="width: 27.3%; background: #22c55e;">3</div>
+                            <div class="response-segment" style="width: 63.6%; background: #3b82f6;">7</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>More Realism wouldn't affect experience</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 9.1%; background: #ef4444;">1</div>
+                            <div class="response-segment" style="width: 0%; background: #f97316;"></div>
+                            <div class="response-segment" style="width: 54.5%; background: #eab308;">6</div>
+                            <div class="response-segment" style="width: 27.3%; background: #22c55e;">3</div>
+                            <div class="response-segment" style="width: 9.1%; background: #3b82f6;">1</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <p><strong>Captured remembered/imagined atmosphere</strong></p>
+                        <div class="response-bar">
+                            <div class="response-segment" style="width: 0%; background: #ef4444;"></div>
+                            <div class="response-segment" style="width: 9.1%; background: #f97316;">1</div>
+                            <div class="response-segment" style="width: 0%; background: #eab308;"></div>
+                            <div class="response-segment" style="width: 72.7%; background: #22c55e;">8</div>
+                            <div class="response-segment" style="width: 18.2%; background: #3b82f6;">2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; background: #f9fafb; padding: 20px; border-radius: 8px;">
+            <h3>Notable Differences</h3>
+            <ul>
+                <li><strong>Realism Impact:</strong> Primary connection respondents were notably more likely to feel realism wouldn't affect the experience (71.4% positive vs 36.4% for secondary)</li>
+                <li><strong>Atmosphere Capture:</strong> Primary connections showed more variance in atmosphere perception, while secondary connections clustered strongly around "Agree" (72.7%)</li>
+                <li><strong>Spatial Orientation:</strong> Primary connections showed stronger preference for "Strongly Agree" (71.4%), while secondary connections were evenly split between "Agree" and "Strongly Agree"</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experience Ratings Comparison</h2>
+        <div class="comparison-grid">
+            <div class="stat-box">
+                <h3>Primary Connections (n=7)</h3>
+                <ul>
+                    <li>Usability: <span class="stat-value">4.71 ± 0.52</span></li>
+                    <li>Content: <span class="stat-value">4.36 ± 0.35</span></li>
+                    <li>Immersion: <span class="stat-value">4.14 ± 0.71</span></li>
+                    <li class="significant">Realism: <span class="stat-value">3.86 ± 0.64</span></li>
+                </ul>
+            </div>
+            
+            <div class="stat-box">
+                <h3>Secondary Connections (n=11)</h3>
+                <ul>
+                    <li>Usability: <span class="stat-value">4.45 ± 0.54</span></li>
+                    <li>Content: <span class="stat-value">4.59 ± 0.60</span></li>
+                    <li>Immersion: <span class="stat-value">4.33 ± 0.59</span></li>
+                    <li class="significant">Realism: <span class="stat-value">3.30 ± 1.00</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Improvement Priorities</h2>
+       <div class="comparison-grid">
+       <div class="stat-box">
+       <h3>Primary Connection Priorities (n=4)</h3>
+       <p>Preferences ranked by overall win percentage:</p>
+       <ol>
+       <li>3D Recreation (65.0% win rate)</li>
+       <li>360° Views (45.0% win rate)</li>
+       <li>Character Interactions (45.0% win rate)</li>
+       <li>Historical Photos (35.0% win rate)</li>
+       <li>Historical Information (25.0% win rate)</li>
+       <li>Community Stories (10.0% win rate)</li>
+       </ol>
+       <p><em>Notable head-to-head wins:</em></p>
+       <ul>
+       <li>3D Recreation beats Photos (75%)</li>
+       <li>Character Interactions beats Stories (75%)</li>
+       <li>360° Views ties with most options (50%)</li>
+       </ul>
+       </div>
+       
+       <div class="stat-box">
+       <h3>Secondary Connection Priorities (n=9)</h3>
+       <p>Preferences ranked by overall win percentage:</p>
+       <ol>
+       <li>3D Recreation (64.6% win rate)</li>
+       <li>Historical Photos (55.6% win rate)</li>
+       <li>360° Views (49.0% win rate)</li>
+       <li>Historical Information (35.4% win rate)</li>
+       <li>Character Interactions (31.0% win rate)</li>
+       <li>Community Stories (26.4% win rate)</li>
+       </ol>
+       <p><em>Notable head-to-head wins:</em></p>
+       <ul>
+       <li>3D Recreation beats Stories (78%)</li>
+       <li>Photos beats Historical Info (78%)</li>
+       <li>360° Views consistently wins (~56%) against bottom three options</li>
+       </ul>
+       </div>
+       </div>
+       </section>
+
+    <section>
+        <h2>Key Findings</h2>
+        <ol>
+            <li><strong>Realism Sensitivity:</strong> Secondary connection participants showed greater preference to improving realism (3.30 vs 3.86), suggesting they felt visual authenticity would improve their experience. Primary connection participants were more likely to feel the experience would be similar regardless of visual realism. </li>
+                        
+            <li><strong>Priority Patterns:</strong> While both groups ranked 3D Recreation highest (65% vs 64.6%), their other priorities diverged notably. Primary connections valued Character Interactions much higher (3rd at 45% vs 5th at 31%) and Historical Photos lower (4th at 35% vs 2nd at 55.6%). Both groups consistently placed Community Stories last, though primary connections rejected it more strongly (10% vs 26.4%). This suggests direct experience led to stronger interest in interactive elements over documentation, while those with secondary connections preferred archival content.</li>            
+        </ol>
+    </section>
+
+    <section>
+        <h2>Limitations</h2>
+        <ul>
+            <li>Small sample sizes, particularly for ranking analysis (Primary: n=4, Secondary: n=9)</li>
+            <li>Potential response bias due to workshop setting</li>
+            <li>Uneven group sizes may affect comparative analysis</li>
+            <li>Missing responses in some categories</li>
+        </ul>
+    </section>
+</body>
+</html>

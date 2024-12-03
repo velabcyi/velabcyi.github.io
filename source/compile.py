@@ -236,7 +236,7 @@ def process_files(source, target, lang, current_path=''):
                     content = inject_content(file.read(), header, footer, page_path, lang)
                 with open(os.path.join(target, target_filename), 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
-            elif not item.startswith('index-') and not item.endswith('.html'):
+            elif not item.__contains__('-'): #doesnt hyphenate
                 shutil.copy2(source_path, os.path.join(target, item))  # Copy other files
 
 
